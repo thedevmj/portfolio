@@ -17,7 +17,7 @@ const contactInfo = [
 
 const initialForm = { name: '', email: '', subject: '', message: '' }
 
-const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+const API_URL = (import.meta.env.VITE_API_URL || 'https://portfolio-3-xx49.onrender.com').replace(/\/$/, '')
 
 export default React.memo(function Contact() {
   const [form, setForm] = useState(initialForm)
