@@ -575,16 +575,14 @@ class App {
     window.cancelAnimationFrame(this.raf);
     this.raf = null;
     document.removeEventListener('visibilitychange', this.boundOnVisibilityChange);
-    if (this.medias) {
-      this.medias.forEach(media => {
-        if (media.title && media.title.mesh) {
-          media.title.mesh.program.dispose();
-          media.title.mesh.geometry.dispose();
-        }
-        media.program.dispose();
-        media.plane.geometry.dispose();
-      });
-    }
+    this.medias?.forEach(media => {
+      try {
+        if (media.title?.mesh?.geometry) media.title.mesh.geometry.remove();
+      } catch (e) {}
+    });
+    try {
+      if (this.planeGeometry) this.planeGeometry.remove();
+    } catch (e) {}
     const el = this.container;
     window.removeEventListener('resize', this.boundOnResize);
     if (el) {
@@ -597,9 +595,11 @@ class App {
       el.removeEventListener('touchend', this.boundOnTouchUp);
       el.removeEventListener('keydown', this.boundOnKeyDown);
     }
-    if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
+    if (this.renderer?.gl?.canvas?.parentNode) {
       this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
     }
+    this.scene = null;
+    this.medias = null;
   }
 }
 
