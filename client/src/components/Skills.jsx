@@ -13,6 +13,7 @@ const categories = [
   { label: 'Database', skills: ['MongoDB', 'PostgreSQL', 'Neo4j', 'SQL', 'Database-driven development'] },
   { label: 'Mobile', skills: ['React Native', 'Cross-platform development'] },
   { label: 'AI & Emerging', skills: ['AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools', 'MCP Servers', 'MCP SDK', 'Babel AST', 'AI-powered tools'] },
+  { label: 'Optimization', skills: ['Debouncing', 'Throttling', 'Rate Limiting', 'Memoization', 'Code Splitting', 'Lazy Loading', 'Virtualization', 'useCallback / useMemo'] },
   { label: 'Dev Tools', skills: ['Project Automation', 'Scaffold Generators', 'Code Analysis', 'Dependency Analysis', 'Graph Visualization', 'REST API Architecture', 'Auth & Authorization', 'Microservices'] }
 ]
 

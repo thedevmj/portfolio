@@ -8,13 +8,13 @@ const roles = [
   'MERN Stack Engineer',
   'AI Application Developer',
   'React Native Developer',
-  'UI/UX Enthusiast'
+  'UI/UX Developer'
 ]
 
 // Animated mock terminal that types lines as you land
 function Terminal() {
   const lines = [
-    { prompt: '$', cmd: 'junaid --intro', out: 'building products that feel alive.' },
+    { prompt: '$', cmd: 'junaid --intro', out: 'full stack + AI, ship fast.' },
     { prompt: '>', cmd: 'stack', out: 'react · node · mongo · ai' },
     { prompt: '>', cmd: 'status', out: 'open to opportunities ✦' }
   ]
@@ -135,8 +135,7 @@ export default React.memo(function Hero() {
 
             {/* Tagline */}
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink dark:text-gray-300">
-              Not a codebase, a perspective. I build scalable, AI-powered, and beautifully
-              animated experiences with the MERN stack.
+              Full-stack developer building AI-integrated web and mobile applications with the MERN stack.
             </p>
 
             {/* CTAs */}

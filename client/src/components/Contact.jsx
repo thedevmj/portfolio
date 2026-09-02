@@ -85,10 +85,10 @@ export default React.memo(function Contact() {
         <div className="reveal mb-16">
           <span className="section-label">( contact )</span>
           <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
-            <h2 className="section-title mt-4">Let&rsquo;s build something<br /><span className="italic text-accent">great together.</span></h2>
+            <h2 className="section-title mt-4">Get in <span className="italic text-accent">touch.</span></h2>
           </TorsionText>
           <p className="mt-6 max-w-xl text-ink-muted dark:text-gray-400 leading-relaxed">
-            Have a project idea, collaboration opportunity, or just want to connect? I&rsquo;d be happy to hear from you. Open to job opportunities, internships, freelance projects, and collaborations.
+            Open to opportunities, freelance projects, and collaborations.
           </p>
         </div>
 

@@ -27,8 +27,8 @@ export default React.memo(function About() {
             <span className="section-label reveal">( The Studio )</span>
             <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
               <h2 className="section-title reveal mt-8">
-                Most developers produce code.<br />
-                <span className="italic text-accent">I produce experiences.</span>
+                Full-stack developer focused on<br />
+                <span className="italic text-accent">AI-integrated applications.</span>
               </h2>
             </TorsionText>
             <div className="reveal mt-10 max-w-md">
@@ -38,9 +38,7 @@ export default React.memo(function About() {
                 and cross-platform mobile applications with React Native.
               </p>
               <p className="mt-5 text-sm leading-relaxed text-ink-muted dark:text-gray-400">
-                I&rsquo;m also deeply interested in AI/LLM-powered features, developer productivity
-                tools, and code analysis and visualization systems. Not a stack, a perspective —
-                because great software is everythin&rsquo;.
+                Interested in AI/LLM features, developer tools, and code analysis systems.
               </p>
             </div>
             <div className="reveal mt-10 font-mono text-sm text-ink-muted dark:text-gray-400">

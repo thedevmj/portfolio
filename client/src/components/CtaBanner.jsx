@@ -17,7 +17,7 @@ export default React.memo(function CtaBanner() {
             </h2>
           </TorsionText>
           <p className="mt-8 max-w-xl mx-auto text-ink-muted dark:text-gray-400 leading-relaxed">
-            From full-stack applications to AI-powered solutions and modern mobile experiences — turning ideas into scalable products.
+            Web, mobile, and AI — let&rsquo;s build something.
           </p>
           <button onClick={scrollTo} className="btn-black group mt-10">
             Start a Conversation <FiArrowRight className="group-hover:translate-x-1 transition-transform" />

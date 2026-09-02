@@ -23,7 +23,7 @@ export function skillGradientImage(label, from, to) {
   // normalise to '#'.
   const c0 = from.startsWith('#') ? from : `#${from}`;
   const c1 = to.startsWith('#') ? to : `#${to}`;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 800 600">
     <defs>
       <linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stop-color="${c0}"/>
@@ -78,7 +78,8 @@ export const skillsForGallery = [
   ['UI/UX', 'be185d', 'f472b6'],
   ['Graph Viz', '065f46', '34d399'],
   ['Microservices', '1e3a8a', '60a5fa'],
-  ['JWT / Auth', '7e22ce', 'c084fc']
+  ['JWT / Auth', '7e22ce', 'c084fc'],
+  ['React Opt', 'ea580c', 'facc15']
 ];
 
 // Build the props array the CircularGallery consumes.

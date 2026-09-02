@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState, useTransition } from 'react'
-import { FiGithub, FiX, FiCpu, FiBook, FiTool, FiActivity, FiArrowRight } from 'react-icons/fi'
+import { FiGithub, FiX, FiCpu, FiBook, FiTool, FiActivity, FiArrowRight, FiSmartphone } from 'react-icons/fi'
 import { ProjectCardSkeleton } from './Skeleton'
 import Portal from './Portal'
 import TorsionText from './TorsionText'
 
-const filters = ['All', 'Full Stack', 'AI', 'Developer Tools', 'E-Commerce']
+const filters = ['All', 'Full Stack', 'AI', 'Developer Tools', 'E-Commerce', 'Mobile']
 
 const projects = [
   {
@@ -58,6 +58,19 @@ const projects = [
     features: ['Code structure analysis', 'Dependency visualization', 'Graph generation', 'AI-powered insights', 'MCP server tooling'],
     featured: true,
     github: 'https://github.com/thedevmj'
+  },
+  {
+    id: 5,
+    title: 'Wall-E',
+    category: 'Mobile',
+    tags: ['Mobile'],
+    num: '05',
+    description: 'A React Native live wallpaper studio for Android with video, doodle, static, and dynamic wallpaper modes.',
+    problem: 'Provides a native Android experience for creating, customizing, and applying live and dynamic wallpapers with real-time previews.',
+    tech: ['React Native', 'TypeScript', 'Kotlin', 'react-native-video', 'Android Native'],
+    features: ['Live video wallpapers', 'Dynamic battery/membrane wallpapers', 'Doodle animations', 'Color customization', 'Home/Lock screen apply'],
+    featured: true,
+    github: 'https://github.com/thedevmj/wall_e'
   }
 ]
 
@@ -65,7 +78,8 @@ const iconMap = {
   1: <FiCpu />,
   2: <FiBook />,
   3: <FiTool />,
-  4: <FiActivity />
+  4: <FiActivity />,
+  5: <FiSmartphone />
 }
 
 export default React.memo(function Projects() {

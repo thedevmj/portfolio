@@ -8,7 +8,7 @@ export const searchIndex = [
   {
     section: 'skills',
     label: 'Skills & Technologies',
-    keywords: ['skills', 'frontend', 'backend', 'react', 'javascript', 'typescript', 'redux', 'redux saga', 'responsive ui', 'ui ux', 'node', 'express', 'java', 'spring boot', 'php', 'rest api', 'jwt', 'bcrypt', 'microservices', 'python', 'mongodb', 'postgresql', 'neo4j', 'sql', 'database', 'react native', 'ai', 'llm', 'prompt engineering', 'mcp', 'mcp sdk', 'babel ast', 'developer tools', 'automation', 'scaffold', 'code analysis', 'graph visualization']
+    keywords: ['skills', 'frontend', 'backend', 'react', 'javascript', 'typescript', 'redux', 'redux saga', 'responsive ui', 'ui ux', 'node', 'express', 'java', 'spring boot', 'php', 'rest api', 'jwt', 'bcrypt', 'microservices', 'python', 'mongodb', 'postgresql', 'neo4j', 'sql', 'database', 'react native', 'ai', 'llm', 'prompt engineering', 'mcp', 'mcp sdk', 'babel ast', 'developer tools', 'automation', 'scaffold', 'code analysis', 'graph visualization', 'debouncing', 'throttling', 'rate limiting', 'memoization', 'optimization', 'code splitting', 'lazy loading', 'virtualization']
   },
   { section: 'experience', label: 'Experience — Fresher', keywords: ['experience', 'fresher', 'entry level', 'projects', 'mern', 'react native', 'ai', 'java', 'spring boot', 'python', 'php'] },
   {
@@ -19,7 +19,7 @@ export const searchIndex = [
   {
     section: 'projects',
     label: 'Projects',
-    keywords: ['projects', 'ai resume analyzer', 'resume', 'online book shopping', 'book', 'e-commerce', 'scaffold generator', 'scaffold', 'mcp code project analyzer', 'mcp', 'code analyzer', 'babel ast', 'graph visualization', 'typescript', 'redux saga']
+    keywords: ['projects', 'ai resume analyzer', 'resume', 'online book shopping', 'book', 'e-commerce', 'scaffold generator', 'scaffold', 'mcp code project analyzer', 'mcp', 'code analyzer', 'babel ast', 'graph visualization', 'typescript', 'redux saga', 'wall-e', 'wallpaper', 'react native app', 'android', 'kotlin', 'live wallpaper']
   },
   { section: 'education', label: 'Education', keywords: ['education', 'bsc', 'bachelor of science', 'computer science', 'mohanlal sukhadia university', 'mca', 'master of computer applications', 'aravali institute'] },
   { section: 'contact', label: 'Contact', keywords: ['contact', 'email', 'junaidmansuri71', 'gmail', 'phone', '9649354858', 'whatsapp', 'github', 'thedevmj', 'hire', 'freelance', 'internship'] }
@@ -31,7 +31,8 @@ export const skillDetails = [
   'Node.js', 'Express.js', 'Java', 'Spring Boot', 'PHP', 'REST APIs', 'JWT Authentication', 'bcrypt', 'Microservices Architecture',
   'Python', 'MongoDB', 'PostgreSQL', 'Neo4j', 'SQL', 'React Native', 'AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools',
   'MCP Servers', 'MCP SDK', 'Babel AST', 'Project Automation', 'Scaffold Generators', 'Code Analysis',
-  'Dependency Analysis', 'Graph Visualization', 'Database development'
+  'Dependency Analysis', 'Graph Visualization', 'Database development',
+  'Debouncing', 'Throttling', 'Rate Limiting', 'Memoization', 'Code Splitting', 'Lazy Loading', 'Virtualization', 'React Optimization'
 ]
 
 export const projectDetails = [
@@ -53,6 +54,11 @@ export const projectDetails = [
   {
     title: 'MCP Code Project Analyzer',
     keywords: ['mcp', 'code', 'analyzer', 'babel', 'ast', 'graph', 'visualization', 'typescript', 'dependency'],
+    section: 'projects'
+  },
+  {
+    title: 'Wall-E',
+    keywords: ['wall-e', 'wallpaper', 'react native', 'android', 'kotlin', 'live wallpaper', 'dynamic', 'mobile'],
     section: 'projects'
   }
 ]

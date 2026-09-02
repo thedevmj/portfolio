@@ -1,4 +1,5 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'ogl';
+import React from 'react';
 import { useEffect, useRef } from 'react';
 
 function debounce(func, wait) {
@@ -144,7 +145,6 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'blac
 
 class Title {
   constructor({ gl, plane, renderer, text, textColor = '#545050', font = '30px sans-serif' }) {
-    autoBind(this);
     this.gl = gl;
     this.plane = plane;
     this.renderer = renderer;
@@ -344,7 +344,9 @@ class Media {
     }
 
     this.speed = scroll.current - scroll.last;
-    this.program.uniforms.uTime.value += 0.04;
+    if (Math.abs(this.speed) > 0.001) {
+      this.program.uniforms.uTime.value += 0.04;
+    }
     this.program.uniforms.uSpeed.value = this.speed;
 
     const planeOffset = this.plane.scale.x / 2;
@@ -403,6 +405,7 @@ class App {
     this.onResize();
     this.createGeometry();
     this.createMedias(items, bend, textColor, borderRadius, font);
+    this.update = this.update.bind(this);
     this.update();
     this.addEventListeners();
   }
@@ -426,8 +429,8 @@ class App {
   }
   createGeometry() {
     this.planeGeometry = new Plane(this.gl, {
-      heightSegments: 50,
-      widthSegments: 100
+      heightSegments: 6,
+      widthSegments: 10
     });
   }
   createMedias(items, bend = 1, textColor, borderRadius, font) {
@@ -527,6 +530,7 @@ class App {
     }
   }
   update() {
+    if (this.destroyed) return;
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
     if (this.medias) {
@@ -534,24 +538,31 @@ class App {
     }
     this.renderer.render({ scene: this.scene, camera: this.camera });
     this.scroll.last = this.scroll.current;
-    this.raf = window.requestAnimationFrame(this.update.bind(this));
+    this.raf = window.requestAnimationFrame(this.update);
   }
   addEventListeners() {
-    this.boundOnResize = this.onResize.bind(this);
+    this.boundOnResize = debounce(this.onResize.bind(this), 100);
     this.boundOnWheel = this.onWheel.bind(this);
     this.boundOnTouchDown = this.onTouchDown.bind(this);
     this.boundOnTouchMove = this.onTouchMove.bind(this);
     this.boundOnTouchUp = this.onTouchUp.bind(this);
     this.boundOnKeyDown = this.onKeyDown.bind(this);
-    // Scoped to the container so the gallery doesn't hijack page-wide wheel,
-    // drag or touch gestures on a normal scrolling website.
+    this.boundOnVisibilityChange = () => {
+      if (document.hidden) {
+        window.cancelAnimationFrame(this.raf);
+        this.raf = null;
+      } else if (!this.raf) {
+        this.raf = window.requestAnimationFrame(this.update);
+      }
+    };
+    document.addEventListener('visibilitychange', this.boundOnVisibilityChange);
     const el = this.container;
     window.addEventListener('resize', this.boundOnResize);
     if (el) {
-      el.addEventListener('wheel', this.boundOnWheel);
-      el.addEventListener('mousedown', this.boundOnTouchDown);
-      window.addEventListener('mousemove', this.boundOnTouchMove);
-      window.addEventListener('mouseup', this.boundOnTouchUp);
+      el.addEventListener('wheel', this.boundOnWheel, { passive: true });
+      el.addEventListener('mousedown', this.boundOnTouchDown, { passive: true });
+      window.addEventListener('mousemove', this.boundOnTouchMove, { passive: true });
+      window.addEventListener('mouseup', this.boundOnTouchUp, { passive: true });
       el.addEventListener('touchstart', this.boundOnTouchDown, { passive: true });
       el.addEventListener('touchmove', this.boundOnTouchMove, { passive: true });
       el.addEventListener('touchend', this.boundOnTouchUp);
@@ -559,7 +570,20 @@ class App {
     }
   }
   destroy() {
+    this.destroyed = true;
     window.cancelAnimationFrame(this.raf);
+    this.raf = null;
+    document.removeEventListener('visibilitychange', this.boundOnVisibilityChange);
+    if (this.medias) {
+      this.medias.forEach(media => {
+        if (media.title && media.title.mesh) {
+          media.title.mesh.program.dispose();
+          media.title.mesh.geometry.dispose();
+        }
+        media.program.dispose();
+        media.plane.geometry.dispose();
+      });
+    }
     const el = this.container;
     window.removeEventListener('resize', this.boundOnResize);
     if (el) {
@@ -578,7 +602,7 @@ class App {
   }
 }
 
-export default function CircularGallery({
+export default React.memo(function CircularGallery({
   items,
   bend = 3,
   textColor = '#ffffff',
@@ -595,10 +619,12 @@ export default function CircularGallery({
     let app;
     let isMounted = true;
     let io;
+    let mountGeneration = 0;
 
     const mount = () => {
+      const gen = ++mountGeneration;
       resolveFont(font, fontUrl).then(resolvedFont => {
-        if (!isMounted || !containerRef.current) return;
+        if (!isMounted || !containerRef.current || mountGeneration !== gen) return;
         app = new App(containerRef.current, {
           items,
           bend,
@@ -654,4 +680,4 @@ export default function CircularGallery({
       ref={containerRef}
     />
   );
-}
+})

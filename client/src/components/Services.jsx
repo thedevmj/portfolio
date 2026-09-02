@@ -17,7 +17,7 @@ export default React.memo(function Services() {
         <div className="reveal mb-16">
           <span className="section-label">( services )</span>
           <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
-            <h2 className="section-title mt-4">We design :</h2>
+            <h2 className="section-title mt-4">What I build :</h2>
           </TorsionText>
         </div>
 

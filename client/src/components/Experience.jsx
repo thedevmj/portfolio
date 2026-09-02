@@ -27,7 +27,7 @@ export default React.memo(function Experience() {
               Full Stack Web Development — <span className="text-accent">Fresher</span>
             </span>
             <h3 className="mt-3 text-3xl sm:text-4xl font-medium tracking-tight text-ink dark:text-white">
-              Hands-on. End-to-end. Real.
+              Full Stack Web Development
             </h3>
             <p className="mt-5 text-ink dark:text-gray-300 leading-relaxed max-w-xl">
               Hands-on development experience through multiple full-stack, AI-integrated, mobile,
