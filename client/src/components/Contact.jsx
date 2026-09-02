@@ -17,6 +17,8 @@ const contactInfo = [
 
 const initialForm = { name: '', email: '', subject: '', message: '' }
 
+const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+
 export default React.memo(function Contact() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
@@ -55,7 +57,7 @@ export default React.memo(function Contact() {
     setLoading(true)
     setStatus(null)
     try {
-      await axios.post('/api/contact', form)
+      await axios.post(`${API_URL}/api/contact`, form)
       setStatus({ type: 'success', msg: 'Message sent successfully! I will get back to you soon.' })
       setForm(initialForm)
     } catch (err) {

@@ -67,6 +67,22 @@ npm run build
 
 Output is in `client/dist`.
 
+### Deploying (Vercel + Render)
+
+- **Frontend → Vercel.** Set an environment variable so the built client knows where
+  the Express API lives (see `client/.env.example`):
+
+  ```
+  VITE_API_URL=https://<your-render-backend>.onrender.com
+  ```
+
+  Without it, the deployed client falls back to the same-origin `/api/contact`,
+  which does not exist on Vercel.
+
+- **Backend → Render.** Set Root Directory to `server`, Build Command `npm install`,
+  Start Command `node index.js`, and add `MONGODB_URI`, `EMAIL_USER`, `EMAIL_PASS`
+  env vars.
+
 ## Project Structure
 
 ```
