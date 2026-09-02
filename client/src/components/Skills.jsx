@@ -63,7 +63,7 @@ export default React.memo(function Skills() {
         </div>
 
         {/* Interactive skills showcase */}
-        <div className="reveal mt-20">
+        <div className="reveal mt-8 sm:mt-12 md:mt-14">
           <div className="mb-6 flex items-end justify-between">
             <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-ink dark:text-white">
               Tech Stack <span className="italic text-accent">Showcase</span>
@@ -72,7 +72,7 @@ export default React.memo(function Skills() {
               drag / scroll / arrows
             </p>
           </div>
-          <div className="relative w-full h-[420px] sm:h-[480px] md:h-[540px]">
+          <div className="relative w-full h-[260px] sm:h-[340px] md:h-[420px] lg:h-[540px]">
             <Suspense
               fallback={
                 <div className="h-full w-full grid place-items-center">

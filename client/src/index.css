@@ -86,7 +86,7 @@
     background: linear-gradient(90deg, transparent, rgba(37,0,173,0.14), transparent);
   }
   .section-pad {
-    @apply py-24 md:py-40 px-6 sm:px-10 lg:px-16;
+    @apply py-14 sm:py-20 md:py-32 lg:py-40 px-5 sm:px-10 lg:px-16;
   }
   .section-label {
     @apply text-xs tracking-[0.2em] uppercase text-ink-muted dark:text-gray-400;
@@ -268,6 +268,9 @@ body::-webkit-scrollbar {
   }
   html.dark .mouse-glow {
     background: radial-gradient(circle, rgba(120,80,255,0.14), transparent 65%);
+  }
+  @media (hover: none) {
+    .mouse-glow { display: none; }
   }
 
   /* Marquee edge fade masks */

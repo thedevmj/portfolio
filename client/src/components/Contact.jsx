@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
 import axios from 'axios'
 import { FiMail, FiPhone, FiGithub, FiSend, FiCheckCircle, FiAlertCircle, FiLoader, FiArrowRight } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { StatCardSkeleton } from './Skeleton'
 import { buildWhatsAppLink } from '../constants'
 import TorsionText from './TorsionText'
+
+const DotGrid = lazy(() => import('./DotGrid'))
 
 const contactInfo = [
   { label: 'Email', value: 'junaidmansuri71@gmail.com', href: 'mailto:junaidmansuri71@gmail.com' },
@@ -74,14 +76,39 @@ export default React.memo(function Contact() {
     window.open(buildWhatsAppLink(text), '_blank')
   }
 
+  const handleFormClick = (e) => {
+    const tag = e.target.tagName
+    if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+      setErrors({})
+      setStatus(null)
+    }
+  }
+
   const inputCls = (field) =>
     `w-full bg-transparent border-b border-line-light dark:border-white/20 px-2 py-3 text-ink dark:text-gray-200 placeholder-ink-muted/60 dark:placeholder-gray-500 focus:outline-none focus:border-accent transition-colors ${
       errors[field] ? '!border-red-500' : ''
     }`
 
   return (
-    <section id="contact" className="relative border-t border-line-light dark:border-white/10">
-      <div className="section-pad">
+    <section id="contact" className="relative border-t border-line-light dark:border-white/10 overflow-hidden">
+      <div className="hidden sm:block">
+        <Suspense fallback={null}>
+          <DotGrid
+            dotSize={3}
+            gap={20}
+            baseColor="currentColor"
+            activeColor="#2500AD"
+            proximity={100}
+            speedTrigger={80}
+            shockRadius={180}
+            shockStrength={4}
+            resistance={600}
+            returnDuration={1.2}
+            className="text-line-light dark:text-white/[0.06]"
+          />
+        </Suspense>
+      </div>
+      <div className="section-pad relative z-10">
         <div className="reveal mb-16">
           <span className="section-label">( contact )</span>
           <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
@@ -92,7 +119,7 @@ export default React.memo(function Contact() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Contact info */}
           <div>
             {infoLoading ? (
@@ -119,7 +146,7 @@ export default React.memo(function Contact() {
 
           {/* Form */}
           <div className="reveal">
-            <form onSubmit={handleSubmit} noValidate>
+            <form onSubmit={handleSubmit} onClick={handleFormClick} noValidate>
               <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
                 <div>
                   <label htmlFor="name" className="block text-xs uppercase tracking-[0.15em] mb-1 text-ink-muted dark:text-gray-400">Name</label>
@@ -141,7 +168,7 @@ export default React.memo(function Contact() {
 
               <div className="mt-6">
                 <label htmlFor="message" className="block text-xs uppercase tracking-[0.15em] mb-1 text-ink-muted dark:text-gray-400">Message</label>
-                <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or message..." value={form.message} onChange={handleChange} className={`${inputCls('message')} resize-none`} />
+                <textarea id="message" name="message" rows="3" className={`${inputCls('message')} resize-none min-h-[80px] sm:min-h-auto`} placeholder="Tell me about your project or message..." value={form.message} onChange={handleChange} />
                 {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message}</p>}
               </div>
 

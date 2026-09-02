@@ -530,7 +530,7 @@ class App {
     }
   }
   update() {
-    if (this.destroyed) return;
+    if (this.destroyed || !this.renderer || !this.renderer.gl) return;
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
     const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
     if (this.medias) {
@@ -548,6 +548,7 @@ class App {
     this.boundOnTouchUp = this.onTouchUp.bind(this);
     this.boundOnKeyDown = this.onKeyDown.bind(this);
     this.boundOnVisibilityChange = () => {
+      if (this.destroyed) return;
       if (document.hidden) {
         window.cancelAnimationFrame(this.raf);
         this.raf = null;

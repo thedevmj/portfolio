@@ -6,7 +6,7 @@ export default React.memo(function CtaBanner() {
   const scrollTo = () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section className="relative px-6 sm:px-10 lg:px-16 py-24 md:py-32 border-t border-line-light dark:border-white/10">
+    <section className="relative px-5 sm:px-10 lg:px-16 py-14 md:py-24 lg:py-32 border-t border-line-light dark:border-white/10">
       <div className="max-w-5xl mx-auto">
         <div className="reveal text-center">
           <span className="section-label">( cta )</span>

@@ -14,7 +14,7 @@ export default function Marquee({
     <div key={key} className="flex items-center shrink-0">
       {items.map((t, i) => (
         <span key={`${key}-${i}`} className="flex items-center">
-          <span className="text-3xl sm:text-4xl font-medium uppercase tracking-tight px-5">{t}</span>
+          <span className="text-2xl sm:text-3xl md:text-4xl font-medium uppercase tracking-tight px-3 sm:px-5">{t}</span>
           <span className="text-accent text-2xl">✦</span>
         </span>
       ))}

@@ -19,7 +19,7 @@ export default React.memo(function Education() {
 
         <div className="grid md:grid-cols-2 gap-px bg-line-light dark:bg-white/10">
           {education.map((ed, i) => (
-            <div key={ed.title} className="reveal bg-bg-light dark:bg-bg-dark p-8 sm:p-12 relative group" style={{ transitionDelay: `${i * 0.1}s` }}>
+            <div key={ed.title} className="reveal bg-bg-light dark:bg-bg-dark p-5 sm:p-8 md:p-12 relative group" style={{ transitionDelay: `${i * 0.1}s` }}>
               <span className="text-2xl text-ink-muted dark:text-gray-500 tabular-nums">({ed.year})</span>
               <span className="absolute top-8 right-8 text-xs uppercase tracking-[0.2em] text-accent">{ed.type}</span>
               <h3 className="mt-6 text-2xl font-medium tracking-tight text-ink dark:text-white">

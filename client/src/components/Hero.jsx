@@ -76,6 +76,7 @@ export default React.memo(function Hero() {
 
   // Smooth mouse-following glow (lerped on rAF)
   useEffect(() => {
+    if (window.matchMedia('(hover: none)').matches) return
     let raf
     const onMove = (e) => {
       target.current = { x: e.clientX, y: e.clientY }
@@ -107,7 +108,7 @@ export default React.memo(function Hero() {
       <div ref={glowRef} className="mouse-glow" aria-hidden="true" />
 
       <div className="relative z-10 flex-1 flex items-center">
-        <div className="w-full grid lg:grid-cols-[1.2fr,1fr] gap-12 items-center px-6 sm:px-10 lg:px-16 pt-28 pb-16">
+        <div className="w-full grid lg:grid-cols-[1.2fr,1fr] gap-8 lg:gap-12 items-center px-5 sm:px-10 lg:px-16 pt-20 pb-10 lg:pt-28 lg:pb-16">
           {/* Left: wordmark */}
           <div>
             <div className="mask-line-wrap" style={{ '--d': '0.1s' }}>
@@ -119,7 +120,7 @@ export default React.memo(function Hero() {
             {/* Name — line mask reveal + torsion twist on hover */}
             <TorsionText maxX={9} maxY={5} maxSkew={3} wobble={0.5}>
               <h1 className="mt-6 font-sans font-semibold tracking-tight leading-[0.92] text-ink dark:text-white select-none"
-                style={{ fontSize: 'clamp(3.4rem, 12vw, 11rem)' }}
+                style={{ fontSize: 'clamp(2.4rem, 10vw, 11rem)' }}
               >
                 <span className="mask-line-wrap"><span className="mask-line">Junaid</span></span>
                 <span className="mask-line-wrap"><span className="mask-line italic text-accent" style={{ animationDelay: '0.12s' }}>Mansoori</span></span>
@@ -139,7 +140,7 @@ export default React.memo(function Hero() {
             </p>
 
             {/* CTAs */}
-            <div className="mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="mt-6 sm:mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
               <button onClick={() => scrollTo('projects')} data-magnetic className="btn-black group">
                 View My Works <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
               </button>

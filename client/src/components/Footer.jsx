@@ -17,8 +17,8 @@ export default React.memo(function Footer() {
 
   return (
     <footer className="relative border-t border-line-light dark:border-white/10">
-      <div className="max-w-6xl mx-auto px-6 sm:px-10 py-16">
-        <div className="grid gap-12 md:grid-cols-3">
+      <div className="max-w-6xl mx-auto px-5 sm:px-10 py-12 md:py-16">
+        <div className="grid gap-8 md:gap-12 md:grid-cols-3">
           {/* Brand */}
           <div>
             <p className="font-sans text-2xl font-semibold tracking-tight text-ink dark:text-white">

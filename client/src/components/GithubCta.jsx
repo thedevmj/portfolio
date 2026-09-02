@@ -3,9 +3,9 @@ import { FiGithub, FiArrowRight } from 'react-icons/fi'
 
 export default React.memo(function GithubCta() {
   return (
-    <section className="relative px-6 sm:px-10 lg:px-16">
+    <section className="relative px-5 sm:px-10 lg:px-16">
       <div className="max-w-5xl mx-auto">
-        <div className="reveal border border-line-light dark:border-white/10 p-10 sm:p-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+        <div className="reveal border border-line-light dark:border-white/10 p-6 sm:p-10 md:p-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8">
           <div>
             <span className="section-label">( github )</span>
             <h3 className="mt-4 text-3xl sm:text-4xl font-medium tracking-tight text-ink dark:text-white">

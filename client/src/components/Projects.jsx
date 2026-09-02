@@ -140,7 +140,7 @@ export default React.memo(function Projects() {
             filtered.map((p, i) => (
               <article
                 key={p.id}
-                className="reveal group relative border-t border-line-light dark:border-white/10 py-10 grid md:grid-cols-12 gap-6 cursor-pointer transition-colors duration-500 hover:bg-accent/[0.03] dark:hover:bg-white/[0.02]"
+                className="reveal group relative border-t border-line-light dark:border-white/10 py-6 sm:py-8 md:py-10 grid md:grid-cols-12 gap-4 sm:gap-6 cursor-pointer transition-colors duration-500 hover:bg-accent/[0.03] dark:hover:bg-white/[0.02]"
                 style={{ transitionDelay: `${i * 0.05}s` }}
                 data-cursor="explore"
                 onClick={() => openProject(p)}
