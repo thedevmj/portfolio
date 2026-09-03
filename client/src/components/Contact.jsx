@@ -58,6 +58,20 @@ export default React.memo(function Contact() {
     setStatus(null)
     try {
       await axios.post(`${API_URL}/api/contact`, form)
+
+      const formData = new FormData()
+      formData.append('access_key', '1335541c-e464-4845-bbdd-534e12901be9')
+      formData.append('name', form.name)
+      formData.append('email', form.email)
+      formData.append('subject', `Portfolio Contact: ${form.subject}`)
+      formData.append('message', form.message)
+      formData.append('from_name', form.name)
+
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+      const data = await res.json()
+
+      if (!data.success) throw new Error(data.message)
+
       setStatus({ type: 'success', msg: 'Message sent successfully! I will get back to you soon.' })
       setForm(initialForm)
     } catch (err) {
