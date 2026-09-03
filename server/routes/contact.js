@@ -1,49 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const Contact = require('../models/Contact');
-const nodemailer = require('nodemailer');
-
-function buildTransporter() {
-  const user = process.env.EMAIL_USER;
-  const pass = process.env.EMAIL_PASS;
-  const host = process.env.SMTP_HOST;
-  const port = process.env.SMTP_PORT;
-  const secure = process.env.SMTP_SECURE === 'true';
-
-  if (!user || !pass) return null;
-
-  if (host && port) {
-    return nodemailer.createTransport({ host, port: Number(port), secure, auth: { user, pass } });
-  }
-  // Default to Gmail's SMTP (requires an app password)
-  return nodemailer.createTransport({ service: 'gmail', auth: { user, pass } });
-}
 
 async function sendEmail({ name, email, subject, message }) {
-  console.log('[contact] Starting email send process...');
-  console.log('[contact] EMAIL_USER set:', !!process.env.EMAIL_USER);
-  console.log('[contact] EMAIL_PASS set:', !!process.env.EMAIL_PASS);
-  console.log('[contact] CONTACT_RECIPIENT:', process.env.CONTACT_RECIPIENT || '(not set, will use EMAIL_USER)');
-
-  const transporter = buildTransporter();
-  if (!transporter) {
-    console.warn('[contact] Email skipped: EMAIL_USER / EMAIL_PASS not set (see server/.env.example)');
+  const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
+  if (!accessKey) {
+    console.warn('[contact] Email skipped: WEB3FORMS_ACCESS_KEY not set');
     return;
   }
-  console.log('[contact] Transporter created successfully');
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.CONTACT_RECIPIENT || process.env.EMAIL_USER,
-    replyTo: email,
-    subject: `Portfolio Contact: ${subject}`,
-    text: `Name: ${name}\nSender Email: ${email}\n\nMessage:\n${message}`
-  };
-  console.log('[contact] Sending email to:', mailOptions.to);
+  console.log('[contact] Sending email via Web3Forms...');
 
-  const info = await transporter.sendMail(mailOptions);
-  console.log('[contact] Email sent successfully! Message ID:', info.messageId);
-  console.log('[contact] Response:', JSON.stringify(info.response));
+  const res = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      access_key: accessKey,
+      name,
+      email,
+      subject: `Portfolio Contact: ${subject}`,
+      message
+    })
+  });
+
+  const data = await res.json();
+
+  if (!data.success) {
+    throw new Error(data.message || 'Web3Forms submission failed');
+  }
+
+  console.log('[contact] Email sent successfully via Web3Forms');
 }
 
 router.post('/', async (req, res) => {
@@ -63,14 +49,8 @@ router.post('/', async (req, res) => {
     await contact.save();
     console.log('[contact] Saved to MongoDB:', contact._id);
 
-    // Email is a notification channel; a failure here must not reject the recruiter.
-    // The message is already stored, so we always respond success.
     sendEmail({ name, email, subject, message }).catch((err) => {
-      console.error('[contact] Email sending failed (message is saved in MongoDB):');
-      console.error('[contact] Error name:', err.name);
-      console.error('[contact] Error message:', err.message);
-      console.error('[contact] Error code:', err.code);
-      if (err.response) console.error('[contact] SMTP response:', err.response);
+      console.error('[contact] Email failed (message saved in MongoDB):', err.message);
     });
 
     res.status(201).json({ success: true, message: 'Message sent successfully' });
