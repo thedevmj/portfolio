@@ -133,7 +133,7 @@ export default React.memo(function Projects() {
         </div>
 
         {/* Works list */}
-        <div className="mt-14 flex flex-col">
+        <div className="mt-6 sm:mt-10 md:mt-14 flex flex-col">
           {loading ? (
             <ProjectCardSkeleton />
           ) : (

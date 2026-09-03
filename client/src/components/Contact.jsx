@@ -125,7 +125,7 @@ export default React.memo(function Contact() {
         </Suspense>
       </div>
       <div className="section-pad relative z-10">
-        <div className="reveal mb-16">
+        <div className="reveal mb-8 sm:mb-12 md:mb-16">
           <span className="section-label">( contact )</span>
           <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
             <h2 className="section-title mt-4">Get in <span className="italic text-accent">touch.</span></h2>
@@ -135,7 +135,7 @@ export default React.memo(function Contact() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-16">
           {/* Contact info */}
           <div>
             {infoLoading ? (

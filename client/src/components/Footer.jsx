@@ -54,7 +54,7 @@ export default React.memo(function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-line-light dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-muted dark:text-gray-500">
+        <div className="mt-8 sm:mt-14 pt-6 border-t border-line-light dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-muted dark:text-gray-500">
           <span>© 2026 Mohammad Junaid Mansoori. All rights reserved.</span>
           <span className="uppercase tracking-[0.15em]">EN</span>
         </div>

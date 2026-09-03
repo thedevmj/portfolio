@@ -20,7 +20,7 @@ export default React.memo(function Experience() {
           </div>
         </div>
 
-        <div className="mt-16 max-w-3xl">
+        <div className="mt-8 sm:mt-12 md:mt-16 max-w-3xl">
           <div className="reveal border-l border-line-light dark:border-white/10 pl-10 relative">
             <span className="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-accent" />
             <span className="text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500">

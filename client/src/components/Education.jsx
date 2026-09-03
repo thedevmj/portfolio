@@ -10,7 +10,7 @@ export default React.memo(function Education() {
   return (
     <section id="education" className="relative border-t border-line-light dark:border-white/10">
       <div className="section-pad">
-        <div className="reveal mb-16">
+        <div className="reveal mb-8 sm:mb-12 md:mb-16">
           <span className="section-label">( education )</span>
           <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
             <h2 className="section-title mt-4">Education</h2>

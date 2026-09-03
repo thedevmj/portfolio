@@ -43,7 +43,7 @@ export default React.memo(function Skills() {
         </div>
 
         {/* Categories as list */}
-        <div className="mt-16 flex flex-col">
+        <div className="mt-8 sm:mt-12 md:mt-16 flex flex-col">
           {loading ? (
             <SkillCardSkeleton />
           ) : (

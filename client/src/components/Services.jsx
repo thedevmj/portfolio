@@ -14,7 +14,7 @@ export default React.memo(function Services() {
   return (
     <section id="services" className="relative">
       <div className="section-pad">
-        <div className="reveal mb-16">
+        <div className="reveal mb-8 sm:mb-12 md:mb-16">
           <span className="section-label">( services )</span>
           <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
             <h2 className="section-title mt-4">What I build :</h2>

@@ -21,7 +21,7 @@ export default React.memo(function About() {
   return (
     <section id="about" className="relative border-t border-line-light dark:border-white/10">
       <div className="section-pad">
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Left: heading + bio */}
           <div>
             <span className="section-label reveal">( The Studio )</span>
