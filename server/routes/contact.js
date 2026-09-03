@@ -17,7 +17,6 @@ router.post('/', async (req, res) => {
   try {
     const contact = new Contact({ name, email, subject, message });
     await contact.save();
-    console.log('[contact] Saved to MongoDB:', contact._id);
     res.status(201).json({ success: true, message: 'Message sent successfully' });
   } catch (err) {
     console.error('Contact submission error:', err);
