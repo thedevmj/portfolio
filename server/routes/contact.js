@@ -1,8 +1,17 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const router = express.Router();
 const Contact = require('../models/Contact');
 
-router.post('/', async (req, res) => {
+const contactLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Too many requests. Please try again later.' }
+});
+
+router.post('/', contactLimiter, async (req, res) => {
   const { name, email, subject, message } = req.body;
 
   if (!name || !email || !subject || !message) {
@@ -12,6 +21,10 @@ router.post('/', async (req, res) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
+  }
+
+  if (name.length > 100 || email.length > 100 || subject.length > 200 || message.length > 2000) {
+    return res.status(400).json({ success: false, message: 'Message content is too long' });
   }
 
   try {
