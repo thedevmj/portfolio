@@ -20,11 +20,18 @@ function buildTransporter() {
 }
 
 async function sendEmail({ name, email, subject, message }) {
+  console.log('[contact] Starting email send process...');
+  console.log('[contact] EMAIL_USER set:', !!process.env.EMAIL_USER);
+  console.log('[contact] EMAIL_PASS set:', !!process.env.EMAIL_PASS);
+  console.log('[contact] CONTACT_RECIPIENT:', process.env.CONTACT_RECIPIENT || '(not set, will use EMAIL_USER)');
+
   const transporter = buildTransporter();
   if (!transporter) {
     console.warn('[contact] Email skipped: EMAIL_USER / EMAIL_PASS not set (see server/.env.example)');
     return;
   }
+  console.log('[contact] Transporter created successfully');
+
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: process.env.CONTACT_RECIPIENT || process.env.EMAIL_USER,
@@ -32,8 +39,11 @@ async function sendEmail({ name, email, subject, message }) {
     subject: `Portfolio Contact: ${subject}`,
     text: `Name: ${name}\nSender Email: ${email}\n\nMessage:\n${message}`
   };
-  await transporter.sendMail(mailOptions);
-  console.log('[contact] Email delivered to', mailOptions.to);
+  console.log('[contact] Sending email to:', mailOptions.to);
+
+  const info = await transporter.sendMail(mailOptions);
+  console.log('[contact] Email sent successfully! Message ID:', info.messageId);
+  console.log('[contact] Response:', JSON.stringify(info.response));
 }
 
 router.post('/', async (req, res) => {
@@ -56,7 +66,11 @@ router.post('/', async (req, res) => {
     // Email is a notification channel; a failure here must not reject the recruiter.
     // The message is already stored, so we always respond success.
     sendEmail({ name, email, subject, message }).catch((err) => {
-      console.error('[contact] Email sending failed (message is saved in MongoDB):', err.message);
+      console.error('[contact] Email sending failed (message is saved in MongoDB):');
+      console.error('[contact] Error name:', err.name);
+      console.error('[contact] Error message:', err.message);
+      console.error('[contact] Error code:', err.code);
+      if (err.response) console.error('[contact] SMTP response:', err.response);
     });
 
     res.status(201).json({ success: true, message: 'Message sent successfully' });
