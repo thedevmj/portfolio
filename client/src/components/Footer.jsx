@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiMail, FiPhone, FiGithub } from 'react-icons/fi'
+import { FiMail, FiPhone, FiGithub, FiDownload } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppLink } from '../constants'
 
@@ -50,6 +50,7 @@ export default React.memo(function Footer() {
               <li><a href="tel:9649354858" className="flex items-center gap-2 hover:text-accent transition-colors"><FiPhone size={14} /> 9649354858</a></li>
               <li><a href={buildWhatsAppLink()} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors"><FaWhatsapp size={14} /> WhatsApp</a></li>
               <li><a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors"><FiGithub size={14} /> github.com/thedevmj</a></li>
+              <li><a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" className="flex items-center gap-2 hover:text-accent transition-colors"><FiDownload size={14} /> Download Resume</a></li>
             </ul>
           </div>
         </div>

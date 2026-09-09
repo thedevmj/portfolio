@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react'
 import axios from 'axios'
-import { FiMail, FiPhone, FiGithub, FiSend, FiCheckCircle, FiAlertCircle, FiLoader, FiArrowRight } from 'react-icons/fi'
+import { FiMail, FiPhone, FiGithub, FiSend, FiCheckCircle, FiAlertCircle, FiLoader, FiArrowRight, FiDownload } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { StatCardSkeleton } from './Skeleton'
 import { buildWhatsAppLink } from '../constants'
@@ -12,7 +12,8 @@ const contactInfo = [
   { label: 'Email', value: 'junaidmansuri71@gmail.com', href: 'mailto:junaidmansuri71@gmail.com' },
   { label: 'Phone', value: '9649354858', href: 'tel:9649354858' },
   { label: 'WhatsApp', value: '9649354858', href: buildWhatsAppLink() },
-  { label: 'GitHub', value: 'github.com/thedevmj', href: 'https://github.com/thedevmj' }
+  { label: 'GitHub', value: 'github.com/thedevmj', href: 'https://github.com/thedevmj' },
+  { label: 'Resume', value: 'Download PDF', href: '/junaidMansoori_Resume.pdf', download: 'junaidMansoori_Resume.pdf' }
 ]
 
 const initialForm = { name: '', email: '', subject: '', message: '' }
@@ -147,7 +148,7 @@ export default React.memo(function Contact() {
               <ul className="space-y-0">
                 {contactInfo.map((c, i) => (
                   <li key={c.label} className="reveal border-t border-line-light dark:border-white/10 py-5 group" style={{ transitionDelay: `${i * 0.06}s` }}>
-                    <a href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="flex items-center justify-between group cursor-pointer">
+                    <a href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" download={c.download || undefined} className="flex items-center justify-between group cursor-pointer">
                       <div>
                         <span className="block text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500">{c.label}</span>
                         <span className="mt-1 block text-lg text-ink dark:text-white group-hover:text-accent transition-colors">{c.value}</span>

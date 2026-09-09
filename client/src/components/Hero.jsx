@@ -147,7 +147,7 @@ export default React.memo(function Hero() {
               <button onClick={() => scrollTo('contact')} data-magnetic className="btn-outline">
                 Let&rsquo;s Connect
               </button>
-              <a href="/Junaid_Mansoori_Resume.pdf" download="Junaid_Mansoori_Resume.pdf" data-magnetic className="btn-outline">
+              <a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" data-magnetic className="btn-outline">
                 <FiDownload /> Resume
               </a>
             </div>

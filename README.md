@@ -20,7 +20,7 @@ A premium, futuristic, glassmorphism-based personal portfolio built with the **M
 - Working contact form with validation, success/error states
 - Live debounced site search (Ctrl+K) with section navigation + highlight flash
 - WhatsApp quick-contact + prefilled form-to-WhatsApp
-- Downloadable resume (client/public/Junaid_Mansoori_Resume.pdf)
+- Downloadable resume (client/public/junaidMansoori_Resume.pdf)
 - Skeleton loading states (projects, skills, services, contact, initial page load)
 - Interactive WebGL skills showcase (reactbits "CircularGallery" built on `ogl`)
 - SEO meta tags, favicon, accessibility (semantic HTML, labels, focus states)

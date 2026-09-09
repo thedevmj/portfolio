@@ -38,7 +38,7 @@
 - Email: `junaidmansuri71@gmail.com`
 - Phone: `9649354858` · WhatsApp: `919649354858` (also in `client/src/constants.js`)
 - GitHub: `https://github.com/thedevmj`
-- Resume: public `/Junaid_Mansoori_Resume.pdf`
+- Resume: public `/junaidMansoori_Resume.pdf`
 - Copyright: `© 2026 Mohammad Junaid Mansoori. All rights reserved.`
 
 ## Commands
@@ -76,7 +76,7 @@
 `home, about, skills, experience, services, projects, education, contact`
 
 ## Public assets (`client/public/`)
-- `favicon.svg`, `Junaid_Mansoori_Resume.pdf`
+- `favicon.svg`, `junaidMansoori_Resume.pdf`
 
 ## Verified Working
 - `npm run build` passes (~5s, 187 modules).
