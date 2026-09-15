@@ -4,33 +4,87 @@
 > decisions, the animation work already done, blockers, and the next move —
 > so you don't have to re-analyze the whole project.
 
-## ⚠️ HERO EFFECT (noth.in "torsion") — recent work
-- User wanted noth.in's hero: fullscreen looping video warped by a **WebGL shader** that
-  twists/ripples the image around the mouse cursor.
-- Implemented in `client/src/components/HeroVideo.jsx`:
-  - Streams remote video `https://noth-in.b-cdn.net/nothin-sharp-high.mp4` (CORS `*` + byte-range OK).
-  - `crossOrigin="anonymous"` so video can be used as a GL texture (not tainted).
-  - Fragment shader: rotates UVs around cursor (torsion), adds radial bulge + ripple,
-    global shear with mouse X, grayscale + contrast output to match monochrome brand,
-    subtle light near cursor. Visible idle warp + strong hover boost (TUNING inline in FRAG).
-  - Video is a real DOM <video> appended hidden into the wrap (reliable autoplay +
-    texture decode), `crossOrigin=anonymous`.
-  - Mouse lerped via rAF (0.08). Scrim `bg-light/40 dark:bg-dark/50`.
-  - **Fallbacks**: `(hover:none)` touch or `prefers-reduced-motion` → renders plain
-    `<video>` cover with scrim; also `uStrength=0` when reduced-motion flips mid-session.
-  - If WebGL context fails → component returns (just scrim, no crash).
-- Integrated in `Hero.jsx`: `<HeroVideo />` as absolute z-0 bg; content block and bottom
-  marquee bumped to `relative z-10` above it; scrim div inside HeroVideo handles contrast.
-- Grayscale is intentional (brand). If you want the colour video, note it and remove the
-  `dot(...)` grayscale lines in FRAG.
-- NOTE: relies on noth.in's CDN being up. If it dies, hero goes dark (scrim only) — you may
-  want to bundle a local `public/videos/hero-bg.mp4` later (size ~ >10MB, timed out on download).
+## 📌 SESSION HANDOFF (last worked: 2026-09-15)
+**Where we stopped:** Fixed the IO-based visibility bug (Projects + Tech Stack Wall
+disappearing on desktop but fine on mobile). All work for that is DONE and
+verified in headless Chrome. We stopped here for the day.
+
+**Resume tomorrow, first thing:**
+1. Ask user to hard-refresh (Ctrl+F5) the desktop page and confirm **Works** +
+   **Tech Stack Wall** now render in desktop view. If STILL missing → do NOT touch
+   the reveal system again; investigate further (check if they're viewing the dev
+   server or a stale deployed build; check DevTools console for errors).
+2. If confirmed → mark the Next Move checkbox below as done, then optionally:
+   animate the search modal open/close, and double-check dark+light / mobile+desktop
+   visuals in dev.
+
+**State facts (do not re-verify, just rely on):**
+- Reveals are deterministic via `getBoundingClientRect` + scroll listeners
+  (`useInViewCheck` in `client/src/components/Motion.jsx`) — deliberately NOT
+  `IntersectionObserver`/`whileInView`.
+- `Projects.jsx` rows: each revealed per-row via `<Reveal threshold={0.95}>`.
+- `Skills.jsx` sticker wall keys: `key={s + '-' + i}` (duplicate-key fix).
+- `npm run build` passes; headless Chrome verified both sections visible
+  (opacity 1) at 1280×900 and 390×844, zero console errors.
+- Dev server on port 3000 (`cd client && npm run dev`). Puppeteer check scripts
+  live in `C:\Users\JUNAID~1\AppData\Local\Temp\opencode\check3.js` & `check4.js`.
+- Main open item pending user confirmation — commit ONLY when the user asks.
+
+## 🎨 DESIGN SYSTEM — Neo-Brutalism (current)
+- Spec: `client/src/design/neo-brutalism-portfolio-design-system.md`.
+- Light mode = brand: cream bg `#FFFDF5`, ink `#000`, accent `#FF6B6B`, secondary
+  `#FFD93D`, muted `#C4B5FD`, hard shadows (4/8/12/16px), Space Grotesk, thick
+  black borders, no rounded corners. Font loaded in `index.html`.
+- Dark mode = inverted variant (`html.dark`, toggled via `ThemeContext`):
+  `--neo-ink`→`#FFFDF5` (cream), `--neo-shadow`→cream, `--neo-bg`→`#151310`,
+  `--neo-panel`→`#201c18`, `--neo-muted`→`#453A7D` (deep violet that holds cream text).
+  Red/yellow/white stay constant.
+- **Contrast golden rule:** on `bg-neo-secondary`/`bg-neo-white`/`bg-neo-accent`
+  NEVER use `text-neo-ink` (it becomes cream in dark → invisible). Use constant
+  `text-black`/`text-white`. `bg-neo-muted` can carry `text-neo-ink` in both modes.
+- Never use Tailwind opacity modifiers on CSS-var colors (`text-neo-ink/70` →
+  invalid `rgb(var(--neo-ink)/0.7)`). Use `opacity-*` utilities.
+- Tokens: `client/tailwind.config.js` (`neutral`→variables). Utilities in
+  `client/src/index.css`: buttons (`.btn-neo`, `.btn-primary` text-white,
+  `.btn-secondary` text-black, `.btn-outline`), `.card-lift`, `.section-pad`,
+  `.container-neo`, `.section-head` label/title, `.text-stroke`, `.halftone`,
+  `.grid-paper`, `.marquee-track/-mask/-pause` + top-level `@keyframes marquee`,
+  `.mask-line`, `.mech-char`, `.typing-caret`, `.float-soft`, `.bounce-down`,
+  `.search-highlight`, `.link-underline`, cursor styles, reduced-motion block.
+
+## 🎞️ ANIMATION — motion (framer-motion successor) + CSS
+- Dependencies: `motion` (v13) installed. GSAP still used ONLY by lazy `DotGrid`
+  (Contact hero dots). Deleted WebGL/torsion (`HeroVideo`, `TorsionText`,
+  `CircularGallery`, `data/skillsGallery.js`).
+- `client/src/components/Motion.jsx` — shared primitives:
+  - `useInViewCheck` — deterministic in-viewport detection: `getBoundingClientRect`
+    + passive `scroll`/`resize`/`orientationchange` listeners + 1.2s idle check +
+    5s safety interval. NOT `IntersectionObserver`, so reveals can never get stuck
+    hidden (IO threshold math breaks under Windows display scaling / zoom /
+    embedded iframes — this caused "Works + Tech Stack Wall missing on desktop").
+  - `Reveal` — scroll-into-view fade/slide (once). Props: `as`, `delay`, `y`,
+    `threshold` (0.9 = reveal when top is within 90% of viewport height).
+  - `Stagger` / `StaggerItem` — container/item variants; both accept `as` so you
+    can render `ul/li` validly. `Stagger` drives children via `animate="show"`
+    (state-driven, run through `useInViewCheck`). `StaggerItem` has self-contained
+    `hidden/show` variants, so it also works standalone with
+    `initial`/`animate`/`whileInView`-style props passed through `...rest`.
+  - `Float` — infinite gentle bob/rotate for decorative shapes.
+  - All respect `prefers-reduced-motion` via `useReducedMotion`.
+- Animations are viewport-agnostic: hero floating shapes, scroll hint, marquee,
+  and all reveals now run on mobile/tablet/desktop. Hero decorations were
+  previously `hidden md:block` — now always visible.
+- `Projects` rows are revealed PER-ROW (`<Reveal threshold={0.95}>` per article),
+  not as one batched container — a single large observer threshold can't miss
+  rows on specific desktop viewports.
+- `Projects` modal uses `AnimatePresence` + spring scale/fade.
+- Buttons/cards keep CSS press/lift (`active:translate-*`, `card-lift`); motion
+  only animates OUTER wrappers so CSS transforms don't conflict.
+- Old CSS `.reveal` observer (`hooks/useReveal.js`) DELETED — motion handles all reveals.
 
 ## Stack
 - Client: React 18 + Vite 5 (port **3000**, `/api` proxied to `http://localhost:5000`), Tailwind CSS 3.
 - Server: separate `server/` folder (Express; `/api/contact`). Not a git repo.
-- Font: **IBM Plex Mono** (seed via `index.html`), var `--font-mono` → Tailwind `font-sans`.
-- Monochrome noth.in-inspired: page bg `#f4f2ef` (light) / `#0c0c0c` (dark), ink `#121212`, accent **`#2500AD`**, hairlines `#e2dfda` / `#262626`.
 
 ## Personal Content (preserve EXACTLY — never change)
 - Name: `Mohammad Junaid Mansoori`
@@ -47,30 +101,37 @@
 - Build: `npm run build` (root = `cd client && npm run build`).
 - Vite dev server writes logs to `client/devlog.txt` when launched hidden via cmd — delete it after verifying.
 
-## Design System / Motion (index.css)
-- Core noth.in pieces: monochrome base, `btn`/`btn-black`/`btn-outline` with shine-sweep `::after`, `reveal` (IntersectionObserver fade/slide), `hero-item`, marquee keyframes, `search-flash`, cursor styles, `link-underline`, navigation rules, `prefers-reduced-motion` overrides (all animation durations → ~0, `.mask-line`/`.mech-char` reset visible, hidden mouse-glow).
-- **New animation utilities (already added):** `mask-line-wrap`/`mask-line` (name reveal), `typing-caret`, `text-shimmer`, `mouse-glow`, `marquee-mask`/`marquee-pause`, `aurora` (blobs), `mech-char` (char stagger), `float-soft`, `bounce-down`, `border-glow`, `terminal-line` (uses inline `--d` delay). `magnetic` effect is NOT a CSS class — it's driven by JS (see CustomCursor).
-
 ## Component Map (`client/src/components/`)
-- `Navbar.jsx` — hide on scroll-down / show on scroll-up, accent active-link underline, animated hamburger→X, mobile reveal menu. Links: works→`projects`, studio→`about`, plus home(logo)/skills/contact. Logo has `data-magnetic`.
-- `Hero.jsx` — WebGL background video (HeroVideo), mouse-parallax `.mouse-glow`, staggered `mask-line` name reveal (`Junaid`/accent italic `Mansoori`), JS typing role rotator, mock animated Terminal card (lg+), bottom tech marquee (edge fade + hover pause), `data-magnetic` CTAs. Content at `relative z-10` over the video.
-- `HeroVideo.jsx` — fullscreen WebGL video shader with mouse torsion/warp + grayscale; see ⚠️ section above.
-- `About.jsx` — studio section.
-- `Skills.jsx` + `data/skillsGallery.js` + `CircularGallery.jsx` — WebGL CircularGallery preserved (careful with dobry font handling).
-- `Services.jsx` — "We design :" list.
-- `Experience.jsx` / `Education.jsx` — timeline sections.
-- `Projects.jsx` — works list; rows have `data-cursor="explore"`, hover left-accent bar + bg tint; filter + detail modal preserved (use `openProject`).
-- `Contact.jsx` — form → `/api/contact` + WhatsApp (via `handleWhatsApp`); email/phone/WhatsApp preserved.
-- `Footer.jsx`, `GithubCta.jsx`, `CtaBanner.jsx`, `WhatsAppFloat.jsx`, `HighlightEffect.jsx`, `Portal.jsx`, `Skeleton.jsx` (monochrome skeletons), `SearchModal.jsx` (monochrome).
-- `Marquee.jsx` — edge fade, hover pause, `reverse` prop; renders repeated items with accent `✦` markers.
-- `Preloader.jsx` — cinematic exit: mech-revealed `JM.` monogram + caret, accent progress bar, 000→100 counter, then blur/scale fade (`onDone`).
-- `PageLoader.jsx` — replaces Preloader after load.
-- `CustomCursor.jsx` — dot+ring; `explore` label on `[data-cursor="explore"]`; **global magnetic pull** for `[data-magnetic]` (capture listeners). Disabled for `hover:none` / reduced motion.
-- `Background.jsx` — fixed aurora blobs (accent/fuchsia/cyan) + noise grain.
+- `Navbar.jsx` — hide on scroll-down / show on scroll-up, neo plain buttons with
+  active accent state, animated hamburger→X, mobile full-screen menu (CSS), spring
+  slide-in on mount (motion).
+- `Hero.jsx` — mask-line headline reveal, floating yellow/violet shapes (`Float`,
+  visible on ALL screens), red "Bold Builds" sticker, stretch badge, staggered
+  CTAs, always-visible scroll hint, tech marquee (CSS, all screens).
+- `About.jsx` — section-head + bio, name card, highlights grid (stagger), strengths chips.
+- `Skills.jsx` — category rows (stagger) + tech-stack sticker wall (stagger).
+  Wall stickers use `key={s + '-' + i}` — duplicates (Java/JavaScript/TypeScript/PHP
+  appear in multiple categories) previously caused React duplicate-key console errors.
+- `Services.jsx` — grid of tone cards with corner number stickers (stagger).
+- `Projects.jsx` — rows with tone backgrounds + "explore" label, filter buttons,
+  `AnimatePresence` detail modal (returns `github` link). Rows have `data-cursor="explore"`.
+  Each row reveals independently via `<Reveal threshold={0.95}>`.
+- `Contact.jsx` — red section with black heading text, lazy `DotGrid` (gsap, dots
+  only on `sm+`), info rows (stagger `ul/li`), form panel, Web3Forms + `/api/contact`,
+  WhatsApp send button (`.btn-neo bg-black`).
+- `Education.jsx` / `Experience.jsx` — yellow/plain sections, white cards, badges.
+- `Footer.jsx` — yellow, constant black text, staggered nav/contact columns.
+- `GithubCta.jsx` / `CtaBanner.jsx` / `WhatsAppFloat.jsx` (spring pop-in + hover) —
+  flat neo CTA cards.
+- `Marquee.jsx` — edge fade, hover pause, `reverse` prop, `tone` (accent/secondary).
+- `Preloader.jsx` / `PageLoader.jsx` — cinematic mech monogram + counter exit.
+- `CustomCursor.jsx` — dot+ring, `explore` label, magnetic pull for `[data-magnetic]`.
+- `Background.jsx` — halftone + grid-paper texture (flat, no blobs).
 - `context/ThemeContext.jsx` — default theme **dark**, persists via localStorage.
 - `context/SearchContext.jsx` — Ctrl+K search.
-- `hooks/useReveal.js` — reveal observer.
-- `App.jsx` — section order, Preloader→PageLoader→content flow, `useReveal([loaded, tick])` with tick bumps `[50,250,700]` to catch lazy-section reveals, Marquee rows (second one has `reverse`), CustomCursor.
+- `Motion.jsx` — shared motion primitives + `useInViewCheck` (see Animation section).
+- `App.jsx` — section order, Preloader→PageLoader→content flow, Marquee rows
+  (second has `reverse` + `tone="accent"`), lazy sections with skeletons.
 
 ## Section IDs (used by `data/searchIndex.js` — DO NOT rename)
 `home, about, skills, experience, services, projects, education, contact`
@@ -79,26 +140,30 @@
 - `favicon.svg`, `junaidMansoori_Resume.pdf`
 
 ## Verified Working
-- `npm run build` passes (~5s, 187 modules).
-- Dev server serves `/src/App.jsx` and `/src/index.css` (200, CSS compiles ~56KB, no Tailwind/PostCSS warnings). All components mentioned above transform cleanly through Vite.
-
-## Animation Work Status (done on top of noth.in redesign)
-- ✅ Buttons `data-magnetic` + global handler in CustomCursor.
-- ✅ Preloader cinematic exit (monogram/bar/counter/blur fade).
-- ✅ Generic Marquee edge masks, hover pause, reverse.
-- ✅ Navbar hide-on-scroll + underline + hamburger.
-- ✅ Background aurora blobs.
-- ✅ Projects hover accents.
-- ✅ Fix: `var(--shimmer-b)` was undefined on name span → now literal `text-accent`.
+- `npm run build` passes (main bundle ~321 kB / ~101 kB gzip; 531 modules). No Tailwind warnings;
+  no invalid `rgb(var(--neo...))` artifacts in compiled CSS.
+- Headless Chrome (puppeteer-core, dev server port 3000): all 5 project rows at
+  `opacity: 1` AND tech-stack wall fully visible (`opacity 1`, 120 sticker divs)
+  on desktop 1280×900 and mobile 390×844 — zero console errors, zero duplicate-key warnings.
 
 ## Next Move / Open Items
-- [ ] Optionally add the same `mask-line` name-reveal to the About section title.
-- [ ] Tone knob: aurora opacity, accent word choice (`Mansoori`), hero marquee speed.
+- [ ] **User confirmation (tomorrow):** hard-refresh (Ctrl+F5) and confirm Projects
+      + Tech Stack Wall now render on their desktop (IO-based visibility bug fix).
+- [ ] Visually verify dark+light, mobile vs desktop in dev (`cd client && npm run dev`).
+- [ ] Optionally animate the search modal open/close (currently CSS).
 - [ ] Verify server runs (`npm run dev` at root) if touching `/api/contact`.
-- [ ] Remember: `magnetic` is JS-based; don't reintroduce a `.magnetic` CSS class blindly.
 
 ## Known Gotchas
-- `.float-soft` animation transform overrides `.reveal`'s `translateY` on the same element (opacity transition still works).
+- `@keyframes marquee` must stay top-level in `index.css` — Tailwind only emits
+  keyframes when a matching `animate-*` utility is used.
+- Motion sets inline transforms — keep CSS hover/press transforms on an INNER
+  element or via `whileHover`/`whileTap`, never both on the same node.
+- Reveals use `useInViewCheck` (getBoundingClientRect + scroll listeners), NOT
+  `whileInView`/`IntersectionObserver` — IO thresholds can silently fail on
+  Windows display scaling / zoom / embedded previews (see Animation section).
+- `Stagger`/`Reveal` accept `threshold` (0–1 viewport fraction); pass a high value
+  like `0.95` for tall elements so they trigger as soon as they enter the viewport.
+- `StaggerItem` cubes: when used as chips, avoid `hover:-translate-*` on the motion
+  node; use `whileHover={{ y: -4 }}` instead.
 - Tailwind scan needs `content` globs covering `./src/**/*.{js,jsx}` in `client/tailwind.config.js`.
-- Redundant `scroll-behavior: smooth` also exists in `App.css` (harmless).
 - Do NOT regenerate/analyze the whole repo next time — read this file + grep only the target component.

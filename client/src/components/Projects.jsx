@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState, useTransition } from 'react'
 import { FiGithub, FiX, FiCpu, FiBook, FiTool, FiActivity, FiArrowRight, FiSmartphone } from 'react-icons/fi'
 import { ProjectCardSkeleton } from './Skeleton'
 import Portal from './Portal'
-import TorsionText from './TorsionText'
+import { Reveal } from './Motion'
+import { AnimatePresence, motion } from 'motion/react'
 
 const filters = ['All', 'Full Stack', 'AI', 'Developer Tools', 'E-Commerce', 'Mobile']
 
@@ -82,6 +83,8 @@ const iconMap = {
   5: <FiSmartphone />
 }
 
+const rowTones = ['bg-neo-white text-black', 'bg-neo-muted text-neo-ink', 'bg-neo-white text-black', 'bg-neo-secondary text-black', 'bg-neo-white text-black']
+
 export default React.memo(function Projects() {
   const [filter, setFilter] = useState('All')
   const [selected, setSelected] = useState(null)
@@ -89,7 +92,7 @@ export default React.memo(function Projects() {
   const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1000)
+    const t = setTimeout(() => setLoading(false), 700)
     return () => clearTimeout(t)
   }, [])
 
@@ -104,140 +107,173 @@ export default React.memo(function Projects() {
 
   return (
     <section id="projects" className="relative">
-      <div className="section-pad">
-        <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div>
+      <div className="section-pad container-neo">
+        <Reveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="section-head">
             <span className="section-label">( works )</span>
-            <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
-              <h2 className="section-title mt-4">Good developers ship.<br />Great developers <span className="italic text-accent">surprise.</span></h2>
-            </TorsionText>
+            <h2 className="section-title">
+              Good developers ship.
+              <br />
+              Great developers <span className="text-neo-accent">surprise.</span>
+            </h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-ink-muted dark:text-gray-400">
+          <p className="max-w-sm text-base font-bold text-neo-ink opacity-70 dark:opacity-90 leading-snug">
             Full-stack applications, AI-integrated tools, e-commerce platforms, and developer tooling.
           </p>
-        </div>
+        </Reveal>
 
         {/* Filters */}
-        <div className="reveal mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm uppercase tracking-[0.12em]">
+        <Reveal className="mt-10 flex flex-wrap gap-3">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => handleFilter(f)}
-              className={`link-underline cursor-pointer ${
-                filter === f ? 'text-ink dark:text-white' : 'text-ink-muted dark:text-gray-400'
+              className={`font-black text-xs uppercase tracking-wider px-4 py-2.5 border-4 border-neo-ink duration-100 cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
+                filter === f
+                  ? 'bg-neo-accent text-white shadow-neo-sm'
+                  : 'bg-neo-panel text-neo-ink hover:bg-neo-secondary hover:text-black hover:shadow-neo-sm'
               }`}
+              aria-pressed={filter === f}
             >
               {f}
             </button>
           ))}
-        </div>
+          {isPending && <span className="self-center text-xs font-bold uppercase animate-pulse">filtering…</span>}
+        </Reveal>
 
         {/* Works list */}
-        <div className="mt-6 sm:mt-10 md:mt-14 flex flex-col">
+        <div className="mt-8 md:mt-12 flex flex-col gap-6 md:gap-8">
           {loading ? (
             <ProjectCardSkeleton />
           ) : (
             filtered.map((p, i) => (
-              <article
-                key={p.id}
-                className="reveal group relative border-t border-line-light dark:border-white/10 py-6 sm:py-8 md:py-10 grid md:grid-cols-12 gap-4 sm:gap-6 cursor-pointer transition-colors duration-500 hover:bg-accent/[0.03] dark:hover:bg-white/[0.02]"
-                style={{ transitionDelay: `${i * 0.05}s` }}
-                data-cursor="explore"
-                onClick={() => openProject(p)}
-              >
-                <span className="absolute left-0 top-0 h-full w-px bg-accent scale-y-0 origin-top transition-transform duration-500 group-hover:scale-y-100" />
-                <div className="md:col-span-2 flex items-start gap-4 text-sm text-ink-muted dark:text-gray-500">
-                  <span className="tabular-nums">({p.num})</span>
+              <Reveal key={p.id} threshold={0.95}>
+                <article
+                  className={`group ${rowTones[i % rowTones.length]} border-4 border-neo-ink shadow-neo-md card-lift relative p-5 sm:p-7 md:p-9 cursor-pointer grid md:grid-cols-12 gap-5 md:gap-8 items-center`}
+                  data-cursor="explore"
+                  onClick={() => openProject(p)}
+                >
+                {/* Number panel */}
+                <div className="md:col-span-1 flex md:flex-col items-center md:items-start gap-4 md:gap-0">
+                  <span className="w-14 h-14 md:w-16 md:h-16 border-4 border-neo-ink bg-neo-accent flex items-center justify-center font-black text-lg text-white shadow-neo-sm transform -rotate-3 group-hover:rotate-3 duration-200 tabular-nums">
+                    {p.num}
+                  </span>
                 </div>
-                <div className="md:col-span-7">
-                  <h3 className="text-4xl sm:text-5xl font-medium tracking-tight text-ink dark:text-white transition-colors group-hover:text-accent group-hover:italic">
+
+                <div className="md:col-span-9">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    {p.featured && (
+                      <span className="bg-neo-accent border-4 border-neo-ink px-3 py-1 font-black text-[10px] uppercase tracking-widest shadow-neo-sm transform rotate-2 text-white">
+                        ★ Featured
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none duration-200 group-hover:translate-x-1.5">
                     {p.title}
                   </h3>
-                  <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink-muted dark:text-gray-400">
+                  <p className="mt-3 max-w-xl text-sm md:text-base font-bold leading-snug opacity-70">
                     {p.description}
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs uppercase tracking-[0.12em] text-ink-muted dark:text-gray-500">
+                  <div className="mt-4 flex flex-wrap gap-2">
                     {p.tech.slice(0, 4).map((t) => (
-                      <span key={t}>{t}</span>
+                      <span key={t} className="bg-neo-muted border-2 border-neo-ink px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-neo-ink">
+                        {t}
+                      </span>
                     ))}
-                    {p.featured && <span className="text-accent">★ featured</span>}
                   </div>
                 </div>
-                <div className="md:col-span-3 flex items-start justify-between">
-                  <span className="text-5xl text-line-light dark:text-white/10 select-none">{iconMap[p.id]}</span>
-                  <span className="hidden md:inline-flex items-center gap-2 text-sm uppercase tracking-[0.12em] text-ink-muted dark:text-gray-400 group-hover:text-ink dark:group-hover:text-white">
+
+                <div className="md:col-span-2 flex items-center justify-between md:justify-end gap-4 md:flex-col md:items-end">
+                  <span className="text-4xl opacity-20 duration-200 group-hover:opacity-60 group-hover:scale-110 select-none">{iconMap[p.id]}</span>
+                  <span className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-neo-ink bg-neo-panel border-2 border-neo-ink px-3 py-2 shadow-neo-sm duration-100 group-hover:bg-neo-secondary group-hover:text-black">
                     explore <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
               </article>
+            </Reveal>
             ))
           )}
         </div>
       </div>
 
       {/* Modal */}
-      {selected && (
-        <Portal>
-          <div
-            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-            onClick={closeProject}
-            role="dialog"
-            aria-modal="true"
-          >
-            <div
-              className="w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-bg-light dark:bg-bg-dark border border-line-light dark:border-white/10 p-6 sm:p-10"
-              onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {selected && (
+          <Portal>
+            <motion.div
+              className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70"
+              onClick={closeProject}
+              role="dialog"
+              aria-modal="true"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <div className="flex items-start justify-between mb-6">
-                <h3 className="text-2xl font-medium tracking-tight text-ink dark:text-white">
-                  <span className="text-ink-muted dark:text-gray-500 mr-3">({selected.num})</span>
+              <motion.div
+                className="w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-neo-bg border-4 border-neo-ink shadow-neo-lg p-6 sm:p-10 relative"
+                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+              >
+              <button
+                onClick={closeProject}
+                aria-label="Close"
+                className="absolute -top-4 -right-3 w-12 h-12 border-4 border-neo-ink bg-neo-accent text-white flex items-center justify-center shadow-neo-sm duration-100 hover:bg-neo-secondary hover:text-black active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer"
+              >
+                <FiX size={20} />
+              </button>
+
+              <div className="flex items-start justify-between gap-4 mb-5 flex-wrap">
+                <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-neo-ink leading-none">
+                  <span className="text-neo-accent mr-3 tabular-nums">({selected.num})</span>
                   {selected.title}
                 </h3>
-                <button
-                  onClick={closeProject}
-                  className="w-9 h-9 border border-line-light dark:border-white/20 flex items-center justify-center text-ink dark:text-gray-200 hover:bg-ink hover:text-white dark:hover:bg-white dark:hover:text-ink transition-colors cursor-pointer"
-                  aria-label="Close"
-                >
-                  <FiX />
-                </button>
+                {selected.featured && (
+                  <span className="bg-neo-accent border-4 border-neo-ink px-3 py-1.5 font-black text-[10px] uppercase tracking-widest shadow-neo-sm transform rotate-2 shrink-0 text-white">
+                    ★ Featured
+                  </span>
+                )}
               </div>
 
-              <div className="h-px w-full bg-ink dark:bg-white mb-8" />
+              <div className="h-4 w-full bg-neo-ink mb-8" />
 
-              <p className="text-ink dark:text-gray-300 leading-relaxed">{selected.description}</p>
+              <p className="text-neo-ink font-bold leading-snug">{selected.description}</p>
 
               <div className="mt-8">
-                <h4 className="text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500 mb-3">Problem solved</h4>
-                <p className="text-sm text-ink dark:text-gray-300 leading-relaxed border-l-2 border-accent pl-4">{selected.problem}</p>
+                <h4 className="inline-block bg-neo-secondary border-2 border-neo-ink px-3 py-1.5 text-xs font-black uppercase tracking-widest shadow-neo-sm mb-4 text-black">Problem solved</h4>
+                <p className="text-sm text-neo-ink font-bold leading-relaxed border-l-4 border-neo-accent pl-4">{selected.problem}</p>
               </div>
 
               <div className="mt-8">
-                <h4 className="text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500 mb-3">Key features</h4>
+                <h4 className="inline-block bg-neo-muted border-2 border-neo-ink px-3 py-1.5 text-xs font-black uppercase tracking-widest shadow-neo-sm mb-4">Key features</h4>
                 <ul className="flex flex-wrap gap-2">
                   {selected.features.map((f) => (
-                    <li key={f} className="px-3 py-1 border border-line-light dark:border-white/20 text-xs text-ink dark:text-gray-300">{f}</li>
+                    <li key={f} className="bg-neo-white border-2 border-neo-ink px-3 py-1.5 text-xs font-black uppercase tracking-wide text-black">{f}</li>
                   ))}
                 </ul>
               </div>
 
               <div className="mt-8">
-                <h4 className="text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500 mb-3">Technologies</h4>
-                <div className="flex flex-wrap gap-2 text-sm text-ink dark:text-gray-300">
+                <h4 className="inline-block bg-neo-accent border-2 border-neo-ink px-3 py-1.5 text-xs font-black uppercase tracking-widest shadow-neo-sm mb-4 text-white">Technologies</h4>
+                <div className="flex flex-wrap gap-2 text-sm text-neo-ink font-black">
                   {selected.tech.map((t) => (
-                    <span key={t} className="mr-2">/{t}</span>
+                    <span key={t} className="mr-1">/{t}</span>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-3">
-                <a href={selected.github} target="_blank" rel="noreferrer" className="btn-black">
+              <div className="mt-10">
+                <a href={selected.github} target="_blank" rel="noreferrer" className="btn-primary px-6 py-4">
                   <FiGithub /> View on GitHub
                 </a>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </Portal>
       )}
+      </AnimatePresence>
     </section>
   )
 })

@@ -1,45 +1,54 @@
 import React from 'react'
-import TorsionText from './TorsionText'
+import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const services = [
   { title: 'Web Development', desc: 'Responsive, scalable full-stack web applications using React.js, Node.js, Express.js, MongoDB, Java, Spring Boot, Python, and PHP.' },
   { title: 'Mobile App Development', desc: 'Cross-platform mobile applications using React Native for iOS and Android.' },
-  { title: 'UI/UX Development', desc: 'Modern, responsive, user-focused interfaces with clean layouts, reusable components, strong visual hierarchy, and responsive behavior.' },
+  { title: 'UI/UX Development', desc: 'Modern, responsive, user-focused interfaces with clean layouts, reusable components, and strong visual hierarchy.' },
   { title: 'AI Integration', desc: 'Integrate AI and LLM-powered functionality into web applications to create intelligent and automated user experiences.' },
   { title: 'API & Backend Development', desc: 'Build REST APIs, authentication systems, database integrations, and scalable backend architectures.' },
-  { title: 'AI & Developer Tools', desc: 'Developer-focused tools such as MCP servers, code analyzers, project automation tools, dependency visualizers, and AI-assisted development utilities.' }
+  { title: 'AI & Developer Tools', desc: 'Developer-focused tools such as MCP servers, code analyzers, project automation tools, dependency visualizers, and AI-assisted utilities.' }
+]
+
+const cardTones = [
+  'bg-neo-white text-black',
+  'bg-neo-muted text-neo-ink',
+  'bg-neo-white text-black',
+  'bg-neo-secondary text-black',
+  'bg-neo-white text-black',
+  'bg-neo-muted text-neo-ink'
 ]
 
 export default React.memo(function Services() {
   return (
-    <section id="services" className="relative">
-      <div className="section-pad">
-        <div className="reveal mb-8 sm:mb-12 md:mb-16">
+    <section id="services" className="relative border-b-4 border-neo-ink">
+      <div className="section-pad container-neo">
+        <Reveal className="section-head max-w-3xl">
           <span className="section-label">( services )</span>
-          <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
-            <h2 className="section-title mt-4">What I build :</h2>
-          </TorsionText>
-        </div>
+          <h2 className="section-title">
+            What I build <span className="text-neo-accent">:</span>
+          </h2>
+        </Reveal>
 
-        <div className="flex flex-col">
+        <Stagger className="mt-10 md:mt-14 grid md:grid-cols-2 gap-6 md:gap-8" gap={0.08}>
           {services.map((s, i) => (
-            <div
-              key={s.title}
-              className="reveal group border-t border-line-light dark:border-white/10 py-8 grid md:grid-cols-12 gap-4"
-              style={{ transitionDelay: `${i * 0.04}s` }}
-            >
-              <span className="md:col-span-2 text-sm text-ink-muted dark:text-gray-500 tabular-nums">
-                /{String(i + 1).padStart(2, '0')}
-              </span>
-              <h3 className="md:col-span-4 text-2xl sm:text-3xl font-medium tracking-tight text-ink dark:text-white">
-                {s.title}
-              </h3>
-              <p className="md:col-span-6 text-sm leading-relaxed text-ink-muted dark:text-gray-400 max-w-md">
-                {s.desc}
-              </p>
-            </div>
+            <StaggerItem key={s.title}>
+              <article
+                className={`${cardTones[i]} border-4 border-neo-ink shadow-neo-md card-lift p-6 md:p-9 relative h-full`}
+              >
+                <span className="absolute -top-4 -right-3 bg-neo-accent border-4 border-neo-ink w-12 h-12 rotate-6 flex items-center justify-center font-black text-lg text-white shadow-neo-sm tabular-nums">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">
+                  {s.title}
+                </h3>
+                <p className="mt-4 text-sm md:text-base font-bold leading-snug opacity-70">
+                  {s.desc}
+                </p>
+              </article>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   )

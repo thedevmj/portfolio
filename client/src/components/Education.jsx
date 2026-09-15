@@ -1,5 +1,5 @@
 import React from 'react'
-import TorsionText from './TorsionText'
+import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const education = [
   { title: 'Bachelor of Science — Computer Science', institution: 'Mohanlal Sukhadia University Science College', year: '2023', type: 'BSc' },
@@ -8,27 +8,33 @@ const education = [
 
 export default React.memo(function Education() {
   return (
-    <section id="education" className="relative border-t border-line-light dark:border-white/10">
-      <div className="section-pad">
-        <div className="reveal mb-8 sm:mb-12 md:mb-16">
-          <span className="section-label">( education )</span>
-          <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
-            <h2 className="section-title mt-4">Education</h2>
-          </TorsionText>
-        </div>
+    <section id="education" className="relative border-b-4 border-neo-ink bg-neo-secondary">
+      <div className="section-pad container-neo">
+        <Reveal className="section-head">
+          <span className="section-label !bg-neo-white !text-black">( education )</span>
+          <h2 className="section-title text-black">Education</h2>
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-px bg-line-light dark:bg-white/10">
+        <Stagger className="mt-10 md:mt-14 grid md:grid-cols-2 gap-6 md:gap-8" gap={0.1}>
           {education.map((ed, i) => (
-            <div key={ed.title} className="reveal bg-bg-light dark:bg-bg-dark p-5 sm:p-8 md:p-12 relative group" style={{ transitionDelay: `${i * 0.1}s` }}>
-              <span className="text-2xl text-ink-muted dark:text-gray-500 tabular-nums">({ed.year})</span>
-              <span className="absolute top-8 right-8 text-xs uppercase tracking-[0.2em] text-accent">{ed.type}</span>
-              <h3 className="mt-6 text-2xl font-medium tracking-tight text-ink dark:text-white">
+            <StaggerItem key={ed.title}>
+              <div className="bg-neo-white border-4 border-neo-ink shadow-neo-md card-lift p-6 sm:p-8 md:p-10 relative text-black h-full">
+              <span className="absolute -top-4 left-6 bg-neo-accent border-4 border-neo-ink px-4 py-1.5 font-black text-xs uppercase tracking-widest shadow-neo-sm transform rotate-2 tabular-nums text-white">
+                {ed.year}
+              </span>
+              <span className="absolute top-5 right-5 inline-block bg-neo-muted border-2 border-neo-ink px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-neo-sm text-neo-ink">
+                {ed.type}
+              </span>
+              <h3 className="mt-8 text-2xl md:text-3xl font-black uppercase tracking-tighter leading-tight">
                 {ed.title}
               </h3>
-              <p className="mt-3 text-sm text-ink-muted dark:text-gray-400">{ed.institution}</p>
-            </div>
+              <p className="mt-3 text-sm md:text-base font-bold opacity-60">
+                {ed.institution}
+              </p>
+              </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   )

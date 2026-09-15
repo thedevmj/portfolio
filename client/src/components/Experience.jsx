@@ -1,5 +1,5 @@
 import React from 'react'
-import TorsionText from './TorsionText'
+import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const highlights = [
   'React.js', 'Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'JWT authentication',
@@ -9,45 +9,49 @@ const highlights = [
 
 export default React.memo(function Experience() {
   return (
-    <section id="experience" className="relative border-t border-line-light dark:border-white/10">
-      <div className="section-pad">
-        <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div>
-            <span className="section-label">( experience )</span>
-            <TorsionText maxX={7} maxY={4} maxSkew={2} wobble={0.4}>
-              <h2 className="section-title mt-4">Path &amp; Experience</h2>
-            </TorsionText>
-          </div>
-        </div>
+    <section id="experience" className="relative border-b-4 border-neo-ink">
+      <div className="section-pad container-neo">
+        <Reveal className="section-head">
+          <span className="section-label">( experience )</span>
+          <h2 className="section-title">Path &amp; Experience</h2>
+        </Reveal>
 
-        <div className="mt-8 sm:mt-12 md:mt-16 max-w-3xl">
-          <div className="reveal border-l border-line-light dark:border-white/10 pl-10 relative">
-            <span className="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-accent" />
-            <span className="text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500">
-              Full Stack Web Development — <span className="text-accent">Fresher</span>
+        <div className="mt-10 md:mt-14 max-w-4xl">
+          <Reveal className="bg-neo-panel border-4 border-neo-ink shadow-neo-md relative p-6 sm:p-10 md:p-12 lg:p-16">
+            {/* Corner accent sticker */}
+            <span className="absolute -top-5 right-6 bg-neo-accent border-4 border-neo-ink px-4 py-2 font-black text-xs uppercase tracking-widest shadow-neo-sm transform rotate-3 text-white">
+              Fresher
             </span>
-            <h3 className="mt-3 text-3xl sm:text-4xl font-medium tracking-tight text-ink dark:text-white">
+
+            <span className="inline-block bg-neo-muted border-2 border-neo-ink px-3 py-1.5 text-xs font-black uppercase tracking-widest shadow-neo-sm">
               Full Stack Web Development
+            </span>
+
+            <h3 className="mt-6 text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-neo-ink">
+              Built end-to-end.
+              <br />
+              <span className="text-neo-accent">Shipped for real.</span>
             </h3>
-            <p className="mt-5 text-ink dark:text-gray-300 leading-relaxed max-w-xl">
-              Hands-on development experience through multiple full-stack, AI-integrated, mobile,
-              and developer-tool projects. Although entering the professional field as a fresher,
-              I have built substantial practical experience by building complete applications end-to-end.
+
+            <p className="mt-6 text-base md:text-lg font-bold leading-snug text-neo-ink max-w-2xl">
+              Hands-on development through multiple full-stack, AI-integrated, mobile,
+              and developer-tool projects. Entering the professional field as a fresher
+              with substantial practical experience from building complete applications end-to-end.
             </p>
 
-            <div className="mt-8">
-              <h4 className="text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500 mb-4">
-                Practical experience with :
+            <div className="mt-10">
+              <h4 className="inline-block bg-neo-secondary border-2 border-neo-ink px-3 py-1.5 text-xs font-black uppercase tracking-widest shadow-neo-sm mb-6 text-black">
+                Practical experience with
               </h4>
-              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink dark:text-gray-300">
+              <Stagger className="flex flex-wrap gap-2.5" gap={0.04}>
                 {highlights.map((h) => (
-                  <span key={h} className="flex items-center gap-1.5">
-                    <span className="text-accent">*</span> {h}
-                  </span>
+                  <StaggerItem key={h} className="flex items-center gap-1.5 bg-neo-white border-2 border-neo-ink px-3 py-1.5 text-xs font-black uppercase tracking-wide text-black duration-100 hover:shadow-neo-sm" whileHover={{ y: -4 }}>
+                    <span className="text-neo-accent">*</span> {h}
+                  </StaggerItem>
                 ))}
-              </div>
+              </Stagger>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

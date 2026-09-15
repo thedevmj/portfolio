@@ -1,181 +1,133 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { FiArrowRight, FiDownload, FiGithub, FiLinkedin, FiChevronDown } from 'react-icons/fi'
-import HeroVideo from './HeroVideo'
-import TorsionText from './TorsionText'
+import React from 'react'
+import { FiArrowRight, FiDownload, FiChevronDown } from 'react-icons/fi'
+import { Reveal, Stagger, StaggerItem, Float } from './Motion'
 
-const roles = [
-  'Full Stack Developer',
-  'MERN Stack Engineer',
-  'AI Application Developer',
-  'React Native Developer',
-  'UI/UX Developer'
-]
-
-// Animated mock terminal that types lines as you land
-function Terminal() {
-  const lines = [
-    { prompt: '$', cmd: 'junaid --intro', out: 'full stack + AI, ship fast.' },
-    { prompt: '>', cmd: 'stack', out: 'react · node · mongo · ai' },
-    { prompt: '>', cmd: 'status', out: 'open to opportunities ✦' }
-  ]
-  return (
-    <div className="reveal border border-line-light dark:border-white/10 rounded-2xl bg-white/50 dark:bg-white/[0.03] backdrop-blur-md shadow-xl shadow-black/5 overflow-hidden w-full max-w-md">
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-line-light dark:border-white/10">
-        <span className="w-3 h-3 rounded-full bg-red-400/80" />
-        <span className="w-3 h-3 rounded-full bg-amber-400/80" />
-        <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
-        <span className="ml-3 text-xs text-ink-muted dark:text-gray-400 font-mono">junaid@dev: ~/portfolio</span>
-      </div>
-      <div className="px-4 py-5 font-mono text-sm space-y-2.5">
-        {lines.map((l, i) => (
-          <div key={i} className="terminal-line" style={{ '--d': `${0.6 + i * 0.5}s` }}>
-            {l.out ? (
-              <>
-                <div className="text-ink-muted dark:text-gray-400"><span className="text-accent">{l.prompt}</span> {l.cmd}</div>
-                <div className="text-ink dark:text-gray-200 opacity-90">{l.out}</div>
-              </>
-            ) : (
-              <div className="text-ink-muted dark:text-gray-400"><span className="text-accent">{l.prompt}</span> {l.cmd}</div>
-            )}
-          </div>
-        ))}
-        <div className="text-accent">
-          $ <span className="typing-caret">&nbsp;</span>
-        </div>
-      </div>
-    </div>
-  )
-}
+const tech = ['React', 'Node.js', 'MongoDB', 'Express', 'AI / LLM', 'React Native', 'TypeScript', 'REST APIs', 'UI/UX', 'MCP']
 
 export default React.memo(function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0)
-  const [typed, setTyped] = useState('')
-  const [deleting, setDeleting] = useState(false)
-  const glowRef = useRef(null)
-  const target = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 3 })
-  const pos = useRef({ ...target.current })
-
-  // Typing role rotator
-  useEffect(() => {
-    const current = roles[roleIndex]
-    const speed = deleting ? 45 : 95
-    if (!deleting && typed === current) {
-      const t = setTimeout(() => setDeleting(true), 1400)
-      return () => clearTimeout(t)
-    }
-    if (deleting && typed === '') {
-      setDeleting(false)
-      setRoleIndex((i) => (i + 1) % roles.length)
-      return
-    }
-    const t = setTimeout(() => {
-      setTyped(current.slice(0, typed.length + (deleting ? -1 : 1)))
-    }, speed)
-    return () => clearTimeout(t)
-  }, [typed, deleting, roleIndex])
-
-  // Smooth mouse-following glow (lerped on rAF)
-  useEffect(() => {
-    if (window.matchMedia('(hover: none)').matches) return
-    let raf
-    const onMove = (e) => {
-      target.current = { x: e.clientX, y: e.clientY }
-    }
-    const loop = () => {
-      pos.current.x += (target.current.x - pos.current.x) * 0.08
-      pos.current.y += (target.current.y - pos.current.y) * 0.08
-      if (glowRef.current) {
-        glowRef.current.style.left = `${pos.current.x}px`
-        glowRef.current.style.top = `${pos.current.y}px`
-      }
-      raf = requestAnimationFrame(loop)
-    }
-    window.addEventListener('mousemove', onMove)
-    raf = requestAnimationFrame(loop)
-    return () => {
-      window.removeEventListener('mousemove', onMove)
-      cancelAnimationFrame(raf)
-    }
-  }, [])
-
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* WebGL torsion background video */}
-      <HeroVideo />
-      {/* Cursor glow */}
-      <div ref={glowRef} className="mouse-glow" aria-hidden="true" />
-
-      <div className="relative z-10 flex-1 flex items-center">
-        <div className="w-full grid lg:grid-cols-[1.2fr,1fr] gap-8 lg:gap-12 items-center px-5 sm:px-10 lg:px-16 pt-20 pb-10 lg:pt-28 lg:pb-16">
-          {/* Left: wordmark */}
-          <div>
-            <div className="mask-line-wrap" style={{ '--d': '0.1s' }}>
-              <p className="hero-item font-sans text-sm uppercase tracking-[0.25em] text-accent" style={{ animationDelay: '0.1s' }}>
-                &lt; full stack developer /&gt;
-              </p>
-            </div>
-
-            {/* Name — line mask reveal + torsion twist on hover */}
-            <TorsionText maxX={9} maxY={5} maxSkew={3} wobble={0.5}>
-              <h1 className="mt-6 font-sans font-semibold tracking-tight leading-[0.92] text-ink dark:text-white select-none"
-                style={{ fontSize: 'clamp(2.4rem, 10vw, 11rem)' }}
-              >
-                <span className="mask-line-wrap"><span className="mask-line">Junaid</span></span>
-                <span className="mask-line-wrap"><span className="mask-line italic text-accent" style={{ animationDelay: '0.12s' }}>Mansoori</span></span>
-              </h1>
-            </TorsionText>
-
-            {/* Typing role */}
-            <div className="mt-8 flex items-center text-xl sm:text-2xl text-ink dark:text-gray-200 font-mono h-9">
-              <span className="text-ink-muted dark:text-gray-500">&gt;_</span>
-              <span className="ml-2">{typed}</span>
-              <span className="typing-caret">&nbsp;</span>
-            </div>
-
-            {/* Tagline */}
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-ink dark:text-gray-300">
-              Full-stack developer building AI-integrated web and mobile applications with the MERN stack.
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-6 sm:mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-              <button onClick={() => scrollTo('projects')} data-magnetic className="btn-black group">
-                View My Works <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button onClick={() => scrollTo('contact')} data-magnetic className="btn-outline">
-                Let&rsquo;s Connect
-              </button>
-              <a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" data-magnetic className="btn-outline">
-                <FiDownload /> Resume
-              </a>
-            </div>
-          </div>
-
-          {/* Right: terminal */}
-          <div className="hidden lg:flex justify-center">
-            <div className="float-soft w-full flex justify-center">
-              <Terminal />
-            </div>
-          </div>
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        {/* Giant outlined background texture */}
+        <div className="absolute -right-6 top-24 text-[26vw] lg:text-[22rem] font-black text-stroke opacity-20 leading-none select-none">
+          DEV
         </div>
       </div>
 
-      {/* Tech marquee */}
-      <div className="relative z-10 marquee-mask overflow-hidden border-t border-line-light dark:border-white/10 py-4">
-        <div className="flex w-max whitespace-nowrap marquee-track marquee-pause"
-          style={{ animation: 'marquee 30s linear infinite' }}
-        >
-          {[0, 1].map((k) => (
-            <div key={k} className="flex items-center text-sm uppercase tracking-[0.25em] text-ink-muted dark:text-gray-400">
-              {['React', 'Node.js', 'MongoDB', 'Express', 'AI / LLM', 'React Native', 'TypeScript', 'REST APIs', 'UI/UX', 'MCP'].map((t) => (
-                <span key={t} className="flex items-center px-5">
-                  {t} <span className="ml-10 text-accent">✦</span>
+      <div className="relative z-10 flex-1 flex items-center">
+        <div className="w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center container-neo pt-28 pb-14 lg:pt-24 lg:pb-16">
+          {/* Left: text */}
+          <Reveal>
+            {/* Subtitle badge */}
+            <span className="inline-block bg-neo-secondary border-4 border-neo-ink px-4 py-2 md:px-5 md:py-3 font-black text-xs md:text-sm uppercase tracking-widest shadow-neo-sm transform -rotate-1 text-black">
+              Full Stack Developer
+            </span>
+
+            {/* Main headline */}
+            <h1 className="mt-6 md:mt-8 leading-[0.92] select-none">
+              <span className="mask-line-wrap">
+                <span className="mask-line block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-neo-ink">
+                  Junaid
                 </span>
-              ))}
+              </span>
+              <span className="mask-line-wrap">
+                <span className="mask-line block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-neo-accent transform rotate-1 translate-x-1" style={{ animationDelay: '0.15s' }}>
+                  Mansoori
+                </span>
+              </span>
+            </h1>
+
+            {/* Subheading */}
+            <p className="text-lg md:text-xl font-bold mt-6 md:mt-8 max-w-md leading-tight text-neo-ink">
+              Building bold, unapologetic web &amp; mobile experiences with
+              AI baked in — MERN, React Native, and the latest LLM tooling.
+            </p>
+
+            {/* CTA buttons */}
+            <Stagger className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 md:gap-5" gap={0.12}>
+              <StaggerItem>
+                <button onClick={() => scrollTo('projects')} data-magnetic className="btn-primary px-8 py-4 md:px-9 md:py-5">
+                  View Projects <FiArrowRight />
+                </button>
+              </StaggerItem>
+              <StaggerItem>
+                <button onClick={() => scrollTo('contact')} data-magnetic className="btn-outline px-8 py-4 md:px-9 md:py-5">
+                  Get in Touch
+                </button>
+              </StaggerItem>
+              <StaggerItem>
+                <a
+                  href="/junaidMansoori_Resume.pdf"
+                  download="junaidMansoori_Resume.pdf"
+                  data-magnetic
+                  className="btn-outline px-8 py-4 md:px-9 md:py-5"
+                >
+                  <FiDownload /> Resume
+                </a>
+              </StaggerItem>
+            </Stagger>
+          </Reveal>
+
+          {/* Right: floating shapes / decorative */}
+          <Reveal className="relative h-[340px] mt-10 md:mt-0 sm:h-[360px] lg:h-[480px]" delay={0.15}>
+            {/* Floating shape 1 — yellow */}
+            <Float className="absolute top-0 right-0 w-32 h-32 sm:w-44 sm:h-44 lg:w-44 lg:h-44 bg-neo-secondary border-4 border-neo-ink shadow-neo-lg" duration={6} rotate={-3}>
+              <span className="flex items-center justify-center h-full w-full font-black uppercase text-center text-sm sm:text-base text-black px-4">
+                Open to work
+              </span>
+            </Float>
+
+            {/* Floating shape 2 — violet */}
+            <Float className="absolute top-24 left-0 w-24 h-24 sm:w-32 sm:h-32 lg:w-32 lg:h-32 bg-neo-muted border-4 border-neo-ink shadow-neo-md" duration={5} distance={18} rotate={6}>
+              <span className="w-full h-full flex items-center justify-center font-black text-lg">✦</span>
+            </Float>
+
+            {/* Centre sticker — red box with text */}
+            <div className="absolute bottom-0 left-10 lg:left-16 w-44 h-44 sm:w-52 sm:h-52 lg:w-60 lg:h-60 bg-neo-accent border-4 border-neo-ink shadow-neo-lg transform -rotate-2 flex items-center justify-center">
+              <span className="font-black text-3xl lg:text-5xl uppercase text-center leading-none text-white" style={{ textShadow: '4px 4px 0 #000' }}>
+                Bold
+                <br />
+                Builds
+              </span>
             </div>
-          ))}
+
+            {/* Small badge sticker */}
+            <div className="absolute bottom-16 right-0 lg:right-6 bg-neo-panel border-4 border-neo-ink px-4 py-3 shadow-neo-sm transform rotate-3">
+              <p className="font-black text-xs uppercase tracking-widest">
+                Est. 2023 <span className="text-neo-accent">✶</span>
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+
+      {/* Scroll hint */}
+      <button
+        onClick={() => scrollTo('about')}
+        aria-label="Scroll to about section"
+        className="relative z-10 flex mx-auto mb-8 w-10 h-10 border-4 border-neo-ink bg-neo-panel shadow-neo-sm items-center justify-center duration-100 hover:bg-neo-secondary hover:text-black active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer"
+      >
+        <FiChevronDown className="bounce-down" />
+      </button>
+
+      {/* Tech marquee */}
+      <div className="relative z-10 border-y-4 border-neo-ink bg-neo-secondary">
+        <div className="marquee-mask overflow-hidden py-4 md:py-5">
+          <div className="flex w-max whitespace-nowrap marquee-track marquee-pause"
+            style={{ animation: 'marquee 30s linear infinite' }}
+          >
+            {[0, 1].map((k) => (
+              <div key={k} className="flex items-center font-black uppercase tracking-tight">
+                {tech.map((t) => (
+                  <span key={t} className="flex items-center text-lg md:text-2xl px-4 md:px-6 text-black">
+                    {t} <span className="ml-8 text-black text-xl md:text-2xl">✦</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

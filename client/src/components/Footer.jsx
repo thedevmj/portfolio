@@ -2,6 +2,7 @@ import React from 'react'
 import { FiMail, FiPhone, FiGithub, FiDownload } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppLink } from '../constants'
+import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const navLinks = [
   { id: 'home', label: 'Intro' },
@@ -16,48 +17,54 @@ export default React.memo(function Footer() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <footer className="relative border-t border-line-light dark:border-white/10">
-      <div className="max-w-6xl mx-auto px-5 sm:px-10 py-12 md:py-16">
-        <div className="grid gap-8 md:gap-12 md:grid-cols-3">
+    <footer className="relative bg-neo-secondary border-t-4 border-neo-ink">
+      <div className="container-neo py-14 md:py-20">
+        <div className="grid gap-10 md:gap-12 md:grid-cols-3">
           {/* Brand */}
-          <div>
-            <p className="font-sans text-2xl font-semibold tracking-tight text-ink dark:text-white">
-              Junaid Mansoori<span className="text-accent">*</span>
-            </p>
-            <p className="mt-3 text-sm text-ink-muted dark:text-gray-400">Full Stack Developer</p>
-            <p className="mt-1 text-sm text-ink-muted dark:text-gray-400">MERN • AI • React Native</p>
-          </div>
+          <Reveal>
+            <div className="inline-block bg-neo-accent border-4 border-neo-ink px-5 py-3 shadow-neo-sm transform -rotate-1">
+              <p className="font-black text-xl uppercase tracking-tight text-white" style={{ textShadow: '3px 3px 0 #000' }}>
+                Junaid Mansoori
+              </p>
+            </div>
+            <p className="mt-5 text-sm font-black uppercase tracking-widest text-black">Full Stack Developer</p>
+            <p className="mt-1 text-sm font-bold uppercase tracking-widest text-black opacity-60">MERN • AI • React Native</p>
+          </Reveal>
 
           {/* Navigation */}
-          <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500 mb-5">Sitemap</h4>
-            <ul className="space-y-2">
+          <Reveal delay={0.1}>
+            <h4 className="inline-block bg-black border-2 border-black text-white px-3 py-1.5 text-xs font-black uppercase tracking-widest mb-5">
+              Sitemap
+            </h4>
+            <Stagger as="ul" className="space-y-2.5" gap={0.05}>
               {navLinks.map((l) => (
-                <li key={l.id}>
-                  <button onClick={() => scrollTo(l.id)} className="text-sm text-ink dark:text-gray-300 hover:text-accent transition-colors link-underline cursor-pointer">
+                <StaggerItem as="li" key={l.id}>
+                  <button onClick={() => scrollTo(l.id)} className="font-black uppercase tracking-wide text-sm text-black hover:text-neo-accent link-underline cursor-pointer">
                     {l.label}
                   </button>
-                </li>
+                </StaggerItem>
               ))}
-            </ul>
-          </div>
+            </Stagger>
+          </Reveal>
 
           {/* Contact */}
-          <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] text-ink-muted dark:text-gray-500 mb-5">Contact</h4>
-            <ul className="space-y-3 text-sm text-ink dark:text-gray-300">
-              <li><a href="mailto:junaidmansuri71@gmail.com" className="flex items-center gap-2 hover:text-accent transition-colors"><FiMail size={14} /> junaidmansuri71@gmail.com</a></li>
-              <li><a href="tel:9649354858" className="flex items-center gap-2 hover:text-accent transition-colors"><FiPhone size={14} /> 9649354858</a></li>
-              <li><a href={buildWhatsAppLink()} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors"><FaWhatsapp size={14} /> WhatsApp</a></li>
-              <li><a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors"><FiGithub size={14} /> github.com/thedevmj</a></li>
-              <li><a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" className="flex items-center gap-2 hover:text-accent transition-colors"><FiDownload size={14} /> Download Resume</a></li>
-            </ul>
-          </div>
+          <Reveal delay={0.2}>
+            <h4 className="inline-block bg-black border-2 border-black text-white px-3 py-1.5 text-xs font-black uppercase tracking-widest mb-5">
+              Contact
+            </h4>
+            <Stagger as="ul" className="space-y-3 text-sm text-black font-bold" gap={0.04}>
+              <StaggerItem as="li"><a href="mailto:junaidmansuri71@gmail.com" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FiMail size={14} /> junaidmansuri71@gmail.com</a></StaggerItem>
+              <StaggerItem as="li"><a href="tel:9649354858" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FiPhone size={14} /> 9649354858</a></StaggerItem>
+              <StaggerItem as="li"><a href={buildWhatsAppLink()} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FaWhatsapp size={14} /> WhatsApp</a></StaggerItem>
+              <StaggerItem as="li"><a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FiGithub size={14} /> github.com/thedevmj</a></StaggerItem>
+              <StaggerItem as="li"><a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FiDownload size={14} /> Download Resume</a></StaggerItem>
+            </Stagger>
+          </Reveal>
         </div>
 
-        <div className="mt-8 sm:mt-14 pt-6 border-t border-line-light dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-muted dark:text-gray-500">
+        <div className="mt-12 pt-6 border-t-4 border-neo-ink flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-black uppercase tracking-widest text-black">
           <span>© 2026 Mohammad Junaid Mansoori. All rights reserved.</span>
-          <span className="uppercase tracking-[0.15em]">EN</span>
+          <span className="bg-neo-panel border-2 border-neo-ink px-3 py-1.5 shadow-neo-sm">EN</span>
         </div>
       </div>
     </footer>

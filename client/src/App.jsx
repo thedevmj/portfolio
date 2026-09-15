@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState, useCallback } from 'react'
+import React, { lazy, Suspense, useState, useCallback } from 'react'
 import { ThemeProvider } from './context/ThemeContext.jsx'
 import { SearchProvider } from './context/SearchContext.jsx'
 import Navbar from './components/Navbar'
@@ -15,7 +15,6 @@ import PageLoader from './components/PageLoader'
 import Preloader from './components/Preloader'
 import CustomCursor from './components/CustomCursor'
 import Marquee from './components/Marquee'
-import useReveal from './hooks/useReveal'
 import './App.css'
 
 // Lazy-load heavy/below-the-fold sections for better initial payload
@@ -45,10 +44,6 @@ function GlobalUI() {
 function Portfolio() {
   const [ready, setReady] = useState(false)
   const [loaded, setLoaded] = useState(false)
-  // Bump `tick` a few times after content (incl. lazy sections) mounts so
-  // scroll-reveal observers pick up all `.reveal` elements.
-  const [tick, setTick] = useState(0)
-  useReveal([loaded, tick])
 
   // Preloader runs first (counts to 100), then PageLoader skeleton crosses-in,
   // then the real content paints and triggers scroll reveals.
@@ -56,12 +51,6 @@ function Portfolio() {
     setReady(true)
     setTimeout(() => setLoaded(true), 400)
   }, [])
-
-  useEffect(() => {
-    if (!loaded) return
-    const bumps = [50, 250, 700].map((d) => setTimeout(() => setTick((t) => t + 1), d))
-    return () => bumps.forEach(clearTimeout)
-  }, [loaded])
 
   const content = (
     <div className="relative min-h-screen overflow-x-hidden" suppressHydrationWarning>
@@ -79,7 +68,7 @@ function Portfolio() {
         <Suspense fallback={<SectionFallback />}>
           <Projects />
         </Suspense>
-        <Marquee items={['Problem solving', 'Full-stack thinking', 'AI-powered', 'Scalable', 'User-centric']} reverse />
+        <Marquee items={['Problem solving', 'Full-stack thinking', 'AI-powered', 'Scalable', 'User-centric']} reverse tone="accent" />
         <Suspense fallback={<SectionFallback />}>
           <Education />
         </Suspense>
@@ -101,7 +90,7 @@ function Portfolio() {
 
   if (!ready) {
     return (
-      <div className="relative min-h-screen bg-bg-light dark:bg-bg-dark">
+      <div className="relative min-h-screen bg-neo-bg">
         <Preloader onDone={handlePreloaderDone} />
       </div>
     )
@@ -109,7 +98,7 @@ function Portfolio() {
 
   if (!loaded) {
     return (
-      <div className="relative min-h-screen bg-bg-light dark:bg-bg-dark">
+      <div className="relative min-h-screen bg-neo-bg">
         <PageLoader />
       </div>
     )

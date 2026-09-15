@@ -5,33 +5,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: {
-          dark: '#0c0c0c',
-          light: '#f4f2ef'
-        },
-        ink: {
-          DEFAULT: '#121212',
-          muted: '#6b6b6b'
-        },
-        primary: {
-          DEFAULT: '#121212',
-          light: '#4b4b4b',
-          dark: '#000000'
-        },
-        accent: '#2500AD',
-        line: {
-          light: '#e2dfda',
-          dark: '#262626'
-        }
+        // Neo-brutalism tokens (resolved via CSS variables so dark mode inverts them)
+        'neo-bg': 'var(--neo-bg)', // Cream canvas
+        'neo-panel': 'var(--neo-panel)', // Card interiors
+        'neo-ink': 'var(--neo-ink)', // Text + borders + shadows (black / cream in dark)
+        'neo-accent': 'var(--neo-accent)', // Hot red
+        'neo-secondary': 'var(--neo-secondary)', // Vivid yellow
+        'neo-muted': 'var(--neo-muted)', // Soft violet
+        'neo-white': '#FFFFFF'
       },
       fontFamily: {
-        sans: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+        sans: ['"Space Grotesk"', 'system-ui', 'sans-serif']
+      },
+      boxShadow: {
+        'neo-sm': '4px 4px 0px 0px var(--neo-shadow)',
+        'neo-md': '8px 8px 0px 0px var(--neo-shadow)',
+        'neo-lg': '12px 12px 0px 0px var(--neo-shadow)',
+        'neo-xl': '16px 16px 0px 0px var(--neo-shadow)',
+        'neo-white': '4px 4px 0px 0px #fff'
       },
       animation: {
         'marquee': 'marquee 22s linear infinite',
         'marquee-reverse': 'marquee 22s linear infinite reverse',
         'float': 'float 6s ease-in-out infinite',
-        'pulse-glow': 'pulseGlow 5s ease-in-out infinite',
         'spin-slow': 'spin 12s linear infinite'
       },
       keyframes: {
@@ -40,16 +36,9 @@ export default {
           '100%': { transform: 'translateX(-50%)' }
         },
         float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-12px)' }
-        },
-        pulseGlow: {
-          '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
-          '50%': { opacity: '0.9', transform: 'scale(1.08)' }
+          '0%, 100%': { transform: 'translateY(0px) rotate(var(--float-rot, 0deg))' },
+          '50%': { transform: 'translateY(-14px) rotate(var(--float-rot, 0deg))' }
         }
-      },
-      backdropBlur: {
-        xs: '2px'
       }
     }
   },
