@@ -92,13 +92,6 @@ export default React.memo(function Hero() {
                 Builds
               </span>
             </div>
-
-            {/* Small badge sticker */}
-            <div className="absolute bottom-16 right-0 lg:right-6 bg-neo-panel border-4 border-neo-ink px-4 py-3 shadow-neo-sm transform rotate-3">
-              <p className="font-black text-xs uppercase tracking-widest">
-                Est. 2023 <span className="text-neo-accent">✶</span>
-              </p>
-            </div>
           </Reveal>
         </div>
       </div>

@@ -121,8 +121,8 @@ verified in headless Chrome. We stopped here for the day.
   WhatsApp send button (`.btn-neo bg-black`).
 - `Education.jsx` / `Experience.jsx` — yellow/plain sections, white cards, badges.
 - `Footer.jsx` — yellow, constant black text, staggered nav/contact columns.
-- `GithubCta.jsx` / `CtaBanner.jsx` / `WhatsAppFloat.jsx` (spring pop-in + hover) —
-  flat neo CTA cards.
+- `GithubCta.jsx` / `CtaBanner.jsx` / `AiFloat.jsx` (spring pop-in + hover, opens AI Copilot chat) —
+  flat neo CTA cards and floating AI trigger.
 - `Marquee.jsx` — edge fade, hover pause, `reverse` prop, `tone` (accent/secondary).
 - `Preloader.jsx` / `PageLoader.jsx` — cinematic mech monogram + counter exit.
 - `CustomCursor.jsx` — dot+ring, `explore` label, magnetic pull for `[data-magnetic]`.
@@ -130,11 +130,12 @@ verified in headless Chrome. We stopped here for the day.
 - `context/ThemeContext.jsx` — default theme **dark**, persists via localStorage.
 - `context/SearchContext.jsx` — Ctrl+K search.
 - `Motion.jsx` — shared motion primitives + `useInViewCheck` (see Animation section).
+- `ai/chatbot.jsx` — AI Architecture & Recruiter Copilot: interactive prompt interface for blueprints and recruiter queries, integrated with `/api/ai/blueprint`.
 - `App.jsx` — section order, Preloader→PageLoader→content flow, Marquee rows
   (second has `reverse` + `tone="accent"`), lazy sections with skeletons.
 
 ## Section IDs (used by `data/searchIndex.js` — DO NOT rename)
-`home, about, skills, experience, services, projects, education, contact`
+`home, about, skills, experience, services, projects, ai, education, contact`
 
 ## Public assets (`client/public/`)
 - `favicon.svg`, `junaidMansoori_Resume.pdf`

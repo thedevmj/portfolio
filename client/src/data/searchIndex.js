@@ -21,6 +21,11 @@ export const searchIndex = [
     label: 'Projects',
     keywords: ['projects', 'ai resume analyzer', 'resume', 'online book shopping', 'book', 'e-commerce', 'scaffold generator', 'scaffold', 'mcp code project analyzer', 'mcp', 'code analyzer', 'babel ast', 'graph visualization', 'typescript', 'redux saga', 'wall-e', 'wallpaper', 'react native app', 'android', 'kotlin', 'live wallpaper']
   },
+  {
+    section: 'ai',
+    label: 'AI Copilot — Ask About Junaid',
+    keywords: ['ai', 'copilot', 'chatbot', 'ask', 'architecture', 'blueprint', 'recruiter', 'hire', 'consultant', 'idea', 'architect']
+  },
   { section: 'education', label: 'Education', keywords: ['education', 'bsc', 'bachelor of science', 'computer science', 'mohanlal sukhadia university', 'mca', 'master of computer applications', 'aravali institute'] },
   { section: 'contact', label: 'Contact', keywords: ['contact', 'email', 'junaidmansuri71', 'gmail', 'phone', '9649354858', 'whatsapp', 'github', 'thedevmj', 'hire', 'freelance', 'internship'] }
 ]
@@ -30,7 +35,7 @@ export const skillDetails = [
   'React.js', 'JavaScript', 'TypeScript', 'Redux', 'Redux Saga', 'Responsive UI', 'UI/UX Development',
   'Node.js', 'Express.js', 'Java', 'Spring Boot', 'PHP', 'REST APIs', 'JWT Authentication', 'bcrypt', 'Microservices Architecture',
   'Python', 'MongoDB', 'PostgreSQL', 'Neo4j', 'SQL', 'React Native', 'AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools',
-  'MCP Servers', 'MCP SDK', 'Babel AST', 'Project Automation', 'Scaffold Generators', 'Code Analysis',
+  'MCP Servers', 'MCP SDK', 'Babel AST', 'Project Automation', 'Scaffold Generators', 'Code Analysis', 'Redis', 'Docker',
   'Dependency Analysis', 'Graph Visualization', 'Database development',
   'Debouncing', 'Throttling', 'Rate Limiting', 'Memoization', 'Code Splitting', 'Lazy Loading', 'Virtualization', 'React Optimization'
 ]

@@ -9,7 +9,7 @@ import Experience from './components/Experience'
 import Services from './components/Services'
 import Footer from './components/Footer'
 import Background from './components/Background'
-import WhatsAppFloat from './components/WhatsAppFloat'
+import AiFloat from './components/AiFloat'
 import HighlightEffect from './components/HighlightEffect'
 import PageLoader from './components/PageLoader'
 import Preloader from './components/Preloader'
@@ -83,7 +83,7 @@ function Portfolio() {
         </Suspense>
       </main>
       <Footer />
-      <WhatsAppFloat />
+      <AiFloat />
       <GlobalUI />
     </div>
   )

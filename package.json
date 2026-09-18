@@ -10,6 +10,7 @@
     "build": "cd client && npm run build"
   },
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "motion": "^13.4.0"
   }
 }
