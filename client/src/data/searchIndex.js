@@ -35,7 +35,7 @@ export const skillDetails = [
   'React.js', 'JavaScript', 'TypeScript', 'Redux', 'Redux Saga', 'Responsive UI', 'UI/UX Development',
   'Node.js', 'Express.js', 'Java', 'Spring Boot', 'PHP', 'REST APIs', 'JWT Authentication', 'bcrypt', 'Microservices Architecture',
   'Python', 'MongoDB', 'PostgreSQL', 'Neo4j', 'SQL', 'React Native', 'AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools',
-  'MCP Servers', 'MCP SDK', 'Babel AST', 'Project Automation', 'Scaffold Generators', 'Code Analysis', 'Redis', 'Docker',
+  'MCP Servers', 'MCP SDK', 'Babel AST', 'Project Automation', 'Scaffold Generators', 'Code Analysis', 'Redis', 'Docker', 'CI/CD',
   'Dependency Analysis', 'Graph Visualization', 'Database development',
   'Debouncing', 'Throttling', 'Rate Limiting', 'Memoization', 'Code Splitting', 'Lazy Loading', 'Virtualization', 'React Optimization'
 ]
