@@ -2,39 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   FiSend,
-  FiCpu,
   FiX,
-  FiCheck,
-  FiCopy,
   FiRefreshCw,
-  FiLayers,
-  FiZap,
-  FiMessageSquare,
-  FiCode
+  FiZap
 } from "react-icons/fi";
-import { FaWhatsapp } from "react-icons/fa";
-import { buildWhatsAppLink, API_BASE_URL } from "../constants";
+import { API_BASE_URL } from "../constants";
 import Portal from "../components/Portal";
-
-const STACK_LABELS = {
-  frontend: "Frontend",
-  backend: "Backend",
-  language: "Language",
-  database: "Database",
-  authentication: "Auth"
-};
-
-const FRONTEND_LABEL = {
-  none: "Headless / API Only",
-  react: "React.js (Vite + Tailwind)",
-  react_native: "React Native (Mobile)",
-  html_tailwind: "HTML5 / Tailwind CSS"
-};
-
-const BACKEND_LABEL = {
-  none: "Client-only / No Backend",
-  node_express: "Node.js & Express.js"
-};
 
 const SUGGESTED_PROMPTS = [
   "What tech stack does Junaid work with?",
@@ -122,7 +95,6 @@ export default function AiChatbot({ isOpen, onClose }) {
       blueprint: null
     }
   ]);
-  const [copiedId, setCopiedId] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -251,13 +223,6 @@ export default function AiChatbot({ isOpen, onClose }) {
     handleSendMessage(prompt);
   };
 
-  const handleCopyJson = (blueprint, msgId) => {
-    if (!blueprint) return;
-    navigator.clipboard.writeText(JSON.stringify(blueprint, null, 2));
-    setCopiedId(msgId);
-    setTimeout(() => setCopiedId(null), 2000);
-  };
-
   const handleClearHistory = () => {
     setMessages([
       {
@@ -374,133 +339,6 @@ export default function AiChatbot({ isOpen, onClose }) {
                   <FormattedText text={msg.text} />
                 </div>
               </div>
-
-              {/* Render Structured Blueprint if present */}
-              {msg.blueprint && (
-                <div className="mt-2.5 w-full max-w-full border-2 border-neo-ink bg-neo-bg p-3 shadow-neo-md space-y-3">
-                  {/* Blueprint Title & Badges */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-neo-ink/20 pb-2">
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-sans text-xs sm:text-sm font-black uppercase text-neo-ink break-words">
-                        {msg.blueprint.projectName}
-                      </h4>
-                      <div className="mt-1 flex flex-wrap items-center gap-1.5">
-                        {msg.blueprint.projectType && (
-                          <span className="border border-neo-ink bg-neo-secondary px-1.5 py-0.5 text-[10px] font-black uppercase text-black">
-                            {msg.blueprint.projectType}
-                          </span>
-                        )}
-                        {msg.blueprint.difficulty && (
-                          <span className="border border-neo-ink bg-neo-muted px-1.5 py-0.5 text-[10px] font-bold uppercase text-neo-ink">
-                            {msg.blueprint.difficulty}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => handleCopyJson(msg.blueprint, msg.id)}
-                      className="shrink-0 border-2 border-neo-ink bg-neo-panel px-2.5 py-1 text-[11px] font-bold text-neo-ink hover:bg-neo-secondary touch-manipulation cursor-pointer"
-                    >
-                      {copiedId === msg.id ? (
-                        <span className="flex items-center gap-1 text-green-600">
-                          <FiCheck className="h-3 w-3" /> Copied!
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-1">
-                          <FiCopy className="h-3 w-3" /> Copy Spec
-                        </span>
-                      )}
-                    </button>
-                  </div>
-
-                  {/* Description */}
-                  {msg.blueprint.description && (
-                    <p className="text-xs text-neo-ink/80 leading-relaxed break-words">
-                      {msg.blueprint.description}
-                    </p>
-                  )}
-
-                  {/* Stack Grid - Mobile Friendly */}
-                  {msg.blueprint.stack && (
-                    <div>
-                      <div className="mb-1 flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-neo-ink/60">
-                        <FiLayers className="h-3 w-3" /> Recommended Stack
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                        {Object.entries(msg.blueprint.stack).map(([k, v]) => {
-                          if (!v || v === "none") return null;
-                          const label = STACK_LABELS[k] || k;
-                          const displayVal =
-                            k === "frontend" && FRONTEND_LABEL[v]
-                              ? FRONTEND_LABEL[v]
-                              : k === "backend" && BACKEND_LABEL[v]
-                              ? BACKEND_LABEL[v]
-                              : v;
-
-                          return (
-                            <div
-                              key={k}
-                              className="border border-neo-ink bg-neo-panel p-1.5"
-                            >
-                              <div className="text-[9px] font-black uppercase text-neo-ink/50">
-                                {label}
-                              </div>
-                              <div className="font-mono text-[11px] font-bold text-neo-ink break-words">
-                                {displayVal}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Features Chips */}
-                  {Array.isArray(msg.blueprint.features) && msg.blueprint.features.length > 0 && (
-                    <div>
-                      <div className="mb-1 text-[10px] font-black uppercase tracking-wider text-neo-ink/60">
-                        Key Features
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {msg.blueprint.features.map((feat, i) => (
-                          <span
-                            key={i}
-                            className="border border-neo-ink bg-neo-panel px-2 py-0.5 text-[10px] font-bold text-neo-ink"
-                          >
-                            ✓ {feat}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Rationale */}
-                  {msg.blueprint.rationale && (
-                    <p className="text-[11px] italic text-neo-ink/75 border-l-2 border-neo-accent pl-2 break-words">
-                      {typeof msg.blueprint.rationale === "string"
-                        ? msg.blueprint.rationale
-                        : msg.blueprint.rationale.stack || JSON.stringify(msg.blueprint.rationale)}
-                    </p>
-                  )}
-
-                  {/* Discuss on WhatsApp Button */}
-                  <div className="pt-1">
-                    <a
-                      href={buildWhatsAppLink(
-                        `Hi Junaid! I saw your AI Architecture Copilot and want to discuss "${msg.blueprint.projectName}" (${msg.blueprint.stack?.frontend || "React"} + ${msg.blueprint.stack?.backend || "Node.js"}).`
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-neo border-2 bg-emerald-500 px-3 py-2 text-xs font-black text-white hover:bg-emerald-600 w-full flex items-center justify-center gap-1.5 touch-manipulation cursor-pointer"
-                    >
-                      <FaWhatsapp className="h-4 w-4" />
-                      Discuss this build on WhatsApp
-                    </a>
-                  </div>
-                </div>
-              )}
             </div>
           ))}
 
