@@ -94,7 +94,9 @@ Given the user's prompt (which could be a project request, technical question, o
 Do NOT return markdown backticks or any conversational text outside the JSON object.
 `;
 
-// Helper: Safely parse JSON from LLM output (handles ```json fences if returned)
+// Helper: Safely parse JSON from LLM output. Never throws.
+// Handles ```json fences, prose wrapping a JSON object, and plain prose
+// (which returns null so callers can fall back gracefully).
 const cleanAndParseJson = (text) => {
     if (!text || typeof text !== "string") return null;
     let cleaned = text.trim();
@@ -104,9 +106,17 @@ const cleanAndParseJson = (text) => {
     const firstBrace = cleaned.indexOf("{");
     const lastBrace = cleaned.lastIndexOf("}");
     if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
-        cleaned = cleaned.substring(firstBrace, lastBrace + 1);
+        try {
+            return JSON.parse(cleaned.substring(firstBrace, lastBrace + 1));
+        } catch {
+            // Fall through and attempt the raw text below
+        }
     }
-    return JSON.parse(cleaned);
+    try {
+        return JSON.parse(cleaned);
+    } catch {
+        return null;
+    }
 };
 
 // Fallback generator when API key is missing or external provider fails
@@ -338,7 +348,16 @@ const buildBlueprint = async (prompt) => {
                     });
 
                     if (res.ok) {
-                        const data = await res.json();
+                        const bodyText = await res.text();
+                        let data = null;
+                        try {
+                            data = JSON.parse(bodyText);
+                        } catch {
+                            // Provider returned plain text (e.g. raw model prose
+                            // instead of a chat-completions envelope) — use it directly.
+                            rawContent = bodyText;
+                            if (rawContent) break;
+                        }
                         rawContent = data?.choices?.[0]?.message?.content || null;
                         if (rawContent) break;
                     } else {
@@ -463,6 +482,14 @@ const buildBlueprint = async (prompt) => {
             const parsed = cleanAndParseJson(rawContent);
             if (parsed && parsed.projectName && parsed.stack) {
                 return parsed;
+            }
+            // The model replied with plain prose (no JSON object) — surface its
+            // actual answer using the local build as structure instead of
+            // discarding it or crashing on a JSON.parse error.
+            if (parsed === null && typeof rawContent === "string" && rawContent.trim()) {
+                const fallback = generateLocalBlueprint(prompt);
+                fallback.answer = rawContent.trim();
+                return fallback;
             }
         }
 

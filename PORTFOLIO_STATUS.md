@@ -4,19 +4,44 @@
 > decisions, the animation work already done, blockers, and the next move —
 > so you don't have to re-analyze the whole project.
 
-## 📌 SESSION HANDOFF (last worked: 2026-09-15)
-**Where we stopped:** Fixed the IO-based visibility bug (Projects + Tech Stack Wall
-disappearing on desktop but fine on mobile). All work for that is DONE and
-verified in headless Chrome. We stopped here for the day.
+## 📌 SESSION HANDOFF (last worked: 2026-09-18)
+**Where we stopped:** AI Copilot upgrades (server + client):
+- **Fixed "AI always returns fallback":** `.env` used `AI_API` / `AI_MODEL` /
+  `AI_BASE_URL`, but `Aicontroller.js` only read `*_API_KEY` names → `apiKey` was
+  always undefined. Now reads the real names and calls the configured
+  OpenAI-compatible endpoint (`AI_BASE_URL` + `/chat/completions`, Bearer `AI_API`),
+  then Gemini/OpenAI/Anthropic/Groq branches, then local fallback.
+- **Model selection (free tier):** `.env` now `AI_MODEL=gemini-3.5-flash`
+  (3.6-flash was congested with 503s). Code fallback chain:
+  `[AI_MODEL || "gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.1-flash-lite",
+  "gemini-3.8-flash"]`, with retries (≤3) on 429/503. Free tier can hit a daily 429 —
+  auto-fall to next model keeps responses flowing.
+- **Richer recruiter answers:** `JUNAID_CONTEXT` now carries the full developer
+  profile + project details + RESPONSE RULES (recruiter questions → detailed
+  multi-paragraph answer referencing real projects, strengths & contact). The local
+  `generateLocalBlueprint` got recruiter-intent detection (regex) that returns a full
+  profile answer, and the mobile/AI/e-com branches now reference the real matching
+  project (Wall-E, AI Resume Analyzer + MCP Analyzer, Online Book Shopping).
+- **Answer formatting:** prompt + fallback answers use `- ` bullets, **bold** tech
+  keywords, ALL-CAPS section headers, and short spaced paragraphs; chat bubble renders
+  them via a new `FormattedText` component (bold / inline-code / bullets / headers /
+  blank-line spacing).
+- **Rate limiting:** server already had `express-rate-limit` (30 req / 10 min per IP)
+  on `/api/ai/blueprint`; fixed the client bypass — cooldown timestamp is now
+  module-scoped (`lastAiRequestAt`, 8s) so clearing chat history / reopening the chat
+  cannot reset it.
+
+**Verified:** `node --check` on `Aicontroller.js`; a live call returned a formatted,
+keyword-rich recruiter answer; `npm run build` passes (Vite).
 
 **Resume tomorrow, first thing:**
-1. Ask user to hard-refresh (Ctrl+F5) the desktop page and confirm **Works** +
-   **Tech Stack Wall** now render in desktop view. If STILL missing → do NOT touch
-   the reveal system again; investigate further (check if they're viewing the dev
-   server or a stale deployed build; check DevTools console for errors).
-2. If confirmed → mark the Next Move checkbox below as done, then optionally:
-   animate the search modal open/close, and double-check dark+light / mobile+desktop
-   visuals in dev.
+1. Ask user to re-test the AI chatbot in dev (`npm run dev` at root) after the
+   free-tier quota resets (I hit a daily 429 during testing — still succeeded via the
+   next model, but logs show `exceeded your current quota`).
+2. If AI still feels slow: cap retries / add `AbortController` timeout to the
+   custom-endpoint fetch in `buildBlueprint`.
+3. Optional: tighten the server limiter (currently 30/10min) or run a response-quality
+   pass on recruiter answers.
 
 **State facts (do not re-verify, just rely on):**
 - Reveals are deterministic via `getBoundingClientRect` + scroll listeners
@@ -24,10 +49,8 @@ verified in headless Chrome. We stopped here for the day.
   `IntersectionObserver`/`whileInView`.
 - `Projects.jsx` rows: each revealed per-row via `<Reveal threshold={0.95}>`.
 - `Skills.jsx` sticker wall keys: `key={s + '-' + i}` (duplicate-key fix).
-- `npm run build` passes; headless Chrome verified both sections visible
-  (opacity 1) at 1280×900 and 390×844, zero console errors.
-- Dev server on port 3000 (`cd client && npm run dev`). Puppeteer check scripts
-  live in `C:\Users\JUNAID~1\AppData\Local\Temp\opencode\check3.js` & `check4.js`.
+- AI config lives in `server/.env` (`AI_API`, `AI_MODEL`, `AI_BASE_URL`).
+- Dev server on port 3000 (`cd client && npm run dev`); API on 5000.
 - Main open item pending user confirmation — commit ONLY when the user asks.
 
 ## 🎨 DESIGN SYSTEM — Neo-Brutalism (current)
@@ -130,7 +153,10 @@ verified in headless Chrome. We stopped here for the day.
 - `context/ThemeContext.jsx` — default theme **dark**, persists via localStorage.
 - `context/SearchContext.jsx` — Ctrl+K search.
 - `Motion.jsx` — shared motion primitives + `useInViewCheck` (see Animation section).
-- `ai/chatbot.jsx` — AI Architecture & Recruiter Copilot: interactive prompt interface for blueprints and recruiter queries, integrated with `/api/ai/blueprint`.
+- `ai/chatbot.jsx` — AI Architecture & Recruiter Copilot: interactive prompt interface
+  for blueprints and recruiter queries, integrated with `/api/ai/blueprint`. 8s
+  module-scoped send cooldown (`lastAiRequestAt`), `FormattedText` renderer for
+  bold/bullets/ALL-CAPS headers. Chips call `handleSendMessage` (subject to cooldown).
 - `App.jsx` — section order, Preloader→PageLoader→content flow, Marquee rows
   (second has `reverse` + `tone="accent"`), lazy sections with skeletons.
 
@@ -141,15 +167,22 @@ verified in headless Chrome. We stopped here for the day.
 - `favicon.svg`, `junaidMansoori_Resume.pdf`
 
 ## Verified Working
-- `npm run build` passes (main bundle ~321 kB / ~101 kB gzip; 531 modules). No Tailwind warnings;
+- `npm run build` passes (main bundle ~340 kB / ~107 kB gzip). No Tailwind warnings;
   no invalid `rgb(var(--neo...))` artifacts in compiled CSS.
 - Headless Chrome (puppeteer-core, dev server port 3000): all 5 project rows at
   `opacity: 1` AND tech-stack wall fully visible (`opacity 1`, 120 sticker divs)
   on desktop 1280×900 and mobile 390×844 — zero console errors, zero duplicate-key warnings.
+- AI endpoint: `node --check` passes on `server/controller/Aicontroller.js`; live
+  Gemini call (via `AI_API` + OpenAI-compatible `AI_BASE_URL`) returned formatted,
+  keyword-rich recruiter answers. `generateLocalBlueprint` tested for recruiter /
+  mobile / AI / e-com intents.
 
 ## Next Move / Open Items
 - [ ] **User confirmation (tomorrow):** hard-refresh (Ctrl+F5) and confirm Projects
       + Tech Stack Wall now render on their desktop (IO-based visibility bug fix).
+- [ ] **AI chatbot re-test:** after the free-tier Gemini quota resets, confirm live
+      answers (not fallback) in dev (`npm run dev` at root); watch for daily 429s.
+- [ ] If AI feels slow: cap retries / add `AbortController` timeout in `buildBlueprint`.
 - [ ] Visually verify dark+light, mobile vs desktop in dev (`cd client && npm run dev`).
 - [ ] Optionally animate the search modal open/close (currently CSS).
 - [ ] Verify server runs (`npm run dev` at root) if touching `/api/contact`.
