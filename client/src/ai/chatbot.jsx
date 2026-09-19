@@ -13,7 +13,7 @@ import {
   FiCode
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import { buildWhatsAppLink } from "../constants";
+import { buildWhatsAppLink, API_BASE_URL } from "../constants";
 import Portal from "../components/Portal";
 
 const STACK_LABELS = {
@@ -48,9 +48,7 @@ const SUGGESTED_PROMPTS = [
 const COOLDOWN_MS = 8000;
 let lastAiRequestAt = 0;
 
-const API_ENDPOINT = import.meta.env.VITE_API_URL
-  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/api/ai/blueprint`
-  : "/api/ai/blueprint";
+const API_ENDPOINT = `${API_BASE_URL}/api/ai/blueprint`;
 
 const INLINE_RE = /(\*\*[^*]+\*\*|`[^`]+`)/g;
 
@@ -195,20 +193,45 @@ export default function AiChatbot({ isOpen, onClose }) {
         body: JSON.stringify({ prompt: query.trim() })
       });
 
-      const json = await response.json();
-
-      if (!response.ok || !json.success) {
-        throw new Error(json.message || "Failed to generate AI response.");
+      // Read as text first so a non-JSON body (e.g. a proxy that returns the
+      // model's raw prose) can't throw "Unexpected token ... is not valid JSON".
+      const rawText = await response.text();
+      let json = null;
+      try {
+        json = rawText ? JSON.parse(rawText) : null;
+      } catch {
+        json = null;
       }
 
-      const botMessage = {
-        id: `bot-${Date.now()}`,
-        role: "assistant",
-        text: json.data?.answer || `Here is the architectural blueprint for "${json.data?.projectName || "your project"}":`,
-        blueprint: json.data
-      };
+      const body = (rawText || "").trim();
+      const isHtml = /^\s*<(?:!DOCTYPE|html)/i.test(body);
 
-      setMessages((prev) => [...prev, botMessage]);
+      if (json && json.success && json.data) {
+        const botMessage = {
+          id: `bot-${Date.now()}`,
+          role: "assistant",
+          text: json.data?.answer || `Here is the architectural blueprint for "${json.data?.projectName || "your project"}":`,
+          blueprint: json.data
+        };
+        setMessages((prev) => [...prev, botMessage]);
+      } else if (!response.ok) {
+        throw new Error(json?.message || `Request failed (${response.status}). Please try again.`);
+      } else if (isHtml) {
+        throw new Error("The server returned an unexpected response. Please try again.");
+      } else if (body) {
+        // 2xx with a plain-text body — surface the raw response as the answer.
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: `bot-${Date.now()}`,
+            role: "assistant",
+            text: body.slice(0, 4000),
+            blueprint: null
+          }
+        ]);
+      } else {
+        throw new Error("Failed to generate AI response.");
+      }
     } catch (err) {
       console.error("[AiChatbot] Error:", err);
       const errorMessage = {

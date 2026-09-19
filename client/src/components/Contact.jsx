@@ -3,7 +3,7 @@ import axios from 'axios'
 import { FiMail, FiPhone, FiGithub, FiSend, FiCheckCircle, FiAlertCircle, FiLoader, FiArrowRight, FiDownload } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { StatCardSkeleton } from './Skeleton'
-import { buildWhatsAppLink } from '../constants'
+import { buildWhatsAppLink, API_BASE_URL } from '../constants'
 import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const DotGrid = lazy(() => import('./DotGrid'))
@@ -17,8 +17,6 @@ const contactInfo = [
 ]
 
 const initialForm = { name: '', email: '', subject: '', message: '' }
-
-const API_URL = (import.meta.env.VITE_API_URL || 'https://portfolio-3-xx49.onrender.com').replace(/\/$/, '')
 
 export default React.memo(function Contact() {
   const [form, setForm] = useState(initialForm)
@@ -58,7 +56,7 @@ export default React.memo(function Contact() {
     setLoading(true)
     setStatus(null)
     try {
-      await axios.post(`${API_URL}/api/contact`, form)
+      await axios.post(`${API_BASE_URL}/api/contact`, form)
 
       const formData = new FormData()
       formData.append('access_key', '1335541c-e464-4845-bbdd-534e12901be9')
