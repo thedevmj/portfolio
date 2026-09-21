@@ -10,6 +10,7 @@
     "build": "cd client && npm run build"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "concurrently": "^8.2.2",
     "motion": "^13.4.0"
   }
