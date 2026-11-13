@@ -5,39 +5,52 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Neo-brutalism tokens (resolved via CSS variables so dark mode inverts them)
-        'neo-bg': 'var(--neo-bg)', // Cream canvas
-        'neo-panel': 'var(--neo-panel)', // Card interiors
-        'neo-ink': 'var(--neo-ink)', // Text + borders + shadows (black / cream in dark)
-        'neo-accent': 'var(--neo-accent)', // Hot red
-        'neo-secondary': 'var(--neo-secondary)', // Vivid yellow
-        'neo-muted': 'var(--neo-muted)', // Soft violet
-        'neo-white': '#FFFFFF'
+        // Theme tokens resolved through CSS variables (see index.css).
+        // Colors are full values — never use opacity modifiers on them.
+        bg: 'var(--bg)',
+        elev: 'var(--bg-elev)',
+        'elev-2': 'var(--bg-elev-2)',
+        glass: 'var(--glass)',
+        fg: 'var(--fg)',
+        muted: 'var(--fg-muted)',
+        line: 'var(--line)',
+        'line-strong': 'var(--line-strong)',
+        accent: 'var(--accent)',
+        'accent-2': 'var(--accent-2)',
+        'on-accent': 'var(--on-accent)'
       },
       fontFamily: {
-        sans: ['"Space Grotesk"', 'system-ui', 'sans-serif']
+        sans: ['Manrope', 'system-ui', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace']
+      },
+      maxWidth: {
+        '8xl': '90rem'
+      },
+      borderRadius: {
+        '4xl': '2rem',
+        '5xl': '2.75rem'
+      },
+      letterSpacing: {
+        tightest: '-0.055em'
       },
       boxShadow: {
-        'neo-sm': '4px 4px 0px 0px var(--neo-shadow)',
-        'neo-md': '8px 8px 0px 0px var(--neo-shadow)',
-        'neo-lg': '12px 12px 0px 0px var(--neo-shadow)',
-        'neo-xl': '16px 16px 0px 0px var(--neo-shadow)',
-        'neo-white': '4px 4px 0px 0px #fff'
+        soft: '0 30px 80px -48px rgba(0,0,0,0.55)',
+        lift: '0 50px 110px -60px rgba(0,0,0,0.7)'
       },
       animation: {
-        'marquee': 'marquee 22s linear infinite',
-        'marquee-reverse': 'marquee 22s linear infinite reverse',
-        'float': 'float 6s ease-in-out infinite',
-        'spin-slow': 'spin 12s linear infinite'
+        marquee: 'marquee 32s linear infinite',
+        'pulse-soft': 'pulseSoft 5s ease-in-out infinite',
+        'spin-slow': 'spin 22s linear infinite'
       },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' }
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px) rotate(var(--float-rot, 0deg))' },
-          '50%': { transform: 'translateY(-14px) rotate(var(--float-rot, 0deg))' }
+        pulseSoft: {
+          '0%, 100%': { opacity: '0.35', transform: 'scale(1)' },
+          '50%': { opacity: '0.75', transform: 'scale(1.08)' }
         }
       }
     }

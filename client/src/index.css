@@ -2,240 +2,249 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   NOCTURNE — editorial dark/light design system
+   Warm paper in light mode, near-black in dark mode. Signal-orange accent,
+   hairline borders, soft radii, generous type. Never use Tailwind opacity
+   modifiers on var() colors — use dedicated tokens or element opacity.
+   ========================================================================== */
+
 @layer base {
   :root {
-    --neo-bg: #FFFDF5;      /* Cream canvas */
-    --neo-panel: #FFFFFF;   /* Card interiors */
-    --neo-ink: #000000;     /* Text / borders / shadows */
-    --neo-accent: #FF6B6B;  /* Hot red */
-    --neo-secondary: #FFD93D; /* Vivid yellow */
-    --neo-muted: #C4B5FD;   /* Soft violet */
-    --neo-shadow: #000000;
+    --bg: #f5f2ea;
+    --bg-elev: #ffffff;
+    --bg-elev-2: #ece8de;
+    --glass: rgba(245, 242, 234, 0.72);
+    --fg: #0f0f12;
+    --fg-muted: #63636b;
+    --line: rgba(15, 15, 18, 0.13);
+    --line-strong: rgba(15, 15, 18, 0.32);
+    --accent: #ff4d1c;
+    --accent-2: #4353ff;
+    --on-accent: #0a0a0b;
+    --glow: rgba(255, 77, 28, 0.26);
     color-scheme: light;
   }
 
   html.dark {
-    --neo-bg: #151310;      /* Deep warm black */
-    --neo-panel: #201c18;   /* Slightly lifted panel */
-    --neo-ink: #FFFDF5;     /* Cream ink + borders */
-    --neo-accent: #FF6B6B;
-    --neo-secondary: #FFD93D;
-    --neo-muted: #453A7D;    /* Deep violet — holds cream text in dark */
-    --neo-shadow: #FFFDF5;  /* Cream hard shadows */
+    --bg: #08080a;
+    --bg-elev: #101013;
+    --bg-elev-2: #17171c;
+    --glass: rgba(8, 8, 10, 0.66);
+    --fg: #f4f1e9;
+    --fg-muted: #8e8e97;
+    --line: rgba(244, 241, 233, 0.13);
+    --line-strong: rgba(244, 241, 233, 0.3);
+    --accent: #ff5c2b;
+    --accent-2: #8fa6ff;
+    --on-accent: #0a0a0b;
+    --glow: rgba(255, 92, 43, 0.32);
     color-scheme: dark;
   }
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 0;
+    scroll-padding-top: 112px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply font-sans antialiased text-neo-ink bg-neo-bg transition-colors duration-200;
+    @apply bg-bg text-fg font-sans antialiased;
+    overflow-x: hidden;
   }
 
   ::selection {
-    background-color: #FF6B6B;
-    color: #000000;
-    text-shadow: none;
+    background: var(--accent);
+    color: var(--on-accent);
   }
 
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  textarea:focus-visible,
-  select:focus-visible {
-    outline: 4px solid #FF6B6B;
-    outline-offset: 2px;
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
-  /* Hide scrollbar like a tape */
-  html {
-    scrollbar-width: none;
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
   }
-  body::-webkit-scrollbar {
-    display: none;
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
 @layer components {
-  /* ---- Buttons ---- */
-  .btn-neo {
-    @apply inline-flex items-center justify-center gap-2
-      border-4 border-neo-ink
-      font-black text-sm uppercase tracking-wider
-      shadow-neo-md
-      duration-100 cursor-pointer select-none
-      active:translate-x-1 active:translate-y-1 active:shadow-none;
-  }
-  .btn-primary {
-    @apply btn-neo bg-neo-accent text-white hover:shadow-neo-lg;
-  }
-  .btn-secondary {
-    @apply btn-neo bg-neo-secondary text-black hover:shadow-neo-lg;
-  }
-  .btn-outline {
-    @apply btn-neo bg-neo-panel text-neo-ink hover:bg-neo-secondary hover:text-black hover:shadow-neo-lg;
-  }
-  .btn-press {
-    @apply active:translate-x-1 active:translate-y-1 active:shadow-none duration-100;
-  }
-  .card-lift {
-    @apply duration-200 hover:-translate-y-2 hover:shadow-neo-lg;
-  }
-
   /* ---- Layout ---- */
-  .container-neo {
-    @apply mx-auto max-w-6xl px-4 sm:px-6 md:px-8;
+  .container-wide {
+    @apply mx-auto w-full max-w-8xl px-5 sm:px-8 lg:px-12;
   }
-  .section-pad {
-    @apply px-4 sm:px-6 md:px-8 py-16 md:py-24 lg:py-32;
-  }
-
-  /* ---- Labels ---- */
-  .section-label-tag {
-    @apply inline-block
-      px-4 py-2
-      bg-neo-secondary border-4 border-neo-ink
-      font-black text-xs uppercase tracking-widest
-      shadow-neo-sm transform -rotate-1;
+  .section {
+    @apply py-24 md:py-32;
   }
 
-  /* ---- Cards / chips ---- */
-  .neo-card {
-    @apply bg-neo-panel border-4 border-neo-ink rounded-none shadow-neo-md;
+  /* ---- Type ---- */
+  .eyebrow {
+    @apply font-mono text-[11px] font-medium uppercase text-muted;
+    letter-spacing: 0.26em;
   }
-  .neo-chip {
-    @apply bg-neo-muted border-2 border-neo-ink px-3 py-1 text-xs font-black uppercase;
+  .display {
+    @apply font-serif font-normal;
+    letter-spacing: -0.035em;
   }
-  .neo-chip-white {
-    @apply bg-neo-panel border-2 border-neo-ink px-3 py-1 text-xs font-black uppercase;
+
+  /* ---- Buttons ---- */
+  .btn {
+    @apply inline-flex cursor-pointer select-none items-center justify-center gap-2
+      whitespace-nowrap rounded-full px-6 py-3 text-sm font-semibold
+      transition-all duration-200;
+  }
+  .btn-lg {
+    @apply px-7 py-4 text-[15px];
+  }
+  .btn-accent {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 46px -18px var(--glow);
+  }
+  .btn-accent:active {
+    transform: translateY(0);
+  }
+  .btn-ghost {
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+  }
+  .btn-ghost:hover {
+    border-color: var(--fg);
+    background: var(--bg-elev);
+    transform: translateY(-2px);
+  }
+  .btn-solid {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .btn-solid:hover {
+    transform: translateY(-2px);
+  }
+
+  /* ---- Surfaces ---- */
+  .card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+  }
+  .card-hover {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+    box-shadow: 0 44px 100px -56px rgba(0, 0, 0, 0.6);
+  }
+
+  /* ---- Pills / tags ---- */
+  .chip {
+    @apply inline-flex items-center rounded-full border px-3 py-1.5
+      font-mono text-[10px] font-medium uppercase tracking-wider
+      transition-colors duration-200;
+    border-color: var(--line-strong);
+    color: var(--fg-muted);
+  }
+  .chip:hover {
+    border-color: var(--fg);
+    color: var(--fg);
+  }
+
+  /* ---- Form fields ---- */
+  .field {
+    @apply w-full rounded-xl border bg-bg px-4 py-3.5 text-sm font-medium
+      text-fg outline-none transition-all duration-200;
+    border-color: var(--line);
+  }
+  .field::placeholder {
+    color: var(--fg-muted);
+  }
+  .field:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--glow);
+  }
+  .field-error {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 4px var(--glow);
+  }
+
+  /* ---- Misc ---- */
+  .rule {
+    border-top: 1px solid var(--line);
+  }
+  .icon-btn {
+    @apply inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center
+      rounded-full border transition-all duration-200;
+    border-color: var(--line-strong);
+    color: var(--fg);
+  }
+  .icon-btn:hover {
+    border-color: var(--fg);
+    background: var(--bg-elev);
+    transform: translateY(-1px);
   }
 }
 
 @layer utilities {
-  /* ---- Section heading block ---- */
-  .section-head .section-title {
-    @apply mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.95] text-neo-ink;
-  }
-  .section-head .section-label {
-    @apply inline-block px-3 py-1.5 bg-neo-muted border-2 border-neo-ink text-xs font-black uppercase tracking-widest shadow-neo-sm;
-  }
-
-  /* ---- Text stroke (outlined display text) ---- */
-  .text-stroke {
-    -webkit-text-stroke: 3px var(--neo-ink);
+  .text-outline {
+    -webkit-text-stroke: 1px var(--line-strong);
     color: transparent;
   }
-  html.dark .text-stroke {
-    -webkit-text-stroke-color: var(--neo-ink);
-  }
 
-  /* ---- Hard shadow text ---- */
-  .text-shadow-neo {
-    text-shadow: 4px 4px 0 var(--neo-shadow);
-  }
-
-  /* ---- Texture: halftone dots ---- */
-  .halftone {
-    background-image: radial-gradient(var(--neo-ink) 1px, transparent 1px);
-    background-size: 14px 14px;
-    opacity: 0.07;
-  }
-  /* ---- Texture: blueprint grid ---- */
-  .grid-paper {
+  /* Blueprint grid, masked so it fades out */
+  .grid-lines {
     background-image:
-      repeating-linear-gradient(0deg, transparent 0 calc(100% - 3px), var(--neo-ink) calc(100% - 3px) 100%),
-      repeating-linear-gradient(90deg, transparent 0 calc(100% - 3px), var(--neo-ink) calc(100% - 3px) 100%);
-    background-size: 64px 64px;
-    opacity: 0.14;
-  }
-  /* ---- Texture: tape stripes ---- */
-  .tape-stripes {
-    background-image: repeating-linear-gradient(90deg, var(--neo-ink) 0 24px, transparent 24px 48px);
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 92px 92px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 25%, #000 15%, transparent 78%);
+    mask-image: radial-gradient(ellipse at 50% 25%, #000 15%, transparent 78%);
   }
 
-  /* ---- Marquee ---- */
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  /* Film grain */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+  html.dark .grain {
+    opacity: 0.06;
+  }
+
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
   .marquee-track {
-    animation: marquee 22s linear infinite;
+    animation: marquee 32s linear infinite;
     white-space: nowrap;
     will-change: transform;
-  }
-  .marquee-mask {
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
   }
   .marquee-pause:hover {
     animation-play-state: paused;
   }
 
-  /* ---- Hero mask-line reveal ---- */
-  .mask-line-wrap {
-    overflow: hidden;
-    display: block;
-  }
-  .mask-line {
-    display: block;
-    transform: translateY(110%);
-    animation: maskUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  @keyframes maskUp {
-    0% { transform: translateY(110%); }
-    100% { transform: translateY(0); }
-  }
-
-  /* ---- Blinking caret ---- */
-  .typing-caret {
-    display: inline-block;
-    width: 0.14em;
-    background: currentColor;
-    margin-left: 0.08em;
-    animation: caretBlink 1s steps(1) infinite;
-  }
-  @keyframes caretBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  /* ---- Mechanical character reveal ---- */
-  .mech-char {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(40%) rotate(6deg);
-    animation: mechChar 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-  @keyframes mechChar {
-    to { opacity: 1; transform: translateY(0) rotate(0); }
-  }
-
-  /* ---- Gentle float ---- */
-  .float-soft { animation: floatSoft 6s ease-in-out infinite; }
-  @keyframes floatSoft {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
-
-  /* ---- Bounce hint ---- */
-  .bounce-down { animation: bounceDown 2s ease-in-out infinite; }
-  @keyframes bounceDown {
-    0%, 100% { transform: translateY(0); opacity: 0.4; }
-    50% { transform: translateY(8px); opacity: 1; }
-  }
-
-  /* ---- Search result highlight flash ---- */
-  @keyframes search-flash {
-    0% { box-shadow: 0 0 0 8px rgba(255, 107, 107, 0.65); }
-    100% { box-shadow: 0 0 0 8px rgba(255, 107, 107, 0); }
-  }
-  .search-highlight {
-    animation: search-flash 1.2s ease-out 2;
-  }
-
-  /* ---- Link underline ---- */
   .link-underline {
     position: relative;
   }
@@ -243,48 +252,105 @@
     content: '';
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -3px;
+    height: 1px;
     width: 100%;
-    height: 3px;
-    background: var(--neo-ink);
+    background: currentColor;
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .link-underline:hover::after {
     transform: scaleX(1);
     transform-origin: left;
   }
+
+  .bounce-down {
+    animation: bounceDown 2.2s ease-in-out infinite;
+  }
+
+  .typing-caret {
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    background: currentColor;
+    vertical-align: -0.12em;
+    animation: caretBlink 1s steps(1) infinite;
+  }
+
+  .mech-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(38%);
+    animation: mechChar 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .search-highlight {
+    animation: search-flash 1.4s ease-out 2;
+  }
 }
 
-/* ---- Custom cursor ---- */
+/* ==========================================================================
+   Keyframes (top level — Tailwind only emits keyframes used by utilities)
+   ========================================================================== */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(7px); opacity: 1; }
+}
+@keyframes caretBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes mechChar {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes searchFlash {
+  0% { box-shadow: inset 0 0 0 2px var(--accent); }
+  100% { box-shadow: inset 0 0 0 2px transparent; }
+}
+@keyframes search-flash {
+  0% { box-shadow: inset 0 0 0 2px var(--accent); }
+  100% { box-shadow: inset 0 0 0 2px transparent; }
+}
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Custom cursor
+   ========================================================================== */
 .cursor-dot,
 .cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
+  pointer-events: none;
   will-change: transform;
+  mix-blend-mode: difference;
 }
 .cursor-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 9999px;
+  height: 5px;
+  width: 5px;
+  border-radius: 999px;
   background: #fff;
 }
 .cursor-ring {
-  width: 40px;
-  height: 40px;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
   display: flex;
+  height: 34px;
+  width: 34px;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #fff;
   opacity: 0;
@@ -296,7 +362,9 @@
   }
 }
 
-/* ---- Reduced motion ---- */
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
@@ -304,7 +372,6 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .mask-line,
   .mech-char {
     opacity: 1;
     transform: none;

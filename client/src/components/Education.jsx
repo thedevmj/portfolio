@@ -8,29 +8,34 @@ const education = [
 
 export default React.memo(function Education() {
   return (
-    <section id="education" className="relative border-b-4 border-neo-ink bg-neo-secondary">
-      <div className="section-pad container-neo">
-        <Reveal className="section-head">
-          <span className="section-label !bg-neo-white !text-black">( education )</span>
-          <h2 className="section-title text-black">Education</h2>
+    <section id="education" className="section relative border-t border-line">
+      <div className="container-wide">
+        <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="eyebrow">06 / Education</span>
+            <h2 className="display mt-5 text-5xl leading-none sm:text-6xl md:text-7xl">
+              Education<span className="text-accent">.</span>
+            </h2>
+          </div>
+          <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">
+            Formal grounding in computer science, paired with continuous self-directed
+            practice.
+          </p>
         </Reveal>
 
-        <Stagger className="mt-10 md:mt-14 grid md:grid-cols-2 gap-6 md:gap-8" gap={0.1}>
-          {education.map((ed, i) => (
+        <Stagger className="mt-12 grid gap-5 md:grid-cols-2" gap={0.08}>
+          {education.map((ed) => (
             <StaggerItem key={ed.title}>
-              <div className="bg-neo-white border-4 border-neo-ink shadow-neo-md card-lift p-6 sm:p-8 md:p-10 relative text-black h-full">
-              <span className="absolute -top-4 left-6 bg-neo-accent border-4 border-neo-ink px-4 py-1.5 font-black text-xs uppercase tracking-widest shadow-neo-sm transform rotate-2 tabular-nums text-white">
-                {ed.year}
-              </span>
-              <span className="absolute top-5 right-5 inline-block bg-neo-muted border-2 border-neo-ink px-3 py-1 text-[10px] font-black uppercase tracking-widest shadow-neo-sm text-neo-ink">
-                {ed.type}
-              </span>
-              <h3 className="mt-8 text-2xl md:text-3xl font-black uppercase tracking-tighter leading-tight">
-                {ed.title}
-              </h3>
-              <p className="mt-3 text-sm md:text-base font-bold opacity-60">
-                {ed.institution}
-              </p>
+              <div className="card card-hover h-full p-6 sm:p-8 md:p-9">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="rounded-full bg-accent px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-on-accent">
+                    {ed.year}
+                  </span>
+                  <span className="chip">{ed.type}</span>
+                </div>
+
+                <h3 className="display mt-6 text-2xl leading-tight sm:text-[1.9rem]">{ed.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{ed.institution}</p>
               </div>
             </StaggerItem>
           ))}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiMail, FiPhone, FiGithub, FiDownload } from 'react-icons/fi'
+import { FiMail, FiPhone, FiGithub, FiDownload, FiArrowUp } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppLink } from '../constants'
 import { Reveal, Stagger, StaggerItem } from './Motion'
@@ -17,29 +17,37 @@ export default React.memo(function Footer() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <footer className="relative bg-neo-secondary border-t-4 border-neo-ink">
-      <div className="container-neo py-14 md:py-20">
-        <div className="grid gap-10 md:gap-12 md:grid-cols-3">
+    <footer className="relative border-t border-line">
+      <div className="container-wide py-14 md:py-20">
+        <div className="grid gap-12 md:grid-cols-12">
           {/* Brand */}
-          <Reveal>
-            <div className="inline-block bg-neo-accent border-4 border-neo-ink px-5 py-3 shadow-neo-sm transform -rotate-1">
-              <p className="font-black text-xl uppercase tracking-tight text-white" style={{ textShadow: '3px 3px 0 #000' }}>
-                Junaid Mansoori
-              </p>
-            </div>
-            <p className="mt-5 text-sm font-black uppercase tracking-widest text-black">Full Stack Developer</p>
-            <p className="mt-1 text-sm font-bold uppercase tracking-widest text-black opacity-60">MERN • AI • React Native</p>
+          <Reveal className="md:col-span-6">
+            <button onClick={() => scrollTo('home')} className="text-left">
+              <span className="display block text-[clamp(2.4rem,7vw,5rem)] leading-[0.9] tracking-tight">
+                Junaid <span className="italic text-accent">Mansoori</span>
+              </span>
+            </button>
+            <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+              Full Stack Developer
+            </p>
+            <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+              MERN · AI · React Native
+            </p>
+            <button onClick={() => scrollTo('contact')} className="btn btn-accent mt-7">
+              Start a project
+            </button>
           </Reveal>
 
           {/* Navigation */}
-          <Reveal delay={0.1}>
-            <h4 className="inline-block bg-black border-2 border-black text-white px-3 py-1.5 text-xs font-black uppercase tracking-widest mb-5">
-              Sitemap
-            </h4>
-            <Stagger as="ul" className="space-y-2.5" gap={0.05}>
+          <Reveal delay={0.1} className="md:col-span-3">
+            <h4 className="eyebrow">Sitemap</h4>
+            <Stagger as="ul" className="mt-5 space-y-2.5" gap={0.05}>
               {navLinks.map((l) => (
                 <StaggerItem as="li" key={l.id}>
-                  <button onClick={() => scrollTo(l.id)} className="font-black uppercase tracking-wide text-sm text-black hover:text-neo-accent link-underline cursor-pointer">
+                  <button
+                    onClick={() => scrollTo(l.id)}
+                    className="link-underline text-sm font-medium text-muted transition-colors hover:text-fg"
+                  >
                     {l.label}
                   </button>
                 </StaggerItem>
@@ -48,23 +56,53 @@ export default React.memo(function Footer() {
           </Reveal>
 
           {/* Contact */}
-          <Reveal delay={0.2}>
-            <h4 className="inline-block bg-black border-2 border-black text-white px-3 py-1.5 text-xs font-black uppercase tracking-widest mb-5">
-              Contact
-            </h4>
-            <Stagger as="ul" className="space-y-3 text-sm text-black font-bold" gap={0.04}>
-              <StaggerItem as="li"><a href="mailto:junaidmansuri71@gmail.com" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FiMail size={14} /> junaidmansuri71@gmail.com</a></StaggerItem>
-              <StaggerItem as="li"><a href="tel:9649354858" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FiPhone size={14} /> 9649354858</a></StaggerItem>
-              <StaggerItem as="li"><a href={buildWhatsAppLink()} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FaWhatsapp size={14} /> WhatsApp</a></StaggerItem>
-              <StaggerItem as="li"><a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FiGithub size={14} /> github.com/thedevmj</a></StaggerItem>
-              <StaggerItem as="li"><a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" className="flex items-center gap-2 hover:text-neo-accent transition-colors"><FiDownload size={14} /> Download Resume</a></StaggerItem>
+          <Reveal delay={0.18} className="md:col-span-3">
+            <h4 className="eyebrow">Contact</h4>
+            <Stagger as="ul" className="mt-5 space-y-3 text-sm font-medium text-muted" gap={0.04}>
+              <StaggerItem as="li">
+                <a href="mailto:junaidmansuri71@gmail.com" className="flex items-center gap-2 transition-colors hover:text-fg">
+                  <FiMail size={13} /> junaidmansuri71@gmail.com
+                </a>
+              </StaggerItem>
+              <StaggerItem as="li">
+                <a href="tel:9649354858" className="flex items-center gap-2 transition-colors hover:text-fg">
+                  <FiPhone size={13} /> 9649354858
+                </a>
+              </StaggerItem>
+              <StaggerItem as="li">
+                <a href={buildWhatsAppLink()} target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors hover:text-fg">
+                  <FaWhatsapp size={13} /> WhatsApp
+                </a>
+              </StaggerItem>
+              <StaggerItem as="li">
+                <a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors hover:text-fg">
+                  <FiGithub size={13} /> github.com/thedevmj
+                </a>
+              </StaggerItem>
+              <StaggerItem as="li">
+                <a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" className="flex items-center gap-2 transition-colors hover:text-fg">
+                  <FiDownload size={13} /> Download resume
+                </a>
+              </StaggerItem>
             </Stagger>
           </Reveal>
         </div>
 
-        <div className="mt-12 pt-6 border-t-4 border-neo-ink flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-black uppercase tracking-widest text-black">
-          <span>© 2026 Mohammad Junaid Mansoori. All rights reserved.</span>
-          <span className="bg-neo-panel border-2 border-neo-ink px-3 py-1.5 shadow-neo-sm">EN</span>
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-line pt-6 sm:flex-row">
+          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+            © 2026 Mohammad Junaid Mansoori. All rights reserved.
+          </span>
+          <div className="flex items-center gap-4">
+            <span className="rounded-full border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+              EN
+            </span>
+            <button
+              onClick={() => scrollTo('home')}
+              className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted transition-colors hover:text-fg"
+            >
+              Back to top <FiArrowUp size={13} />
+            </button>
+          </div>
         </div>
       </div>
     </footer>

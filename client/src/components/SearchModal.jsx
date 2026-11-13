@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import { FiSearch, FiX, FiArrowRight } from 'react-icons/fi'
+import { FiSearch, FiX, FiArrowUpRight } from 'react-icons/fi'
 import Portal from './Portal'
 import { useSearch } from '../context/SearchContext.jsx'
 
@@ -59,57 +59,60 @@ export default function SearchModal() {
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-[70] flex items-start justify-center p-4 pt-[12vh] bg-black/60"
+        className="fixed inset-0 z-[70] flex items-start justify-center bg-black/60 p-4 pt-[12vh] backdrop-blur-sm"
         onClick={closeSearch}
         role="dialog"
         aria-modal="true"
         aria-label="Search portfolio"
       >
         <div
-          className="w-full max-w-lg max-h-[70vh] flex flex-col overflow-hidden bg-neo-bg border-4 border-neo-ink shadow-neo-lg"
+          className="flex max-h-[70vh] w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-line bg-bg shadow-lift"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center gap-3 p-4 border-b-4 border-neo-ink">
-            <span className="text-neo-accent text-sm font-black">/</span>
+          {/* Input row */}
+          <div className="flex items-center gap-3 border-b border-line p-4">
+            <FiSearch className="shrink-0 text-muted" size={17} />
             <input
               ref={inputRef}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search skills, projects, services..."
-              className="flex-1 bg-transparent text-neo-ink placeholder:opacity-50 focus:outline-none font-black tracking-tight"
+              placeholder="Search skills, projects, services…"
+              className="flex-1 bg-transparent text-sm font-medium text-fg outline-none placeholder:text-muted"
               aria-label="Search portfolio content"
             />
-            <button
-              onClick={closeSearch}
-              aria-label="Close search"
-              className="w-10 h-10 border-2 border-neo-ink bg-neo-panel flex items-center justify-center text-neo-ink hover:bg-neo-accent hover:text-white duration-100 active:translate-x-1 active:translate-y-1 cursor-pointer"
-            >
-              <FiX />
+            <kbd className="hidden rounded-md border border-line px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-muted sm:block">
+              Esc
+            </kbd>
+            <button onClick={closeSearch} aria-label="Close search" className="icon-btn h-8 w-8">
+              <FiX size={15} />
             </button>
           </div>
 
-          <div className="overflow-y-auto flex-1">
+          {/* Results */}
+          <div className="flex-1 overflow-y-auto">
             {query.trim() === '' ? (
-              <div className="p-6 text-center text-sm font-bold text-neo-ink opacity-60 dark:opacity-90">
+              <div className="p-7 text-center text-sm text-muted">
                 Type to search across skills, projects, services, education &amp; contact.
               </div>
             ) : groupedResults.length === 0 ? (
-              <div className="p-6 text-center text-sm font-bold text-neo-ink opacity-60 dark:opacity-90">
+              <div className="p-7 text-center text-sm text-muted">
                 No results found for &ldquo;{query}&rdquo;
               </div>
             ) : (
-              <ul className="p-3 flex flex-col gap-2">
+              <ul className="flex flex-col gap-2 p-3">
                 {groupedResults.map((r, i) => (
                   <li key={i}>
                     <button
                       onClick={() => goTo(r)}
-                      className="w-full text-left px-4 py-3 bg-neo-panel border-2 border-neo-ink shadow-neo-sm hover:bg-neo-muted duration-100 flex items-center justify-between gap-3 cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+                      className="group flex w-full items-center justify-between gap-3 rounded-xl border border-line px-4 py-3 text-left transition-colors hover:border-line-strong hover:bg-elev"
                     >
-                      <span>
-                        <span className="text-sm font-black text-neo-ink">{r.label}</span>
-                        <span className="block text-xs font-bold text-neo-ink opacity-50 dark:opacity-80 mt-0.5 uppercase tracking-wide">Go to {r.section} section</span>
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-semibold text-fg">{r.label}</span>
+                        <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
+                          Go to {r.section}
+                        </span>
                       </span>
-                      <FiArrowRight className="text-neo-ink shrink-0" />
+                      <FiArrowUpRight className="shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
                     </button>
                   </li>
                 ))}
@@ -117,9 +120,9 @@ export default function SearchModal() {
             )}
           </div>
 
-          <div className="px-4 py-2.5 border-t-4 border-neo-ink text-xs font-bold text-neo-ink flex items-center justify-between">
-            <span>debounced live search</span>
-            <span className="hidden sm:inline">Press <kbd className="px-1.5 py-0.5 border-2 border-neo-ink bg-neo-panel shadow-neo-sm">Esc</kbd> to close</span>
+          <div className="flex items-center justify-between border-t border-line px-4 py-2.5 font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
+            <span>Debounced live search</span>
+            <span className="hidden sm:inline">Ctrl / ⌘ + K</span>
           </div>
         </div>
       </div>

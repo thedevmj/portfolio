@@ -2,75 +2,77 @@ import React from 'react'
 
 // Base skeleton block
 export function Skeleton({ className = '', style }) {
-  return (
-    <div
-      className={`animate-pulse bg-neo-panel ${className}`}
-      style={style}
-      aria-hidden="true"
-    />
-  )
+  return <div className={`animate-pulse rounded-lg bg-elev-2 ${className}`} style={style} aria-hidden="true" />
 }
 
-// Reusable project card skeleton (neo-brutalist card style)
+// Project card skeleton — mirrors the new two-column card grid
 export function ProjectCardSkeleton() {
   return (
-    <div className="border-4 border-neo-ink shadow-neo-md bg-neo-panel p-6 md:p-9" aria-hidden="true">
-      <div className="grid md:grid-cols-12 gap-6 items-center">
-        <div className="md:col-span-1">
-          <Skeleton className="h-16 w-16 border-4 border-neo-ink shadow-neo-sm" />
+    <div className="grid gap-5 md:grid-cols-2" aria-hidden="true">
+      {[0, 1].map((k) => (
+        <div key={k} className="card overflow-hidden">
+          <Skeleton className="h-44 w-full rounded-none md:h-52" />
+          <div className="space-y-3 p-6 md:p-7">
+            <div className="flex gap-2">
+              <Skeleton className="h-6 w-16 rounded-full" />
+              <Skeleton className="h-6 w-20 rounded-full" />
+            </div>
+            <Skeleton className="h-8 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <div className="flex gap-2 pt-2">
+              <Skeleton className="h-5 w-14" />
+              <Skeleton className="h-5 w-16" />
+              <Skeleton className="h-5 w-12" />
+            </div>
+          </div>
         </div>
-        <div className="md:col-span-9 space-y-3">
-          <Skeleton className="h-10 w-2/3 border-2 border-neo-ink" />
-          <Skeleton className="h-4 w-full max-w-md border-2 border-neo-ink" />
-          <Skeleton className="h-4 w-3/4 max-w-md border-2 border-neo-ink" />
-        </div>
-        <div className="md:col-span-2 flex justify-end">
-          <Skeleton className="h-10 w-24 border-2 border-neo-ink" />
-        </div>
-      </div>
+      ))}
     </div>
   )
 }
 
-// Reusable skill category skeleton
+// Skill category skeleton
 export function SkillCardSkeleton() {
   return (
-    <div className="border-4 border-neo-ink shadow-neo-sm bg-neo-panel p-5 md:p-6" aria-hidden="true">
-      <div className="grid md:grid-cols-12 gap-4">
-        <Skeleton className="h-8 w-32 md:col-span-3 border-2 border-neo-ink" />
-        <div className="md:col-span-9 flex flex-wrap gap-x-6 gap-y-2">
-          {['w-20', 'w-28', 'w-24', 'w-32', 'w-20'].map((w, i) => (
-            <Skeleton key={i} className={`h-6 ${w} border-2 border-neo-ink`} />
-          ))}
+    <div className="grid gap-4 md:grid-cols-2" aria-hidden="true">
+      {[0, 1, 2, 3].map((k) => (
+        <div key={k} className="card p-6 md:p-7">
+          <Skeleton className="h-5 w-32" />
+          <div className="mt-5 flex flex-wrap gap-2">
+            {['w-16', 'w-24', 'w-20', 'w-28', 'w-16'].map((w, i) => (
+              <Skeleton key={i} className={`h-6 rounded-full ${w}`} />
+            ))}
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   )
 }
 
-// Reusable service card skeleton
+// Service card skeleton
 export function ServiceCardSkeleton() {
   return (
-    <div className="border-4 border-neo-ink shadow-neo-md bg-neo-panel p-6 md:p-9" aria-hidden="true">
-      <Skeleton className="h-12 w-12 border-2 border-neo-ink" />
-      <Skeleton className="h-8 w-56 mt-4 border-2 border-neo-ink" />
+    <div className="card p-6 md:p-9" aria-hidden="true">
+      <Skeleton className="h-4 w-12" />
+      <Skeleton className="mt-4 h-7 w-56" />
       <div className="mt-4 space-y-2">
-        <Skeleton className="h-4 w-full max-w-sm border-2 border-neo-ink" />
-        <Skeleton className="h-4 w-4/5 max-w-sm border-2 border-neo-ink" />
+        <Skeleton className="h-4 w-full max-w-sm" />
+        <Skeleton className="h-4 w-4/5 max-w-sm" />
       </div>
     </div>
   )
 }
 
-// Reusable contact info skeleton
+// Contact row skeleton
 export function StatCardSkeleton() {
   return (
-    <div className="border-4 border-neo-ink shadow-neo-sm bg-neo-panel p-4 flex items-center justify-between mb-4" aria-hidden="true">
+    <div className="flex items-center justify-between border-b border-line py-5" aria-hidden="true">
       <div className="space-y-2">
-        <Skeleton className="h-3 w-16 border-2 border-neo-ink" />
-        <Skeleton className="h-4 w-40 border-2 border-neo-ink" />
+        <Skeleton className="h-2.5 w-16" />
+        <Skeleton className="h-4 w-44" />
       </div>
-      <Skeleton className="h-10 w-10 border-2 border-neo-ink" />
+      <Skeleton className="h-9 w-9 rounded-full" />
     </div>
   )
 }

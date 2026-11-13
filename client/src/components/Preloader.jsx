@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-// Neo-brutalist preloader: mech-reveals the JM monogram, fills a thick accent
-// progress bar, counts 000→100, then slides/scales away to reveal the page.
-const MONO = ['J', 'M', '.', '']
-
+// Editorial preloader: monogram reveal, thin accent progress line, live counter.
 export default function Preloader({ onDone }) {
   const [count, setCount] = useState(0)
   const [leaving, setLeaving] = useState(false)
@@ -25,38 +22,48 @@ export default function Preloader({ onDone }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[80] flex flex-col items-center justify-center bg-neo-ink text-neo-bg transition-all duration-700 ${
-        leaving ? 'opacity-0 -translate-y-3 pointer-events-none' : 'opacity-100 translate-y-0'
+      className={`fixed inset-0 z-[80] flex flex-col bg-bg transition-all duration-700 ${
+        leaving ? 'pointer-events-none opacity-0' : 'opacity-100'
       }`}
       aria-hidden="true"
     >
-      {/* Monogram */}
-      <div className="font-black text-[22vw] sm:text-[12rem] leading-none uppercase tracking-tighter text-neo-bg select-none">
-        {MONO.map((ch, i) => (
-          <span key={i} className="mech-char" style={{ animationDelay: `${i * 0.16}s` }}>
-            {i === MONO.length - 1 ? <span className="text-neo-accent">_</span> : ch}
-          </span>
-        ))}
+      <div className="container-wide flex items-center justify-between pt-6">
+        <span className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-muted">
+          <span className="h-2 w-2 rounded-[3px] bg-accent" />
+          Junaid Mansoori
+        </span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted">Loading</span>
       </div>
 
-      <span className="mt-4 inline-block bg-neo-secondary border-4 border-neo-bg px-4 py-2 font-black text-xs uppercase tracking-widest text-black shadow-neo-sm transform rotate-1">
-        Full Stack Developer
-      </span>
+      <div className="flex flex-1 items-center justify-center">
+        <div className="text-center">
+          <div className="display select-none text-[30vw] leading-none tracking-tight sm:text-[15rem]">
+            <span className="mech-char">J</span>
+            <span className="mech-char italic text-accent" style={{ animationDelay: '0.14s' }}>
+              M
+            </span>
+            <span className="mech-char text-accent" style={{ animationDelay: '0.28s' }}>
+              .
+            </span>
+          </div>
+          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
+            Full Stack Developer
+          </p>
+        </div>
+      </div>
 
-      {/* Thick progress bar */}
-      <div className="mt-10 w-64 sm:w-80 h-6 border-4 border-neo-bg bg-transparent overflow-hidden relative">
+      <div className="container-wide flex items-end justify-between pb-5">
+        <span className="font-mono text-xs tabular-nums tracking-widest text-muted">
+          {String(count).padStart(3, '0')}%
+        </span>
+        <span className="typing-caret text-muted" />
+      </div>
+
+      <div className="h-[3px] w-full bg-elev-2">
         <div
-          className="h-full bg-neo-accent transition-[width] duration-150 ease-out"
+          className="h-full bg-accent transition-[width] duration-150 ease-out"
           style={{ width: `${count}%` }}
         />
-      </div>
-
-      <div className="absolute bottom-6 left-6 text-7xl sm:text-9xl font-black text-neo-bg opacity-20 tabular-nums leading-none">
-        {String(count).padStart(3, '0')}
-      </div>
-      <div className="absolute bottom-8 right-6 flex items-center gap-2 text-xs tracking-[0.25em] uppercase font-bold text-neo-bg">
-        <span className="typing-caret">&nbsp;</span>
-        <span>Loading…</span>
       </div>
     </div>
   )

@@ -3,12 +3,12 @@
 // navigate and highlight the relevant content.
 
 export const searchIndex = [
-  { section: 'home', label: 'Hero — Full Stack Developer', keywords: ['junaid', 'mansoori', 'full stack', 'developer', 'mern', 'react', 'ai', 'react native', 'ui/ux'] },
+  { section: 'home', label: 'Hero — Full Stack Developer', keywords: ['junaid', 'mansoori', 'full stack', 'full-stack', 'developer', 'frontend', 'backend', 'mern', 'react', 'node.js', 'rest apis', 'mongodb', 'ai'] },
   { section: 'about', label: 'About Me', keywords: ['about', 'bio', 'profile', 'full stack', 'problem solving', 'continuous learning', 'ai', 'llm'] },
   {
     section: 'skills',
     label: 'Skills & Technologies',
-    keywords: ['skills', 'frontend', 'backend', 'react', 'javascript', 'typescript', 'redux', 'redux saga', 'responsive ui', 'ui ux', 'node', 'express', 'java', 'spring boot', 'php', 'rest api', 'jwt', 'bcrypt', 'microservices', 'python', 'mongodb', 'postgresql', 'neo4j', 'sql', 'database', 'react native', 'ai', 'llm', 'prompt engineering', 'mcp', 'mcp sdk', 'babel ast', 'developer tools', 'automation', 'scaffold', 'code analysis', 'graph visualization', 'debouncing', 'throttling', 'rate limiting', 'memoization', 'optimization', 'code splitting', 'lazy loading', 'virtualization']
+    keywords: ['skills', 'frontend', 'backend', 'react', 'javascript', 'typescript', 'redux', 'redux saga', 'responsive ui', 'ui ux', 'node', 'express', 'java', 'spring boot', 'php', 'rest api', 'jwt', 'bcrypt', 'microservices', 'python', 'mongodb', 'postgresql', 'supabase', 'neo4j', 'sql', 'database', 'react native', 'ai', 'llm', 'prompt engineering', 'mcp', 'mcp sdk', 'babel ast', 'developer tools', 'automation', 'scaffold', 'code analysis', 'graph visualization', 'debouncing', 'throttling', 'rate limiting', 'memoization', 'optimization', 'code splitting', 'lazy loading', 'virtualization']
   },
   { section: 'experience', label: 'Experience — Fresher', keywords: ['experience', 'fresher', 'entry level', 'projects', 'mern', 'react native', 'ai', 'java', 'spring boot', 'python', 'php'] },
   {
@@ -34,7 +34,7 @@ export const searchIndex = [
 export const skillDetails = [
   'React.js', 'JavaScript', 'TypeScript', 'Redux', 'Redux Saga', 'Responsive UI', 'UI/UX Development',
   'Node.js', 'Express.js', 'Java', 'Spring Boot', 'PHP', 'REST APIs', 'JWT Authentication', 'bcrypt', 'Microservices Architecture',
-  'Python', 'MongoDB', 'PostgreSQL', 'Neo4j', 'SQL', 'React Native', 'AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools',
+  'Python', 'MongoDB', 'PostgreSQL', 'Supabase', 'Neo4j', 'SQL', 'React Native', 'AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools',
   'MCP Servers', 'MCP SDK', 'Babel AST', 'Project Automation', 'Scaffold Generators', 'Code Analysis', 'Redis', 'Docker', 'CI/CD',
   'Dependency Analysis', 'Graph Visualization', 'Database development',
   'Debouncing', 'Throttling', 'Rate Limiting', 'Memoization', 'Code Splitting', 'Lazy Loading', 'Virtualization', 'React Optimization'

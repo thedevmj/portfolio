@@ -22,30 +22,34 @@ export default function CustomCursor() {
     const onMove = (e) => {
       x = e.clientX
       y = e.clientY
-      dot.style.transform = `translate(${x - 3}px, ${y - 3}px)`
+      dot.style.transform = `translate(${x - 2.5}px, ${y - 2.5}px)`
     }
 
     const loop = () => {
       rx += (x - rx) * 0.16
       ry += (y - ry) * 0.16
-      ring.style.transform = `translate(${rx - 20}px, ${ry - 20}px)`
+      if (!ring.dataset.expanded) {
+        ring.style.transform = `translate(${rx - 17}px, ${ry - 17}px)`
+      }
       raf = requestAnimationFrame(loop)
     }
 
     const onOver = (e) => {
       const t = e.target.closest('[data-cursor="explore"]')
       if (t) {
-        ring.textContent = 'explore'
+        ring.dataset.expanded = '1'
+        ring.textContent = 'view'
         ring.style.opacity = '1'
         ring.style.width = '80px'
         ring.style.height = '80px'
         ring.style.transform = `translate(${x - 40}px, ${y - 40}px)`
         dot.style.opacity = '0'
       } else {
+        ring.dataset.expanded = ''
         ring.textContent = ''
         ring.style.opacity = '0'
-        ring.style.width = '40px'
-        ring.style.height = '40px'
+        ring.style.width = '34px'
+        ring.style.height = '34px'
         dot.style.opacity = '1'
       }
     }

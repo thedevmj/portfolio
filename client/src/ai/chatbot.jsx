@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
   FiSend,
   FiX,
@@ -30,14 +30,14 @@ const renderInline = (text) => {
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
       return (
-        <strong key={i} className="font-black">
+        <strong key={i} className="font-semibold text-fg">
           {part.slice(2, -2)}
         </strong>
       );
     }
     if (part.startsWith("`") && part.endsWith("`") && part.length > 2) {
       return (
-        <code key={i} className="font-mono text-[11px] border border-neo-ink/30 bg-neo-bg/60 px-1">
+        <code key={i} className="rounded border border-line bg-elev-2 px-1 font-mono text-[11px]">
           {part.slice(1, -1)}
         </code>
       );
@@ -63,7 +63,7 @@ function FormattedText({ text }) {
         if (t.startsWith("- ")) {
           return (
             <div key={idx} className="flex gap-2">
-              <span className="shrink-0 font-black select-none">-</span>
+              <span className="shrink-0 select-none text-accent">–</span>
               <span className="min-w-0 break-words">{renderInline(t.slice(2))}</span>
             </div>
           );
@@ -72,7 +72,7 @@ function FormattedText({ text }) {
           return (
             <p
               key={idx}
-              className="mt-2.5 mb-0.5 text-[10px] sm:text-[11px] font-black uppercase tracking-widest border-b-2 border-neo-ink/20 pb-0.5 first:mt-0"
+              className="mb-0.5 mt-2.5 border-b border-line pb-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted first:mt-0"
             >
               {renderInline(t)}
             </p>
@@ -238,39 +238,39 @@ export default function AiChatbot({ isOpen, onClose }) {
 
   return (
     <Portal>
-      {/* Dimmed mobile backdrop for focus and easy tap-to-dismiss */}
-      <div 
-        className="fixed inset-0 z-[75] bg-black/60 backdrop-blur-[2px] transition-opacity"
+      {/* Dimmed backdrop for focus and tap-to-dismiss */}
+      <div
+        className="fixed inset-0 z-[75] bg-black/60 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Floating Chat Window: Responsive dock for both mobile & desktop */}
+      {/* Chat window */}
       <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 30, scale: 0.96 }}
         transition={{ type: "spring", stiffness: 350, damping: 25 }}
-        className="fixed inset-x-2.5 bottom-2.5 top-14 z-[80] flex max-h-[calc(100dvh-4rem)] flex-col border-4 border-neo-ink bg-neo-bg shadow-neo-lg sm:inset-x-auto sm:top-auto sm:bottom-6 sm:right-6 sm:h-[640px] sm:w-[480px] sm:max-h-[82vh]"
+        className="fixed inset-x-3 bottom-3 top-16 z-[80] flex max-h-[calc(100dvh-4.75rem)] flex-col overflow-hidden rounded-[1.5rem] border border-line bg-bg shadow-lift sm:inset-x-auto sm:bottom-6 sm:right-6 sm:top-auto sm:h-[640px] sm:w-[480px] sm:max-h-[82vh]"
         role="dialog"
         aria-modal="true"
         aria-label="Chat with Junaid's portfolio assistant"
       >
-        {/* Window Header */}
-        <div className="flex shrink-0 items-center justify-between border-b-4 border-neo-ink bg-neo-panel px-3 py-2.5 sm:px-4 sm:py-3">
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center border-2 border-neo-ink bg-neo-accent text-white shadow-neo-sm">
+        {/* Header */}
+        <div className="flex shrink-0 items-center justify-between border-b border-line bg-elev px-3 py-2.5 sm:px-4 sm:py-3">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-on-accent">
               <FiZap className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-sans text-xs sm:text-sm font-black uppercase tracking-tight text-neo-ink">
-                  Ask About Junaid
+                <span className="text-xs font-semibold tracking-tight text-fg sm:text-sm">
+                  Ask about Junaid
                 </span>
-                <span className="inline-block h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
               </div>
-              <p className="text-[10px] sm:text-[11px] font-bold text-neo-ink/60 leading-tight">
-                Full Stack Developer • MERN • React Native
+              <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
+                Full Stack · MERN · React Native
               </p>
             </div>
           </div>
@@ -281,7 +281,7 @@ export default function AiChatbot({ isOpen, onClose }) {
               onClick={handleClearHistory}
               title="Reset conversation"
               aria-label="Clear chat history"
-              className="flex h-8 w-8 sm:h-8 sm:w-8 items-center justify-center border-2 border-neo-ink bg-neo-bg text-neo-ink transition-colors hover:bg-neo-secondary hover:text-black active:translate-x-0.5 active:translate-y-0.5 touch-manipulation cursor-pointer"
+              className="flex h-8 w-8 cursor-pointer touch-manipulation items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-fg hover:text-fg"
             >
               <FiRefreshCw className="h-3.5 w-3.5" />
             </button>
@@ -290,25 +290,25 @@ export default function AiChatbot({ isOpen, onClose }) {
               onClick={onClose}
               title="Close chat"
               aria-label="Close AI chat"
-              className="flex h-8 w-8 sm:h-8 sm:w-8 items-center justify-center border-2 border-neo-ink bg-neo-accent text-white transition-colors hover:bg-red-600 active:translate-x-0.5 active:translate-y-0.5 touch-manipulation cursor-pointer"
+              className="flex h-8 w-8 cursor-pointer touch-manipulation items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-fg hover:text-fg"
             >
               <FiX className="h-4 w-4" />
             </button>
           </div>
         </div>
 
-        {/* Quick Suggestion Chips Header (Horizontally scrollable on mobile) */}
-        <div className="shrink-0 border-b-2 border-neo-ink/20 bg-neo-panel/60 px-3 py-2">
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-[11px] scrollbar-none">
-            <span className="shrink-0 font-black uppercase tracking-wider text-neo-ink/50 text-[10px]">
-              Suggestions:
+        {/* Suggestion chips */}
+        <div className="shrink-0 border-b border-line bg-bg px-3 py-2">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
+            <span className="shrink-0 font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
+              Try:
             </span>
             {SUGGESTED_PROMPTS.map((item, idx) => (
               <button
                 key={idx}
                 type="button"
                 onClick={() => handleSendMessage(item)}
-                className="shrink-0 border-2 border-neo-ink bg-neo-bg px-2.5 py-1 text-[11px] font-bold text-neo-ink transition-all hover:bg-neo-secondary hover:text-black active:translate-x-0.5 active:translate-y-0.5 touch-manipulation cursor-pointer"
+                className="shrink-0 cursor-pointer touch-manipulation rounded-full border border-line px-2.5 py-1 text-[11px] text-muted transition-colors hover:border-accent hover:text-accent"
               >
                 {item}
               </button>
@@ -316,54 +316,48 @@ export default function AiChatbot({ isOpen, onClose }) {
           </div>
         </div>
 
-        {/* Scrollable Messages Area */}
-        <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3.5">
+        {/* Messages */}
+        <div className="flex-1 space-y-3 overflow-y-auto p-3 sm:p-4">
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex flex-col ${
-                msg.role === "user" ? "items-end" : "items-start"
-              }`}
+              className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}
             >
-              {/* Message Bubble */}
               <div
-                className={`max-w-[94%] sm:max-w-[88%] border-2 border-neo-ink p-3 shadow-neo-sm ${
+                className={`max-w-[94%] px-4 py-2.5 text-xs leading-relaxed sm:max-w-[88%] sm:text-sm ${
                   msg.role === "user"
-                    ? "bg-neo-secondary text-black font-semibold"
+                    ? "rounded-2xl rounded-br-md bg-accent font-medium text-on-accent"
                     : msg.isError
-                    ? "bg-red-100 text-red-900 dark:bg-red-950 dark:text-red-200 font-medium"
-                    : "bg-neo-panel text-neo-ink font-medium"
+                    ? "rounded-2xl rounded-bl-md border border-line bg-elev text-accent"
+                    : "rounded-2xl rounded-bl-md border border-line bg-elev text-fg"
                 }`}
               >
-                <div className="text-xs sm:text-sm leading-relaxed">
-                  <FormattedText text={msg.text} />
-                </div>
+                <FormattedText text={msg.text} />
               </div>
             </div>
           ))}
 
-          {/* Loading Indicator Bubble */}
           {loading && (
             <div className="flex items-start">
-              <div className="border-2 border-neo-ink bg-neo-panel p-2.5 sm:p-3 shadow-neo-sm">
+              <div className="rounded-2xl rounded-bl-md border border-line bg-elev px-4 py-3">
                 <div className="flex items-center gap-1.5">
                   <motion.span
-                    className="h-2 w-2 rounded-full bg-neo-accent"
+                    className="h-1.5 w-1.5 rounded-full bg-accent"
                     animate={{ y: [0, -4, 0] }}
                     transition={{ repeat: Infinity, duration: 0.5, delay: 0 }}
                   />
                   <motion.span
-                    className="h-2 w-2 rounded-full bg-neo-secondary"
+                    className="h-1.5 w-1.5 rounded-full bg-accent"
                     animate={{ y: [0, -4, 0] }}
                     transition={{ repeat: Infinity, duration: 0.5, delay: 0.15 }}
                   />
                   <motion.span
-                    className="h-2 w-2 rounded-full bg-neo-muted"
+                    className="h-1.5 w-1.5 rounded-full bg-accent"
                     animate={{ y: [0, -4, 0] }}
                     transition={{ repeat: Infinity, duration: 0.5, delay: 0.3 }}
                   />
-                  <span className="ml-1 text-[11px] sm:text-xs font-bold text-neo-ink/70">
-                    Generating response...
+                  <span className="ml-1.5 font-mono text-[10px] uppercase tracking-wider text-muted">
+                    Generating…
                   </span>
                 </div>
               </div>
@@ -373,25 +367,22 @@ export default function AiChatbot({ isOpen, onClose }) {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Bar (16px base font on mobile prevents Safari auto-zoom) */}
-        <form
-          onSubmit={handleSubmit}
-          className="shrink-0 border-t-4 border-neo-ink bg-neo-panel p-2.5 sm:p-3"
-        >
+        {/* Input (16px base font on mobile prevents Safari auto-zoom) */}
+        <form onSubmit={handleSubmit} className="shrink-0 border-t border-line bg-elev p-2.5 sm:p-3">
           <div className="flex items-center gap-2">
             <input
               ref={inputRef}
               type="text"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Ask a question or request a project..."
+              placeholder="Ask a question or request a project…"
               maxLength={2000}
-              className="flex-1 border-2 border-neo-ink bg-neo-bg px-3 py-2 text-base sm:text-sm font-medium text-neo-ink outline-none placeholder:text-neo-ink/40 focus:border-neo-accent focus:shadow-neo-sm"
+              className="w-full flex-1 rounded-full border border-line bg-bg px-4 py-2.5 text-base font-medium text-fg outline-none transition-colors placeholder:text-muted focus:border-accent sm:text-sm"
             />
             <button
               type="submit"
               disabled={!prompt.trim() || loading}
-              className="btn-primary shrink-0 h-10 px-4 py-2 text-xs font-black touch-manipulation cursor-pointer"
+              className="btn btn-accent h-10 shrink-0 px-4 py-2 text-xs disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
                 <FiRefreshCw className="h-4 w-4 animate-spin" />
@@ -406,5 +397,5 @@ export default function AiChatbot({ isOpen, onClose }) {
         </form>
       </motion.div>
     </Portal>
-  );
+  )
 }

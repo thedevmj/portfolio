@@ -1,10 +1,11 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react'
 import axios from 'axios'
-import { FiMail, FiPhone, FiGithub, FiSend, FiCheckCircle, FiAlertCircle, FiLoader, FiArrowRight, FiDownload } from 'react-icons/fi'
+import { FiSend, FiCheckCircle, FiAlertCircle, FiLoader, FiArrowUpRight } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { StatCardSkeleton } from './Skeleton'
 import { buildWhatsAppLink, API_BASE_URL } from '../constants'
 import { Reveal, Stagger, StaggerItem } from './Motion'
+import { useTheme } from '../context/ThemeContext.jsx'
 
 const DotGrid = lazy(() => import('./DotGrid'))
 
@@ -19,6 +20,7 @@ const contactInfo = [
 const initialForm = { name: '', email: '', subject: '', message: '' }
 
 export default React.memo(function Contact() {
+  const { theme } = useTheme()
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState(null)
@@ -99,67 +101,74 @@ export default React.memo(function Contact() {
     }
   }
 
-  const inputCls = (field) =>
-    `w-full px-5 py-4 bg-white border-4 border-black font-bold text-base text-black placeholder-black/40 focus-visible:bg-neo-secondary focus-visible:shadow-neo-md focus-visible:outline-none focus-visible:ring-0 duration-100 ${
-      errors[field] ? '!border-neo-accent !shadow-[8px_8px_0_0_#FF6B6B]' : ''
-    }`
+  const inputCls = (field) => `field ${errors[field] ? 'field-error' : ''}`
 
   return (
-    <section id="contact" className="relative border-t-4 border-neo-ink bg-neo-accent overflow-hidden">
-      <div className="hidden sm:block">
+    <section id="contact" className="relative overflow-hidden border-t border-line">
+      {/* Ambient dot field (interactive) */}
+      <div className="absolute inset-0 hidden opacity-[0.22] lg:block">
         <Suspense fallback={null}>
           <DotGrid
-            dotSize={4}
-            gap={26}
-            baseColor="#000000"
-            activeColor="#FFD93D"
-            proximity={90}
-            speedTrigger={80}
-            shockRadius={170}
-            shockStrength={4}
-            resistance={600}
+            dotSize={3}
+            gap={30}
+            baseColor={theme === 'dark' ? '#3a3a42' : '#c6c0b2'}
+            activeColor="#FF5C2B"
+            proximity={110}
+            speedTrigger={70}
+            shockRadius={150}
+            shockStrength={3}
+            resistance={650}
             returnDuration={1.2}
           />
         </Suspense>
       </div>
-      <div className="section-pad container-neo relative z-10">
-        <Reveal className="max-w-3xl">
-          <span className="inline-block bg-black border-4 border-black text-white px-4 py-2 font-black text-xs uppercase tracking-widest shadow-[4px_4px_0_0_#000] transform -rotate-1">
-            ( contact )
+
+      <div className="section container-wide relative z-10">
+        <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="eyebrow">07 / Contact</span>
+            <h2 className="display mt-5 text-5xl leading-none sm:text-6xl md:text-7xl">
+              Let&rsquo;s <em className="italic text-accent">talk.</em>
+            </h2>
+            <p className="mt-5 max-w-xl text-sm font-medium leading-relaxed text-muted md:text-base">
+              Open to opportunities, freelance projects, and collaborations.
+            </p>
+          </div>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+            Replies within 24h
           </span>
-          <h2 className="mt-6 text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] text-black">
-            Let&rsquo;s <span className="text-white" style={{ textShadow: '5px 5px 0 #000' }}>talk.</span>
-          </h2>
-          <p className="mt-6 max-w-xl text-base md:text-lg font-bold text-black">
-            Open to opportunities, freelance projects, and collaborations.
-          </p>
         </Reveal>
 
-        <div className="mt-10 md:mt-16 grid lg:grid-cols-2 gap-10 lg:gap-16">
-          {/* Contact info */}
+        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Contact rows */}
           <div>
             {infoLoading ? (
               <>
                 <StatCardSkeleton />
                 <StatCardSkeleton />
+                <StatCardSkeleton />
               </>
             ) : (
-              <Stagger as="ul" className="flex flex-col gap-4" gap={0.06}>
+              <Stagger as="ul" className="border-t border-line" gap={0.05}>
                 {contactInfo.map((c) => (
-                  <StaggerItem as="li" key={c.label}>
+                  <StaggerItem as="li" key={c.label} className="border-b border-line">
                     <a
                       href={c.href}
                       target={c.href.startsWith('http') ? '_blank' : undefined}
                       rel="noreferrer"
                       download={c.download || undefined}
-                      className="group flex items-center justify-between gap-4 bg-neo-panel border-4 border-neo-ink shadow-neo-sm p-4 duration-100 hover:shadow-neo-md hover:-translate-y-0.5 cursor-pointer active:translate-x-1 active:translate-y-1 active:shadow-none"
+                      className="group flex items-center justify-between gap-4 py-5"
                     >
                       <div>
-                        <span className="block text-[10px] font-black uppercase tracking-widest text-neo-ink opacity-50 dark:opacity-80">{c.label}</span>
-                        <span className="mt-1 block text-sm md:text-base font-black text-neo-ink">{c.value}</span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                          {c.label}
+                        </span>
+                        <span className="mt-1.5 block text-sm font-semibold tracking-tight text-fg transition-colors group-hover:text-accent md:text-base">
+                          {c.value}
+                        </span>
                       </div>
-                      <span className="w-10 h-10 shrink-0 border-2 border-black bg-neo-secondary flex items-center justify-center text-black duration-100 group-hover:bg-neo-accent group-hover:text-white">
-                        <FiArrowRight className="group-hover:translate-x-0.5 transition-transform" />
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line-strong text-muted transition-all duration-300 group-hover:border-accent group-hover:text-accent">
+                        <FiArrowUpRight size={15} />
                       </span>
                     </a>
                   </StaggerItem>
@@ -169,47 +178,55 @@ export default React.memo(function Contact() {
           </div>
 
           {/* Form */}
-          <Reveal className="bg-neo-bg border-4 border-neo-ink shadow-neo-lg p-5 sm:p-8 md:p-10" delay={0.1}>
+          <Reveal className="card p-5 sm:p-7 md:p-8" delay={0.1}>
             <form onSubmit={handleSubmit} onClick={handleFormClick} noValidate>
-              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-5">
+              <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="block text-xs font-black uppercase tracking-widest mb-2 text-neo-ink">Name *</label>
+                  <label htmlFor="name" className="mb-2 block font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                    Name *
+                  </label>
                   <input id="name" name="name" type="text" placeholder="Your name" value={form.name} onChange={handleChange} className={inputCls('name')} />
-                  {errors.name && <p className="mt-1.5 text-xs font-black uppercase text-white">{errors.name}</p>}
+                  {errors.name && <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wide text-accent">{errors.name}</p>}
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-xs font-black uppercase tracking-widest mb-2 text-neo-ink">Email *</label>
+                  <label htmlFor="email" className="mb-2 block font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                    Email *
+                  </label>
                   <input id="email" name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} className={inputCls('email')} />
-                  {errors.email && <p className="mt-1.5 text-xs font-black uppercase text-white">{errors.email}</p>}
+                  {errors.email && <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wide text-accent">{errors.email}</p>}
                 </div>
               </div>
 
               <div className="mt-5">
-                <label htmlFor="subject" className="block text-xs font-black uppercase tracking-widest mb-2 text-neo-ink">Subject *</label>
+                <label htmlFor="subject" className="mb-2 block font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                  Subject *
+                </label>
                 <input id="subject" name="subject" type="text" placeholder="What is this about?" value={form.subject} onChange={handleChange} className={inputCls('subject')} />
-                {errors.subject && <p className="mt-1.5 text-xs font-black uppercase text-white">{errors.subject}</p>}
+                {errors.subject && <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wide text-accent">{errors.subject}</p>}
               </div>
 
               <div className="mt-5">
-                <label htmlFor="message" className="block text-xs font-black uppercase tracking-widest mb-2 text-neo-ink">Message *</label>
+                <label htmlFor="message" className="mb-2 block font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                  Message *
+                </label>
                 <textarea id="message" name="message" rows="4" className={`${inputCls('message')} resize-none`} placeholder="Tell me about your project or message..." value={form.message} onChange={handleChange} />
-                {errors.message && <p className="mt-1.5 text-xs font-black uppercase text-white">{errors.message}</p>}
+                {errors.message && <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wide text-accent">{errors.message}</p>}
               </div>
 
               {status && (
-                <div className={`mt-5 flex items-center gap-2 text-sm font-black uppercase ${status.type === 'success' ? 'text-black' : 'text-white'}`}>
+                <div className="mt-5 flex items-center gap-2 text-sm font-medium text-accent">
                   {status.type === 'success' ? <FiCheckCircle /> : <FiAlertCircle />}
                   <span>{status.msg}</span>
                 </div>
               )}
 
-              <div className="mt-8 grid sm:grid-cols-2 gap-4">
-                <button type="submit" disabled={loading} className="btn-secondary px-6 py-4 w-full disabled:opacity-60 disabled:cursor-not-allowed">
+              <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                <button type="submit" disabled={loading} className="btn btn-accent w-full disabled:cursor-not-allowed disabled:opacity-60">
                   {loading ? <FiLoader className="animate-spin" /> : <FiSend />}
-                  {loading ? 'Sending...' : 'Send Message'}
+                  {loading ? 'Sending…' : 'Send message'}
                 </button>
-                <button type="button" onClick={handleWhatsApp} className="btn-neo px-6 py-4 w-full bg-black text-white hover:bg-neo-secondary hover:text-black">
-                  <FaWhatsapp /> Send via WhatsApp
+                <button type="button" onClick={handleWhatsApp} className="btn btn-ghost w-full">
+                  <FaWhatsapp /> WhatsApp
                 </button>
               </div>
             </form>

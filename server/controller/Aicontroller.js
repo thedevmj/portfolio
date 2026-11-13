@@ -20,7 +20,7 @@ DEVELOPER PROFILE:
 TECH STACK (full "stack wall" — when asked about his stack, list ALL of these grouped by category, do not skip any):
 - Frontend: React.js, Redux, Redux Saga, TypeScript, JavaScript, Responsive UI, UI/UX Development
 - Backend: Node.js, Express.js, Java, Spring Boot, PHP, REST APIs, JWT Authentication, bcrypt, Microservices Architecture
-- Database: MongoDB, PostgreSQL, MySQL, SQL, Neo4j, Database-driven development
+- Database & BaaS: MongoDB, PostgreSQL, Supabase, MySQL, SQL, Neo4j, Database-driven development
 - Mobile: React Native, Cross-platform development
 - AI & Tools: AI Integration, LLM Applications, Prompt Engineering, AI Tools, MCP Servers, MCP SDK, Babel AST, AI-powered tools
 - DevOps & Infra: Docker, Redis, CI/CD, GitHub Actions, Vercel, Git/GitHub, System Design
@@ -55,7 +55,7 @@ RESPONSE RULES:
   Do NOT invent experience, employers, metrics, or achievements not listed in this profile.
 - STACK QUESTIONS (asking what he works with, his tech stack, technologies, or tools):
   the "answer" field MUST enumerate the FULL stack wall from TECH STACK above, grouped by
-  category (Frontend, Backend, Database, Mobile, AI & Tools, DevOps & Infra, Optimization)
+  category (Frontend, Backend, Database & BaaS, Mobile, AI & Tools, DevOps & Infra, Optimization)
   as a compact "- " bullet list. Cover ALL categories — do not skip any.
 - PROJECT REQUESTS: keep "answer" a confident 1-3 sentence summary of the build.
 
@@ -168,7 +168,7 @@ const generateLocalBlueprint = (prompt) => {
 STACK
 - **Frontend:** React.js, TypeScript, Redux, Redux Saga, UI/UX
 - **Backend:** Node.js, Express.js, Java, Spring Boot, PHP, REST APIs, JWT, Microservices
-- **Database:** MongoDB, PostgreSQL, MySQL, SQL, Neo4j
+- **Database & BaaS:** MongoDB, PostgreSQL, Supabase, MySQL, SQL, Neo4j
 - **Mobile:** React Native, cross-platform
 - **AI/Tools:** LLM Integration, MCP Servers, Prompt Engineering, Babel AST
 - **DevOps/Infra:** Docker, Redis, CI/CD, GitHub Actions, Vercel

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { FiSun, FiMoon, FiSearch } from 'react-icons/fi'
+import { FiSun, FiMoon, FiSearch, FiArrowUpRight } from 'react-icons/fi'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { useSearch } from '../context/SearchContext.jsx'
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
 
 const links = [
-  { id: 'home', label: 'intro' },
-  { id: 'projects', label: 'works' },
-  { id: 'about', label: 'studio' },
-  { id: 'skills', label: 'skills' },
-  { id: 'contact', label: 'contact' }
+  { id: 'home', label: 'Intro', num: '00' },
+  { id: 'projects', label: 'Work', num: '01' },
+  { id: 'about', label: 'Studio', num: '02' },
+  { id: 'skills', label: 'Skills', num: '03' },
+  { id: 'contact', label: 'Contact', num: '04' }
 ]
 
 export default function Navbar() {
@@ -17,17 +17,19 @@ export default function Navbar() {
   const { openSearch } = useSearch()
   const [open, setOpen] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('home')
 
   useEffect(() => {
     let lastY = window.scrollY
     const onScroll = () => {
       const y = window.scrollY
-      // hide when scrolling down after some distance, show when scrolling up
-      if (y > 320 && y > lastY + 6) setHidden(true)
-      else if (y < lastY - 4 || y <= 320) setHidden(false)
+      setScrolled(y > 24)
+      if (y > 360 && y > lastY + 8) setHidden(true)
+      else if (y < lastY - 6 || y <= 360) setHidden(false)
       lastY = y
     }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -40,124 +42,165 @@ export default function Navbar() {
           if (entry.isIntersecting) setActive(entry.target.id)
         })
       },
-      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+      { rootMargin: '-42% 0px -54% 0px', threshold: 0 }
     )
     sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [open])
 
-  const handleNav = (id) => {
+  const goTo = (id) => {
     setOpen(false)
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
-        hidden ? '-translate-y-full' : 'translate-y-0'
+      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ${
+        hidden && !open ? '-translate-y-[140%]' : 'translate-y-0'
       }`}
     >
-      <nav className="bg-neo-bg border-b-4 border-neo-ink shadow-[0_6px_0_0_var(--neo-ink)]">
-        <div className="container-neo py-3 md:py-4">
-          <motion.div
-            className="flex items-center justify-between gap-3"
-            initial={{ y: -70, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-          >
-            {/* Logo */}
+      <div className="container-wide">
+        <motion.nav
+          initial={{ y: -24, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 240, damping: 26 }}
+          className={`mt-3 flex items-center justify-between gap-3 rounded-2xl border px-3 py-2.5 transition-all duration-300 ${
+            scrolled || open
+              ? 'border-line bg-glass shadow-soft backdrop-blur-xl'
+              : 'border-transparent bg-transparent'
+          }`}
+        >
+          {/* Wordmark */}
+          <button onClick={() => goTo('home')} className="group flex shrink-0 items-center gap-3" aria-label="Go to top">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent font-serif text-xl italic leading-none text-on-accent transition-transform duration-300 group-hover:-rotate-6">
+              J
+            </span>
+            <span className="hidden flex-col text-left leading-none sm:flex">
+              <span className="text-sm font-bold tracking-tight">Junaid Mansoori</span>
+              <span className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.22em] text-muted">
+                Full-Stack · AI
+              </span>
+            </span>
+          </button>
+
+          {/* Desktop links */}
+          <ul className="hidden items-center gap-1 lg:flex">
+            {links.map((l) => (
+              <li key={l.id}>
+                <button
+                  onClick={() => goTo(l.id)}
+                  aria-current={active === l.id ? 'page' : undefined}
+                  className={`group relative flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${
+                    active === l.id ? 'text-fg' : 'text-muted hover:text-fg'
+                  }`}
+                >
+                  <span className="font-mono text-[9px] tracking-widest opacity-60">{l.num}</span>
+                  {l.label}
+                  {active === l.id && (
+                    <span className="absolute inset-x-4 -bottom-0.5 h-px bg-accent" />
+                  )}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            <button onClick={openSearch} className="icon-btn" aria-label="Search portfolio (Ctrl+K)" title="Search (Ctrl+K)">
+              <FiSearch size={16} />
+            </button>
+            <button onClick={toggleTheme} className="icon-btn" aria-label="Toggle dark/light mode">
+              {theme === 'dark' ? <FiSun size={16} /> : <FiMoon size={16} />}
+            </button>
             <button
-              onClick={() => handleNav('home')}
-              data-magnetic
-              className="bg-neo-accent border-4 border-neo-ink px-3 py-2 md:px-5 md:py-2.5 shadow-neo-sm duration-100 hover:shadow-neo-md active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer shrink-0"
-              aria-label="Go to home"
+              onClick={() => goTo('contact')}
+              className="btn btn-accent hidden px-5 py-2.5 text-[13px] sm:inline-flex"
             >
-              <span className="font-black text-base md:text-lg uppercase tracking-tight leading-none text-white">
-                JM<span className="hidden sm:inline">&nbsp;·&nbsp;DEV</span>
+              Let&rsquo;s talk <FiArrowUpRight size={15} />
+            </button>
+            <button
+              onClick={() => setOpen((o) => !o)}
+              aria-label="Toggle menu"
+              aria-expanded={open}
+              className="icon-btn lg:hidden"
+            >
+              <span className="relative flex h-4 w-4 flex-col items-center justify-center">
+                <span
+                  className={`absolute h-[1.5px] w-4 rounded bg-fg transition-all duration-300 ${
+                    open ? 'rotate-45' : '-translate-y-[3px]'
+                  }`}
+                />
+                <span
+                  className={`absolute h-[1.5px] w-4 rounded bg-fg transition-all duration-300 ${
+                    open ? '-rotate-45' : 'translate-y-[3px]'
+                  }`}
+                />
               </span>
             </button>
+          </div>
+        </motion.nav>
+      </div>
 
-            {/* Desktop links */}
-            <ul className="hidden lg:flex items-center gap-3">
-              {links.map((l) => (
-                <li key={l.id}>
-                  <button
-                    onClick={() => handleNav(l.id)}
-                    data-magnetic
-                    aria-current={active === l.id ? 'page' : undefined}
-                    className={`font-black text-xs uppercase tracking-wider cursor-pointer px-4 py-2 border-4 duration-100 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
-                      active === l.id
-                        ? 'bg-neo-accent border-neo-ink text-white shadow-neo-sm'
-                        : 'border-transparent text-neo-ink hover:bg-neo-secondary hover:text-black hover:border-neo-ink hover:shadow-neo-sm'
-                    }`}
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 -z-10 flex flex-col bg-bg lg:hidden"
+          >
+            <div className="container-wide flex flex-1 flex-col justify-center pt-24">
+              <ul className="border-t border-line">
+                {links.map((l, i) => (
+                  <motion.li
+                    key={l.id}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 + i * 0.05, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    className="border-b border-line"
                   >
-                    {l.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex items-center gap-2 md:gap-3">
-              {/* Search */}
-              <button
-                onClick={openSearch}
-                aria-label="Search portfolio (Ctrl+K)"
-                title="Search (Ctrl+K)"
-                className="w-11 h-11 flex items-center justify-center border-4 border-neo-ink bg-neo-panel shadow-neo-sm text-neo-ink hover:bg-neo-secondary hover:text-black duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer"
+                    <button
+                      onClick={() => goTo(l.id)}
+                      className="group flex w-full items-baseline gap-4 py-5 text-left"
+                    >
+                      <span className="font-mono text-[10px] tracking-widest text-muted">{l.num}</span>
+                      <span className="font-serif text-4xl tracking-tight transition-colors group-hover:text-accent">
+                        {l.label}
+                      </span>
+                      <FiArrowUpRight className="ml-auto text-muted transition-colors group-hover:text-accent" />
+                    </button>
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.35 }}
+                className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-[11px] uppercase tracking-widest text-muted"
               >
-                <FiSearch size={18} />
-              </button>
-
-              {/* Theme toggle */}
-              <button
-                onClick={toggleTheme}
-                aria-label="Toggle dark/light mode"
-                className="w-11 h-11 flex items-center justify-center border-4 border-neo-ink bg-neo-panel shadow-neo-sm text-neo-ink hover:bg-neo-secondary hover:text-black duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer"
-              >
-                {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
-              </button>
-
-              {/* Menu button */}
-              <button
-                onClick={() => setOpen((o) => !o)}
-                aria-label="Toggle menu"
-                aria-expanded={open}
-                className="lg:hidden w-11 h-11 border-4 border-neo-ink bg-neo-panel shadow-neo-sm flex flex-col items-center justify-center gap-[5px] duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer"
-              >
-                <span className={`block h-[3px] bg-neo-ink transition-all duration-200 ${open ? 'w-5 translate-y-[4px] rotate-45' : 'w-[18px]'}`} />
-                <span className={`block h-[3px] bg-neo-ink transition-all duration-200 ${open ? 'w-5 -translate-y-[4px] -rotate-45' : 'w-6'}`} />
-              </button>
+                <a href="mailto:junaidmansuri71@gmail.com" className="link-underline hover:text-fg">
+                  Email
+                </a>
+                <a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="link-underline hover:text-fg">
+                  GitHub
+                </a>
+                <a href="/junaidMansoori_Resume.pdf" download className="link-underline hover:text-fg">
+                  Resume
+                </a>
+              </motion.div>
             </div>
           </motion.div>
-        </div>
-      </nav>
-
-      {/* Mobile full-screen menu */}
-      <div
-        className={`lg:hidden fixed inset-0 top-0 -z-10 bg-neo-bg transition-all duration-300 ${
-          open ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        <ul className="px-6 pt-32 pb-12 flex flex-col gap-4">
-          {links.map((l, i) => (
-            <li key={l.id}>
-              <button
-                onClick={() => handleNav(l.id)}
-                className="w-full text-left font-black uppercase tracking-tighter text-3xl text-neo-ink px-6 py-4 bg-neo-panel border-4 border-neo-ink shadow-neo-md duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none"
-                style={{
-                  transitionDelay: `${i * 0.04}s`,
-                  transform: open ? 'translateY(0)' : 'translateY(24px)',
-                  opacity: open ? 1 : 0,
-                  transition: 'opacity .3s ease, transform .4s cubic-bezier(.22,1,.36,1)'
-                }}
-              >
-                <span className="text-neo-accent mr-3 text-xl">→</span>
-                {l.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

@@ -1,12 +1,14 @@
 import React from 'react'
 
-// Flat neo-brutalist page texture: halftone dots + faint blueprint grid.
-// No blur, no gradients — consistent with the design system.
+// Ambient fixed backdrop: two soft accent glows, a masked blueprint grid and
+// a faint film grain. Everything is pointer-events-none and sits behind content.
 export default function Background() {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
-      <div className="absolute inset-0 halftone" />
-      <div className="absolute inset-0 grid-paper" />
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div className="absolute -left-40 -top-40 h-[42rem] w-[42rem] rounded-full bg-accent opacity-[0.07] blur-[130px]" />
+      <div className="absolute -bottom-56 -right-40 h-[40rem] w-[40rem] rounded-full bg-accent-2 opacity-[0.06] blur-[130px]" />
+      <div className="absolute inset-0 grid-lines opacity-60" />
+      <div className="absolute inset-0 grain" />
     </div>
   )
 }

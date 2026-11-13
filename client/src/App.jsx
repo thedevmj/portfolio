@@ -26,8 +26,7 @@ const Contact = lazy(() => import('./components/Contact'))
 // Lazy-load the search modal (only loaded when opened) for code splitting
 const SearchModal = lazy(() => import('./components/SearchModal'))
 
-// Skeleton fallback used while lazy sections mount
-const SectionFallback = () => <div className="section-pad animate-pulse" aria-hidden="true" />
+const SectionFallback = () => <div className="section animate-pulse" aria-hidden="true" />
 
 function GlobalUI() {
   return (
@@ -45,8 +44,7 @@ function Portfolio() {
   const [ready, setReady] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
-  // Preloader runs first (counts to 100), then PageLoader skeleton crosses-in,
-  // then the real content paints and triggers scroll reveals.
+  // Preloader counts to 100, then the skeleton screen crosses in, then content paints.
   const handlePreloaderDone = useCallback(() => {
     setReady(true)
     setTimeout(() => setLoaded(true), 400)
@@ -58,17 +56,23 @@ function Portfolio() {
       <Navbar />
       <main>
         <Hero />
+        <Marquee
+          items={['Full Stack Developer', 'MERN', 'AI / LLM', 'React Native', 'Node.js', 'UI/UX']}
+        />
         <About />
-        <Marquee items={['Full Stack Developer', 'MERN', 'AI', 'React Native', 'Node.js', 'UI/UX']} />
         <Skills />
+        <Suspense fallback={<SectionFallback />}>
+          <Projects />
+        </Suspense>
+        <Marquee
+          items={['Problem solving', 'Full-stack thinking', 'AI-powered', 'Scalable', 'User-centric']}
+          reverse
+          tone="accent"
+        />
         <Experience />
         <Suspense fallback={<SectionFallback />}>
           <Services />
         </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <Projects />
-        </Suspense>
-        <Marquee items={['Problem solving', 'Full-stack thinking', 'AI-powered', 'Scalable', 'User-centric']} reverse tone="accent" />
         <Suspense fallback={<SectionFallback />}>
           <Education />
         </Suspense>
@@ -90,7 +94,7 @@ function Portfolio() {
 
   if (!ready) {
     return (
-      <div className="relative min-h-screen bg-neo-bg">
+      <div className="relative min-h-screen bg-bg">
         <Preloader onDone={handlePreloaderDone} />
       </div>
     )
@@ -98,7 +102,7 @@ function Portfolio() {
 
   if (!loaded) {
     return (
-      <div className="relative min-h-screen bg-neo-bg">
+      <div className="relative min-h-screen bg-bg">
         <PageLoader />
       </div>
     )
