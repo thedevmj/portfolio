@@ -4,7 +4,7 @@ import { Reveal, Stagger, StaggerItem } from './Motion'
 const faqs = [
   {
     q: 'What does Junaid build?',
-    a: 'Full-stack web applications and websites, plus Android and iOS apps with React Native. His work spans React and Next.js frontends, Node.js and Express APIs, MongoDB and other databases, AI integrations, and developer tools.'
+    a: 'Full-stack web applications and websites, plus Android and iOS apps with React Native. His work spans React and Next.js frontends, Node.js and Express APIs, relational databases such as MySQL and PostgreSQL, MongoDB and Supabase, AI integrations, and developer tools.'
   },
   {
     q: 'How much professional experience does Junaid have?',

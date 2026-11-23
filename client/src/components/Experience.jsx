@@ -2,8 +2,8 @@ import React from 'react'
 import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const highlights = [
-  'React.js', 'Next.js', 'Node.js', 'Express.js', 'MongoDB', 'REST APIs',
-  'JWT authentication', 'Redux', 'React Native', 'AI/LLM integration',
+  'React.js', 'Next.js', 'Node.js', 'Express.js', 'MongoDB', 'MySQL', 'PostgreSQL',
+  'Relational databases', 'REST APIs', 'JWT authentication', 'Redux', 'React Native', 'AI/LLM integration',
   'MCP Servers', 'TypeScript', 'Java', 'Spring Boot', 'Python', 'PHP',
   'Project automation', 'Code analysis'
 ]

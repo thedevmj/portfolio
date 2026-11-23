@@ -8,7 +8,7 @@ export const searchIndex = [
   {
     section: 'skills',
     label: 'Skills & Technologies',
-    keywords: ['skills', 'frontend', 'backend', 'react', 'next.js', 'nextjs', 'javascript', 'typescript', 'redux', 'redux saga', 'responsive ui', 'ui ux', 'node', 'express', 'java', 'spring boot', 'php', 'rest api', 'jwt', 'bcrypt', 'microservices', 'python', 'mongodb', 'postgresql', 'supabase', 'neo4j', 'sql', 'database', 'react native', 'android', 'ios', 'mobile apps', 'websites', 'ai', 'llm', 'prompt engineering', 'mcp', 'mcp sdk', 'babel ast', 'developer tools', 'automation', 'scaffold', 'code analysis', 'graph visualization', 'debouncing', 'throttling', 'rate limiting', 'memoization', 'optimization', 'code splitting', 'lazy loading', 'virtualization', 'redis', 'docker', 'ci/cd']
+    keywords: ['skills', 'frontend', 'backend', 'react', 'next.js', 'nextjs', 'javascript', 'typescript', 'redux', 'redux saga', 'responsive ui', 'ui ux', 'node', 'express', 'java', 'spring boot', 'php', 'rest api', 'jwt', 'bcrypt', 'microservices', 'python', 'mongodb', 'postgresql', 'mysql', 'supabase', 'neo4j', 'sql', 'database', 'relational databases', 'relational database', 'relational schema design', 'joins', 'queries', 'react native', 'android', 'ios', 'mobile apps', 'websites', 'ai', 'llm', 'prompt engineering', 'mcp', 'mcp sdk', 'babel ast', 'developer tools', 'automation', 'scaffold', 'code analysis', 'graph visualization', 'debouncing', 'throttling', 'rate limiting', 'memoization', 'optimization', 'code splitting', 'lazy loading', 'virtualization', 'redis', 'docker', 'ci/cd']
   },
   { section: 'experience', label: 'Experience — 1+ year at Brainmatrix Solutions', keywords: ['experience', '1+ year', 'professional', 'brainmatrix solutions', 'arvana mall', 'udaipur', 'full stack developer', 'projects', 'mern', 'react native', 'ai', 'java', 'spring boot', 'python', 'php'] },
   {
@@ -39,7 +39,7 @@ export const searchIndex = [
 export const skillDetails = [
   'React.js', 'Next.js', 'JavaScript', 'TypeScript', 'Redux', 'Redux Saga', 'Responsive UI', 'UI/UX Development',
   'Node.js', 'Express.js', 'Java', 'Spring Boot', 'PHP', 'REST APIs', 'JWT Authentication', 'bcrypt', 'Microservices Architecture',
-  'Python', 'MongoDB', 'PostgreSQL', 'Supabase', 'Neo4j', 'SQL', 'React Native', 'Android', 'iOS', 'Websites', 'Full-Stack Applications', 'AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools',
+  'Python', 'MySQL', 'PostgreSQL', 'Supabase', 'SQL', 'Relational Databases', 'Relational Schema Design', 'Joins & Queries', 'MongoDB', 'Neo4j', 'React Native', 'Android', 'iOS', 'Websites', 'Full-Stack Applications', 'AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools',
   'MCP Servers', 'MCP SDK', 'Babel AST', 'Project Automation', 'Scaffold Generators', 'Code Analysis', 'Redis', 'Docker', 'CI/CD',
   'Dependency Analysis', 'Graph Visualization', 'Database development',
   'Debouncing', 'Throttling', 'Rate Limiting', 'Memoization', 'Code Splitting', 'Lazy Loading', 'Virtualization', 'React Optimization'

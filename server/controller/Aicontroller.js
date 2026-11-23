@@ -20,7 +20,7 @@ DEVELOPER PROFILE:
 TECH STACK (full "stack wall" — when asked about his stack, list ALL of these grouped by category, do not skip any):
 - Frontend: React.js, Redux, Redux Saga, TypeScript, JavaScript, Responsive UI, UI/UX Development
 - Backend: Node.js, Express.js, Java, Spring Boot, PHP, REST APIs, JWT Authentication, bcrypt, Microservices Architecture
-- Database & BaaS: MongoDB, PostgreSQL, Supabase, MySQL, SQL, Neo4j, Database-driven development
+- Databases: Relational (MySQL, PostgreSQL, Supabase, SQL, relational schema design, joins & queries) and NoSQL/BaaS (MongoDB, Neo4j, Database-driven development)
 - Mobile: React Native, Cross-platform development
 - AI & Tools: AI Integration, LLM Applications, Prompt Engineering, AI Tools, MCP Servers, MCP SDK, Babel AST, AI-powered tools
 - DevOps & Infra: Docker, Redis, CI/CD, GitHub Actions, Vercel, Git/GitHub, System Design

@@ -7,7 +7,7 @@ const services = [
   { title: 'Android + iOS Apps', desc: 'Cross-platform Android and iOS apps using React Native, with platform-aware UI, native integrations, and shared product architecture.' },
   { title: 'UI/UX Development', desc: 'Modern, responsive, user-focused interfaces with clean layouts, reusable components, and strong visual hierarchy.' },
   { title: 'AI Integration', desc: 'Integrate AI and LLM-powered functionality into web applications to create intelligent and automated user experiences.' },
-  { title: 'API & Backend Development', desc: 'Build REST APIs, authentication systems, database integrations, and scalable backend architectures.' },
+  { title: 'API & Backend Development', desc: 'Build REST APIs, authentication systems, relational and NoSQL database integrations, and scalable backend architectures.' },
   { title: 'AI & Developer Tools', desc: 'Developer-focused tools such as MCP servers, code analyzers, project automation tools, dependency visualizers, and AI-assisted utilities.' }
 ]
 

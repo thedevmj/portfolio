@@ -6,7 +6,8 @@ const categories = [
   { label: 'Frontend', skills: ['React.js', 'Next.js', 'JavaScript', 'TypeScript', 'Redux', 'Redux Saga', 'Responsive UI', 'UI/UX Development'] },
   { label: 'Backend', skills: ['Node.js', 'Express.js', 'Java', 'Spring Boot', 'PHP', 'REST APIs', 'JWT Authentication', 'bcrypt', 'Microservices Architecture'] },
   { label: 'Languages', skills: ['Java', 'JavaScript', 'TypeScript', 'Python', 'PHP'] },
-  { label: 'Database & BaaS', skills: ['MongoDB', 'PostgreSQL', 'Supabase', 'Neo4j', 'SQL', 'Database-driven development'] },
+  { label: 'Relational Databases', skills: ['MySQL', 'PostgreSQL', 'Supabase', 'SQL', 'Relational schema design', 'Joins & queries'] },
+  { label: 'NoSQL & BaaS', skills: ['MongoDB', 'Neo4j', 'Database-driven development'] },
   { label: 'Mobile', skills: ['React Native', 'Android', 'iOS', 'Cross-platform apps'] },
   { label: 'AI & Emerging', skills: ['AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools', 'MCP Servers', 'MCP SDK', 'Babel AST', 'AI-powered tools'] },
   { label: 'Optimization', skills: ['Debouncing', 'Throttling', 'Rate Limiting', 'Memoization', 'Code Splitting', 'Lazy Loading', 'Virtualization', 'useCallback / useMemo', 'Redis', 'CI/CD', 'Docker'] },
@@ -34,8 +35,8 @@ export default React.memo(function Skills() {
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">
-            Tools for building end-to-end products across frontend, backend, and data, plus
-            mobile, AI, and developer tooling.
+            Tools for building end-to-end products across frontend, backend, relational and
+            NoSQL data, plus mobile, AI, and developer tooling.
           </p>
         </Reveal>
 
