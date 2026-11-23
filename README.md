@@ -16,7 +16,7 @@ A premium, futuristic, glassmorphism-based personal portfolio built with the **M
 - Futuristic animated background (gradient orbs + grid)
 - Scroll-reveal animations (Intersection Observer, reduced-motion aware)
 - Interactive project filtering + detail modal
-- Skill categories, services, honest fresher experience, education timeline
+- Skill categories, services, 1+ year professional experience at Brainmatrix Solutions, live client sites, education timeline
 - Working contact form with validation, success/error states
 - Live debounced site search (Ctrl+K) with section navigation + highlight flash
 - WhatsApp quick-contact + prefilled form-to-WhatsApp
@@ -100,7 +100,7 @@ portfolio/
 
 ## Note on Content
 
-All personal info, projects, skills, education, contact details, and the GitHub link reflect the provided details only. No fake companies, testimonials, statistics, social profiles, or live-demo URLs are invented.
+All personal info, projects, skills, education, contact details, GitHub link, and live client URLs reflect the provided details only. No fake companies, testimonials, statistics, or social profiles are invented.
 
 ## React Performance Optimizations
 

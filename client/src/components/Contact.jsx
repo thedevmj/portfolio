@@ -1,5 +1,4 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react'
-import axios from 'axios'
 import { FiSend, FiCheckCircle, FiAlertCircle, FiLoader, FiArrowUpRight } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { StatCardSkeleton } from './Skeleton'
@@ -14,7 +13,7 @@ const contactInfo = [
   { label: 'Phone', value: '9649354858', href: 'tel:9649354858' },
   { label: 'WhatsApp', value: '9649354858', href: buildWhatsAppLink() },
   { label: 'GitHub', value: 'github.com/thedevmj', href: 'https://github.com/thedevmj' },
-  { label: 'Resume', value: 'Download PDF', href: '/junaidMansoori_Resume.pdf', download: 'junaidMansoori_Resume.pdf' }
+  { label: 'Resume', value: 'Download resume (PDF)', href: '/junaidMansoori_Resume.pdf', download: 'junaidMansoori_Resume.pdf' }
 ]
 
 const initialForm = { name: '', email: '', subject: '', message: '' }
@@ -58,7 +57,12 @@ export default React.memo(function Contact() {
     setLoading(true)
     setStatus(null)
     try {
-      await axios.post(`${API_BASE_URL}/api/contact`, form)
+      const apiRes = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      })
+      if (!apiRes.ok) throw new Error('Contact API request failed')
 
       const formData = new FormData()
       formData.append('access_key', '1335541c-e464-4845-bbdd-534e12901be9')
@@ -111,8 +115,8 @@ export default React.memo(function Contact() {
           <DotGrid
             dotSize={3}
             gap={30}
-            baseColor={theme === 'dark' ? '#3a3a42' : '#c6c0b2'}
-            activeColor="#FF5C2B"
+            baseColor={theme === 'dark' ? '#2a2a2a' : '#b8b8b8'}
+            activeColor={theme === 'dark' ? '#f4f4f4' : '#111111'}
             proximity={110}
             speedTrigger={70}
             shockRadius={150}
@@ -128,7 +132,7 @@ export default React.memo(function Contact() {
           <div>
             <span className="eyebrow">07 / Contact</span>
             <h2 className="display mt-5 text-5xl leading-none sm:text-6xl md:text-7xl">
-              Let&rsquo;s <em className="italic text-accent">talk.</em>
+              Contact <em className="italic text-accent">Junaid.</em>
             </h2>
             <p className="mt-5 max-w-xl text-sm font-medium leading-relaxed text-muted md:text-base">
               Open to opportunities, freelance projects, and collaborations.

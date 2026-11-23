@@ -8,27 +8,30 @@ const toneMap = {
   default: 'bg-bg text-fg border-y border-line'
 }
 
-// Slim editorial ticker. Edge-fades, pauses on hover, supports reverse + tone.
+// Slim editorial ticker. Edge-fades, loops endlessly, supports reverse + tone.
 export default function Marquee({
-  items = ['Full Stack Developer', 'MERN', 'AI', 'React Native'],
+  items = ['Full-Stack Apps', 'Websites', 'Android + iOS', 'React Native', 'AI'],
   reverse = false,
   tone = 'default',
   className = ''
 }) {
-  const duration = `${Math.min(70, countChars(items))}s`
+  const repeatCount = 4
+  const duration = `${Math.min(70, countChars(items) * repeatCount)}s`
 
-  const row = (key) => (
+  const group = (key) => (
     <div key={key} className="flex shrink-0 items-center">
-      {items.map((t, i) => (
-        <span key={`${key}-${i}`} className="flex items-center">
-          <span className="px-5 font-mono text-[11px] font-medium uppercase tracking-[0.22em] sm:px-7 sm:text-xs">
-            {t}
+      {Array.from({ length: repeatCount }).flatMap((_, repeat) =>
+        items.map((t, i) => (
+          <span key={`${key}-${repeat}-${i}`} className="flex items-center">
+            <span className="px-5 font-mono text-[11px] font-medium uppercase tracking-[0.22em] sm:px-7 sm:text-xs">
+              {t}
+            </span>
+            <span className={`text-xs ${tone === 'accent' ? 'opacity-70' : 'text-accent'}`} aria-hidden="true">
+              ✳
+            </span>
           </span>
-          <span className={`text-xs ${tone === 'accent' ? 'opacity-70' : 'text-accent'}`} aria-hidden="true">
-            ✳
-          </span>
-        </span>
-      ))}
+        ))
+      )}
     </div>
   )
 
@@ -43,11 +46,9 @@ export default function Marquee({
           animation: `marquee ${duration} linear infinite`,
           animationDirection: reverse ? 'reverse' : 'normal'
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.animationPlayState = 'paused')}
-        onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = 'running')}
       >
-        {row(1)}
-        {row(2)}
+        {group(1)}
+        {group(2)}
       </div>
     </div>
   )

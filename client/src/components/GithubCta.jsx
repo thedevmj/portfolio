@@ -8,20 +8,20 @@ export default React.memo(function GithubCta() {
       <div className="container-wide">
         <Reveal>
           <div
-            className="relative overflow-hidden rounded-[2rem] border border-line bg-elev p-6 sm:p-10 md:p-12"
-            style={{ backgroundImage: 'linear-gradient(120deg, rgba(67,83,255,0.10), rgba(255,77,28,0.08))' }}
+            className="relative overflow-hidden border border-line bg-elev p-6 sm:p-10 md:p-12"
+            style={{ backgroundImage: 'linear-gradient(120deg, rgba(255,255,255,0.06), rgba(0,0,0,0.02))' }}
           >
             <div className="absolute inset-0 grid-lines opacity-60" />
             <div className="relative flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
               <div className="flex items-start gap-5">
-                <span className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-line-strong bg-glass text-2xl text-fg backdrop-blur sm:flex">
+                <span className="hidden h-14 w-14 shrink-0 items-center justify-center border border-line-strong bg-glass text-2xl text-fg backdrop-blur sm:flex">
                   <FiGithub />
                 </span>
                 <div>
                   <span className="eyebrow">GitHub</span>
-                  <h3 className="display mt-3 text-3xl leading-none sm:text-4xl md:text-5xl">
+                  <h2 className="display mt-3 text-3xl leading-none sm:text-4xl md:text-5xl">
                     Explore my <span className="italic text-accent">code.</span>
-                  </h3>
+                  </h2>
                   <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">
                     Code, experiments, and developer projects.
                   </p>

@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Theme tokens resolved through CSS variables (see index.css).
+        // Monochrome tokens resolved through CSS variables (see index.css).
         // Colors are full values — never use opacity modifiers on them.
         bg: 'var(--bg)',
         elev: 'var(--bg-elev)',
@@ -20,23 +20,23 @@ export default {
         'on-accent': 'var(--on-accent)'
       },
       fontFamily: {
-        sans: ['Manrope', 'system-ui', 'sans-serif'],
-        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace']
+        sans: ['Inter Tight', 'Arial', 'sans-serif'],
+        serif: ['Archivo', 'Arial Narrow', 'sans-serif'],
+        mono: ['Archivo', 'Arial Narrow', 'sans-serif']
       },
       maxWidth: {
         '8xl': '90rem'
       },
       borderRadius: {
-        '4xl': '2rem',
-        '5xl': '2.75rem'
+        '4xl': '0.5rem',
+        '5xl': '0.75rem'
       },
       letterSpacing: {
         tightest: '-0.055em'
       },
       boxShadow: {
-        soft: '0 30px 80px -48px rgba(0,0,0,0.55)',
-        lift: '0 50px 110px -60px rgba(0,0,0,0.7)'
+        soft: '0 30px 70px -52px rgba(0,0,0,0.5)',
+        lift: '0 40px 90px -60px rgba(0,0,0,0.65)'
       },
       animation: {
         marquee: 'marquee 32s linear infinite',

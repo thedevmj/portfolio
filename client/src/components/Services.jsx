@@ -3,8 +3,8 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const services = [
-  { title: 'Web Development', desc: 'Responsive, scalable full-stack web applications using React.js, Node.js, Express.js, MongoDB, Java, Spring Boot, Python, and PHP.' },
-  { title: 'Mobile App Development', desc: 'Cross-platform mobile applications using React Native for iOS and Android.' },
+  { title: 'Websites & Full-Stack Apps', desc: 'Responsive websites and scalable MERN applications using React and Next.js frontends, Node.js and Express APIs, MongoDB, Java, Spring Boot, Python, and PHP.' },
+  { title: 'Android + iOS Apps', desc: 'Cross-platform Android and iOS apps using React Native, with platform-aware UI, native integrations, and shared product architecture.' },
   { title: 'UI/UX Development', desc: 'Modern, responsive, user-focused interfaces with clean layouts, reusable components, and strong visual hierarchy.' },
   { title: 'AI Integration', desc: 'Integrate AI and LLM-powered functionality into web applications to create intelligent and automated user experiences.' },
   { title: 'API & Backend Development', desc: 'Build REST APIs, authentication systems, database integrations, and scalable backend architectures.' },
@@ -19,11 +19,11 @@ export default React.memo(function Services() {
           <div>
             <span className="eyebrow">05 / Services</span>
             <h2 className="display mt-5 text-5xl leading-none sm:text-6xl md:text-7xl">
-              What I build<span className="text-accent">.</span>
+              Full-stack services<span className="text-accent">.</span>
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">
-            From product interface to database schema — full ownership of the stack.
+            From websites and full-stack products to Android + iOS apps — end-to-end ownership.
           </p>
         </Reveal>
 

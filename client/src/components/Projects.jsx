@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState, useTransition } from 'react'
-import { FiGithub, FiX, FiCpu, FiBook, FiTool, FiActivity, FiArrowUpRight, FiSmartphone } from 'react-icons/fi'
+import { FiGithub, FiX, FiCpu, FiBook, FiTool, FiActivity, FiArrowUpRight, FiSmartphone, FiGlobe, FiShoppingBag } from 'react-icons/fi'
 import { ProjectCardSkeleton } from './Skeleton'
 import Portal from './Portal'
 import { Reveal, Stagger, StaggerItem } from './Motion'
 import { AnimatePresence, motion } from 'motion/react'
+import SpotlightCard from './SpotlightCard'
 
-const filters = ['All', 'Full Stack', 'AI', 'Developer Tools', 'E-Commerce', 'Mobile']
+const filters = ['All', 'Full Stack', 'AI', 'Developer Tools', 'E-Commerce', 'Mobile Apps']
 
 const projects = [
   {
@@ -63,8 +64,8 @@ const projects = [
   {
     id: 5,
     title: 'Wall-E',
-    category: 'Mobile',
-    tags: ['Mobile'],
+    category: 'Mobile Apps',
+    tags: ['Mobile Apps', 'Android'],
     num: '05',
     description: 'A React Native live wallpaper studio for Android with video, doodle, static, and dynamic wallpaper modes.',
     problem: 'Provides a native Android experience for creating, customizing, and applying live and dynamic wallpapers with real-time previews.',
@@ -72,6 +73,34 @@ const projects = [
     features: ['Live video wallpapers', 'Dynamic battery/membrane wallpapers', 'Doodle animations', 'Color customization', 'Home/Lock screen apply'],
     featured: true,
     github: 'https://github.com/thedevmj/wall_e'
+  },
+  {
+    id: 6,
+    title: 'HK SPICES',
+    category: 'E-Commerce',
+    tags: ['Full Stack', 'E-Commerce'],
+    num: '06',
+    description: 'A live premium spice storefront with product catalog, cart and checkout, product search, B2B enquiries, and customer accounts.',
+    problem: 'Gives a Udaipur spice brand a premium retail storefront and a practical B2B enquiry workflow, with clear pricing, stock, and product storytelling.',
+    tech: ['React.js', 'Node.js', 'Express', 'MongoDB', 'REST APIs', 'JWT'],
+    features: ['Product catalog', 'Cart & checkout', 'B2B enquiry dashboard', 'Product search', 'Mobile OTP login', 'Responsive UI'],
+    featured: true,
+    live: 'https://hkspices.in/',
+    github: 'https://github.com/thedevmj'
+  },
+  {
+    id: 7,
+    title: 'Bellarro',
+    category: 'E-Commerce',
+    tags: ['Full Stack', 'E-Commerce'],
+    num: '07',
+    description: 'A live fashion and lifestyle storefront for handcrafted handbags, travel bags, messenger bags, and bespoke leather creations.',
+    problem: 'Presents a premium leather-goods catalogue with timeless editorial styling and a smooth shopping journey across devices.',
+    tech: ['React.js', 'Vite', 'JavaScript', 'REST APIs', 'Responsive UI'],
+    features: ['Product catalogue', 'Editorial product pages', 'Responsive layout', 'Shopping workflow', 'Brand storytelling'],
+    featured: false,
+    live: 'https://bellarro.com/',
+    github: 'https://github.com/thedevmj'
   }
 ]
 
@@ -80,15 +109,19 @@ const iconMap = {
   2: <FiBook />,
   3: <FiTool />,
   4: <FiActivity />,
-  5: <FiSmartphone />
+  5: <FiSmartphone />,
+  6: <FiGlobe />,
+  7: <FiShoppingBag />
 }
 
 const tones = [
-  'linear-gradient(135deg, rgba(255,77,28,0.20), rgba(255,180,120,0.05))',
-  'linear-gradient(135deg, rgba(67,83,255,0.18), rgba(150,120,255,0.05))',
-  'linear-gradient(135deg, rgba(80,200,160,0.16), rgba(67,83,255,0.05))',
-  'linear-gradient(135deg, rgba(255,77,28,0.14), rgba(67,83,255,0.14))',
-  'linear-gradient(135deg, rgba(190,120,255,0.18), rgba(255,77,28,0.08))'
+  'linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.01))',
+  'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,0,0,0.02))',
+  'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))',
+  'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(0,0,0,0.04))',
+  'linear-gradient(135deg, rgba(255,255,255,0.11), rgba(255,255,255,0.01))',
+  'linear-gradient(135deg, rgba(255,255,255,0.09), rgba(0,0,0,0.03))',
+  'linear-gradient(135deg, rgba(255,255,255,0.13), rgba(255,255,255,0.02))'
 ]
 
 export default React.memo(function Projects() {
@@ -118,8 +151,8 @@ export default React.memo(function Projects() {
           <div>
             <span className="eyebrow">03 / Selected work</span>
             <h2 className="display mt-5 max-w-2xl text-4xl leading-[1.02] sm:text-5xl md:text-6xl">
-              Good developers ship. Great developers{' '}
-              <em className="italic text-accent">surprise.</em>
+              Selected web, mobile &amp; AI{' '}
+              <em className="italic text-accent">projects.</em>
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">
@@ -157,7 +190,9 @@ export default React.memo(function Projects() {
             <Stagger className="grid gap-5 md:grid-cols-2" gap={0.06}>
               {filtered.map((p, i) => (
                 <StaggerItem key={p.id}>
-                  <article
+                  <SpotlightCard
+                    as="article"
+                    id={`project-${p.id}`}
                     onClick={() => openProject(p)}
                     data-cursor="explore"
                     className="card card-hover group flex h-full cursor-pointer flex-col overflow-hidden"
@@ -174,6 +209,11 @@ export default React.memo(function Projects() {
                       {p.featured && (
                         <span className="absolute right-6 top-6 rounded-full bg-accent px-3 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-on-accent">
                           ★ Featured
+                        </span>
+                      )}
+                      {p.live && (
+                        <span className="absolute right-6 top-14 rounded-full border border-line-strong bg-glass px-3 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-fg backdrop-blur">
+                          Live
                         </span>
                       )}
                       <span className="absolute bottom-5 left-6 text-4xl text-fg transition-transform duration-500 group-hover:-translate-y-1 group-hover:text-accent">
@@ -210,16 +250,37 @@ export default React.memo(function Projects() {
                         ))}
                       </div>
 
-                      <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted transition-colors group-hover:text-accent">
-                          View case study
-                        </span>
+                      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                          <a
+                            href={`#project-${p.id}`}
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              openProject(p)
+                            }}
+                            className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted transition-colors group-hover:text-accent"
+                          >
+                            View case study for {p.title}
+                          </a>
+                          {p.live && (
+                            <a
+                              href={p.live}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent transition-opacity hover:opacity-70"
+                            >
+                              Visit live site for {p.title}
+                            </a>
+                          )}
+                        </div>
                         <span className="flex h-8 w-8 items-center justify-center rounded-full border border-line-strong text-muted transition-all duration-300 group-hover:border-accent group-hover:text-accent">
                           <FiArrowUpRight size={14} />
                         </span>
                       </div>
                     </div>
-                  </article>
+                  </SpotlightCard>
                 </StaggerItem>
               ))}
             </Stagger>
@@ -283,7 +344,7 @@ export default React.memo(function Projects() {
                       )}
                     </div>
 
-                    <h3 className="display mt-4 text-3xl leading-tight sm:text-4xl">{selected.title}</h3>
+                    <h2 className="display mt-4 text-3xl leading-tight sm:text-4xl">{selected.title}</h2>
                     <p className="mt-4 text-sm leading-relaxed text-muted sm:text-[15px]">
                       {selected.description}
                     </p>
@@ -315,9 +376,14 @@ export default React.memo(function Projects() {
                       </div>
                     </div>
 
-                    <div className="mt-9">
+                    <div className="mt-9 flex flex-wrap gap-3">
+                      {selected.live && (
+                        <a href={selected.live} target="_blank" rel="noreferrer" className="btn btn-ghost">
+                          <FiGlobe /> Visit live site
+                        </a>
+                      )}
                       <a href={selected.github} target="_blank" rel="noreferrer" className="btn btn-accent">
-                        <FiGithub /> View on GitHub
+                        <FiGithub /> View GitHub profile
                       </a>
                     </div>
                   </div>

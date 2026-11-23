@@ -5,11 +5,11 @@ import { useSearch } from '../context/SearchContext.jsx'
 import { motion, AnimatePresence } from 'motion/react'
 
 const links = [
-  { id: 'home', label: 'Intro', num: '00' },
-  { id: 'projects', label: 'Work', num: '01' },
-  { id: 'about', label: 'Studio', num: '02' },
-  { id: 'skills', label: 'Skills', num: '03' },
-  { id: 'contact', label: 'Contact', num: '04' }
+  { id: 'home', label: 'Home' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' }
 ]
 
 export default function Navbar() {
@@ -58,6 +58,12 @@ export default function Navbar() {
   const goTo = (id) => {
     setOpen(false)
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    if (window.location.hash !== `#${id}`) window.history.replaceState(null, '', `#${id}`)
+  }
+
+  const onAnchor = (event, id) => {
+    event.preventDefault()
+    goTo(id)
   }
 
   return (
@@ -78,35 +84,35 @@ export default function Navbar() {
           }`}
         >
           {/* Wordmark */}
-          <button onClick={() => goTo('home')} className="group flex shrink-0 items-center gap-3" aria-label="Go to top">
+          <a href="#home" onClick={(e) => onAnchor(e, 'home')} className="group flex shrink-0 items-center gap-3" aria-label="Go to top">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent font-serif text-xl italic leading-none text-on-accent transition-transform duration-300 group-hover:-rotate-6">
               J
             </span>
             <span className="hidden flex-col text-left leading-none sm:flex">
               <span className="text-sm font-bold tracking-tight">Junaid Mansoori</span>
               <span className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.22em] text-muted">
-                Full-Stack · AI
+                Web · Full Stack · Apps
               </span>
             </span>
-          </button>
+          </a>
 
           {/* Desktop links */}
           <ul className="hidden items-center gap-1 lg:flex">
             {links.map((l) => (
               <li key={l.id}>
-                <button
-                  onClick={() => goTo(l.id)}
+                <a
+                  href={`#${l.id}`}
+                  onClick={(e) => onAnchor(e, l.id)}
                   aria-current={active === l.id ? 'page' : undefined}
                   className={`group relative flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-semibold transition-colors ${
                     active === l.id ? 'text-fg' : 'text-muted hover:text-fg'
                   }`}
                 >
-                  <span className="font-mono text-[9px] tracking-widest opacity-60">{l.num}</span>
                   {l.label}
                   {active === l.id && (
                     <span className="absolute inset-x-4 -bottom-0.5 h-px bg-accent" />
                   )}
-                </button>
+                </a>
               </li>
             ))}
           </ul>
@@ -119,12 +125,13 @@ export default function Navbar() {
             <button onClick={toggleTheme} className="icon-btn" aria-label="Toggle dark/light mode">
               {theme === 'dark' ? <FiSun size={16} /> : <FiMoon size={16} />}
             </button>
-            <button
-              onClick={() => goTo('contact')}
+            <a
+              href="#contact"
+              onClick={(e) => onAnchor(e, 'contact')}
               className="btn btn-accent hidden px-5 py-2.5 text-[13px] sm:inline-flex"
             >
-              Let&rsquo;s talk <FiArrowUpRight size={15} />
-            </button>
+              Contact Junaid <FiArrowUpRight size={15} />
+            </a>
             <button
               onClick={() => setOpen((o) => !o)}
               aria-label="Toggle menu"
@@ -168,16 +175,16 @@ export default function Navbar() {
                     transition={{ delay: 0.05 + i * 0.05, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                     className="border-b border-line"
                   >
-                    <button
-                      onClick={() => goTo(l.id)}
-                      className="group flex w-full items-baseline gap-4 py-5 text-left"
+                    <a
+                      href={`#${l.id}`}
+                      onClick={(e) => onAnchor(e, l.id)}
+                      className="group flex w-full items-center gap-3 py-5 text-left"
                     >
-                      <span className="font-mono text-[10px] tracking-widest text-muted">{l.num}</span>
                       <span className="font-serif text-4xl tracking-tight transition-colors group-hover:text-accent">
                         {l.label}
                       </span>
                       <FiArrowUpRight className="ml-auto text-muted transition-colors group-hover:text-accent" />
-                    </button>
+                    </a>
                   </motion.li>
                 ))}
               </ul>
@@ -194,7 +201,7 @@ export default function Navbar() {
                   GitHub
                 </a>
                 <a href="/junaidMansoori_Resume.pdf" download className="link-underline hover:text-fg">
-                  Resume
+                  Download resume (PDF)
                 </a>
               </motion.div>
             </div>

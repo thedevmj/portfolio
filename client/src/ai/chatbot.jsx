@@ -13,7 +13,7 @@ const SUGGESTED_PROMPTS = [
   "What tech stack does Junaid work with?",
   "Tell me about Junaid's project experience",
   "Can Junaid build a full stack e-commerce app?",
-  "What makes Junaid a good fit for a React Native role?"
+  "Can Junaid build Android and iOS apps?"
 ];
 
 // Client-side rate limiting: minimum seconds between messages.
@@ -267,10 +267,10 @@ export default function AiChatbot({ isOpen, onClose }) {
                 <span className="text-xs font-semibold tracking-tight text-fg sm:text-sm">
                   Ask about Junaid
                 </span>
-                <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+                <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
               </div>
               <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
-                Full Stack · MERN · React Native
+                Full Stack · Websites · Android + iOS
               </p>
             </div>
           </div>

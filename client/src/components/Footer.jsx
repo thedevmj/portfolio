@@ -5,59 +5,66 @@ import { buildWhatsAppLink } from '../constants'
 import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const navLinks = [
-  { id: 'home', label: 'Intro' },
-  { id: 'projects', label: 'Works' },
-  { id: 'about', label: 'Studio' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'services', label: 'Services' },
+  { id: 'home', label: 'Home' },
+  { id: 'projects', label: 'Full-stack projects' },
+  { id: 'about', label: 'About Junaid' },
+  { id: 'skills', label: 'Skills & tech stack' },
+  { id: 'services', label: 'Web & mobile services' },
+  { id: 'faq', label: 'FAQ' },
   { id: 'contact', label: 'Contact' }
 ]
 
 export default React.memo(function Footer() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    if (window.location.hash !== `#${id}`) window.history.replaceState(null, '', `#${id}`)
+  }
+
+  const onAnchor = (event, id) => {
+    event.preventDefault()
+    scrollTo(id)
+  }
 
   return (
     <footer className="relative border-t border-line">
       <div className="container-wide py-14 md:py-20">
         <div className="grid gap-12 md:grid-cols-12">
-          {/* Brand */}
           <Reveal className="md:col-span-6">
-            <button onClick={() => scrollTo('home')} className="text-left">
+            <a href="#home" onClick={(e) => onAnchor(e, 'home')} className="text-left">
               <span className="display block text-[clamp(2.4rem,7vw,5rem)] leading-[0.9] tracking-tight">
                 Junaid <span className="italic text-accent">Mansoori</span>
               </span>
-            </button>
+            </a>
             <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
-              Full Stack Developer
+              Full-Stack Developer · Web & Mobile
             </p>
             <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
-              MERN · AI · React Native
+              Websites · Android + iOS · AI
             </p>
-            <button onClick={() => scrollTo('contact')} className="btn btn-accent mt-7">
-              Start a project
-            </button>
+            <a href="#contact" onClick={(e) => onAnchor(e, 'contact')} className="btn btn-accent mt-7">
+              Contact Junaid about a project
+            </a>
           </Reveal>
 
-          {/* Navigation */}
           <Reveal delay={0.1} className="md:col-span-3">
-            <h4 className="eyebrow">Sitemap</h4>
+            <h2 className="eyebrow">Sitemap</h2>
             <Stagger as="ul" className="mt-5 space-y-2.5" gap={0.05}>
               {navLinks.map((l) => (
                 <StaggerItem as="li" key={l.id}>
-                  <button
-                    onClick={() => scrollTo(l.id)}
+                  <a
+                    href={`#${l.id}`}
+                    onClick={(e) => onAnchor(e, l.id)}
                     className="link-underline text-sm font-medium text-muted transition-colors hover:text-fg"
                   >
                     {l.label}
-                  </button>
+                  </a>
                 </StaggerItem>
               ))}
             </Stagger>
           </Reveal>
 
-          {/* Contact */}
           <Reveal delay={0.18} className="md:col-span-3">
-            <h4 className="eyebrow">Contact</h4>
+            <h2 className="eyebrow">Contact</h2>
             <Stagger as="ul" className="mt-5 space-y-3 text-sm font-medium text-muted" gap={0.04}>
               <StaggerItem as="li">
                 <a href="mailto:junaidmansuri71@gmail.com" className="flex items-center gap-2 transition-colors hover:text-fg">
@@ -65,8 +72,8 @@ export default React.memo(function Footer() {
                 </a>
               </StaggerItem>
               <StaggerItem as="li">
-                <a href="tel:9649354858" className="flex items-center gap-2 transition-colors hover:text-fg">
-                  <FiPhone size={13} /> 9649354858
+                <a href="tel:+919649354858" className="flex items-center gap-2 transition-colors hover:text-fg">
+                  <FiPhone size={13} /> +91 9649354858
                 </a>
               </StaggerItem>
               <StaggerItem as="li">
@@ -81,7 +88,7 @@ export default React.memo(function Footer() {
               </StaggerItem>
               <StaggerItem as="li">
                 <a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" className="flex items-center gap-2 transition-colors hover:text-fg">
-                  <FiDownload size={13} /> Download resume
+                  <FiDownload size={13} /> Download resume (PDF)
                 </a>
               </StaggerItem>
             </Stagger>
@@ -96,12 +103,13 @@ export default React.memo(function Footer() {
             <span className="rounded-full border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
               EN
             </span>
-            <button
-              onClick={() => scrollTo('home')}
+            <a
+              href="#home"
+              onClick={(e) => onAnchor(e, 'home')}
               className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted transition-colors hover:text-fg"
             >
               Back to top <FiArrowUp size={13} />
-            </button>
+            </a>
           </div>
         </div>
       </div>

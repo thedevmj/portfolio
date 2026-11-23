@@ -8,7 +8,7 @@ export default function AiFloat() {
 
   return (
     <>
-      <div className="fixed bottom-4 right-4 z-50 flex touch-manipulation items-center gap-2 sm:bottom-6 sm:right-6">
+      <div id="ai" className="fixed bottom-4 right-4 z-50 flex touch-manipulation items-center gap-2 sm:bottom-6 sm:right-6">
         <AnimatePresence>
           {!isOpen && (
             <motion.div
@@ -17,7 +17,7 @@ export default function AiFloat() {
               exit={{ opacity: 0, x: 10, scale: 0.94 }}
               className="pointer-events-none flex select-none items-center gap-2 rounded-full border border-line bg-glass px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-fg shadow-soft backdrop-blur-xl"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               Ask AI
             </motion.div>
           )}

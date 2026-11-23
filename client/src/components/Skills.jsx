@@ -3,11 +3,11 @@ import { SkillCardSkeleton } from './Skeleton'
 import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const categories = [
-  { label: 'Frontend', skills: ['React.js', 'JavaScript', 'TypeScript', 'Redux', 'Redux Saga', 'Responsive UI', 'UI/UX Development'] },
+  { label: 'Frontend', skills: ['React.js', 'Next.js', 'JavaScript', 'TypeScript', 'Redux', 'Redux Saga', 'Responsive UI', 'UI/UX Development'] },
   { label: 'Backend', skills: ['Node.js', 'Express.js', 'Java', 'Spring Boot', 'PHP', 'REST APIs', 'JWT Authentication', 'bcrypt', 'Microservices Architecture'] },
   { label: 'Languages', skills: ['Java', 'JavaScript', 'TypeScript', 'Python', 'PHP'] },
   { label: 'Database & BaaS', skills: ['MongoDB', 'PostgreSQL', 'Supabase', 'Neo4j', 'SQL', 'Database-driven development'] },
-  { label: 'Mobile', skills: ['React Native', 'Cross-platform development'] },
+  { label: 'Mobile', skills: ['React Native', 'Android', 'iOS', 'Cross-platform apps'] },
   { label: 'AI & Emerging', skills: ['AI Integration', 'LLM Applications', 'Prompt Engineering', 'AI Tools', 'MCP Servers', 'MCP SDK', 'Babel AST', 'AI-powered tools'] },
   { label: 'Optimization', skills: ['Debouncing', 'Throttling', 'Rate Limiting', 'Memoization', 'Code Splitting', 'Lazy Loading', 'Virtualization', 'useCallback / useMemo', 'Redis', 'CI/CD', 'Docker'] },
   { label: 'Dev Tools', skills: ['Project Automation', 'Scaffold Generators', 'Code Analysis', 'Dependency Analysis', 'Graph Visualization', 'REST API Architecture', 'Auth & Authorization', 'Microservices'] }
@@ -30,7 +30,7 @@ export default React.memo(function Skills() {
           <div>
             <span className="eyebrow">02 / Toolkit</span>
             <h2 className="display mt-5 text-5xl leading-none sm:text-6xl md:text-7xl">
-              The toolkit<span className="text-accent">.</span>
+              Skills &amp; tech stack<span className="text-accent">.</span>
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">

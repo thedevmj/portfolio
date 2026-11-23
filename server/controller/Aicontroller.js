@@ -12,7 +12,7 @@ You are the AI Assistant & Architecture Copilot on Mohammad Junaid Mansoori's po
 DEVELOPER PROFILE:
 - Name: Mohammad Junaid Mansoori (also goes by "Junaid")
 - Title: Full Stack Developer | MERN Specialist | React Native
-- Location: India. Entering the professional field as a fresher with substantial hands-on, end-to-end project experience.
+- Location: India. 1+ year of professional experience as a Full Stack Developer at Brainmatrix Solutions, Arvana Mall, Udaipur, building full-stack web applications end-to-end.
 - Contact: junaidmansuri71@gmail.com | +91-9649354858 | GitHub: github.com/thedevmj
 - Core strengths: problem solving, continuous learning, user-centric development,
   full-stack thinking, adaptability across technologies, genuine interest in emerging AI/LLM tooling.
@@ -40,6 +40,11 @@ PROJECTS (all real, from his portfolio — never invent others):
 5. Wall-E — React Native Android live-wallpaper studio with native Kotlin modules:
    video, doodle, static and dynamic wallpaper modes, color customization, and
    home/lock screen apply.
+6. HK SPICES — live production e-commerce storefront for a Udaipur spice brand:
+   product catalogue, product search, cart and checkout, B2B enquiry dashboard,
+   mobile OTP login, and responsive retail + wholesale journeys (https://hkspices.in/).
+7. Bellarro — live fashion and lifestyle storefront for handcrafted handbags, travel
+   bags, messenger bags, and bespoke leather creations (https://bellarro.com/).
 
 RESPONSE RULES:
 - ALWAYS answer CONCISELY and precisely: SHORT answers that are dense with tech keywords.
@@ -49,7 +54,8 @@ RESPONSE RULES:
   "tell me about...", "what makes him...", "who is...", "can he build...", "is he right for..."):
   the "answer" field MUST be SHORT — 2-4 punchy sentences plus a compact "- " bullet list
   of the most relevant keywords/projects. Reference real projects by name (AI Resume Analyzer,
-  Online Book Shopping Center, Scaffold Generator, MCP Code Project Analyzer, Wall-E),
+  Online Book Shopping Center, Scaffold Generator, MCP Code Project Analyzer, Wall-E,
+  HK SPICES, Bellarro),
   tie his strengths to the role, and finish with contact details:
   junaidmansuri71@gmail.com, +91-9649354858, github.com/thedevmj.
   Do NOT invent experience, employers, metrics, or achievements not listed in this profile.
@@ -161,9 +167,9 @@ const generateLocalBlueprint = (prompt) => {
                 "Advanced React Native performance and native module work"
             ],
             rationale: {
-                stack: "MERN + React Native is the exact stack Junaid ships today; his projects (AI Resume Analyzer, Online Book Shopping, MCP Code Project Analyzer, Wall-E) prove depth across web, mobile, AI, and tooling."
+                stack: "MERN + React Native is the exact stack Junaid ships today; his projects (AI Resume Analyzer, Online Book Shopping, MCP Code Project Analyzer, Wall-E, HK SPICES, Bellarro) prove depth across web, mobile, AI, e-commerce, and tooling."
             },
-            answer: `**Mohammad Junaid Mansoori** is a Full Stack Developer (**MERN** + **React Native**) fresher from India who ships apps end-to-end — web, mobile, and AI.
+            answer: `**Mohammad Junaid Mansoori** is a Full Stack Developer (**MERN** + **React Native**) from India with 1+ year at **Brainmatrix Solutions**, Arvana Mall, Udaipur — shipping apps end-to-end — web, mobile, and AI.
 
 STACK
 - **Frontend:** React.js, TypeScript, Redux, Redux Saga, UI/UX
@@ -174,7 +180,7 @@ STACK
 - **DevOps/Infra:** Docker, Redis, CI/CD, GitHub Actions, Vercel
 
 WHY HIRE HIM
-Ships real projects: **AI Resume Analyzer** (Claude API), **Wall-E** (React Native + Kotlin), **Online Book Shopping** (Redux Saga + JWT), **MCP Code Project Analyzer**.
+Ships real projects: **AI Resume Analyzer** (Claude API), **Wall-E** (React Native + Kotlin), **Online Book Shopping** (Redux Saga + JWT), **MCP Code Project Analyzer**, **HK SPICES** and **Bellarro** (live production storefronts).
 
 CONTACT
 junaidmansuri71@gmail.com | +91-9649354858 | github.com/thedevmj`

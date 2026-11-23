@@ -1,12 +1,20 @@
 import React from 'react'
 import { FiArrowRight, FiArrowDown, FiDownload } from 'react-icons/fi'
 import { Reveal, Stagger, StaggerItem, Float } from './Motion'
-import HeroScene from './HeroScene'
+import SplitText from './SplitText'
 
-const focus = ['Full-Stack', 'React', 'Node.js', 'REST APIs', 'MongoDB', 'AI / LLM']
+const focus = ['Full-Stack Apps', 'Websites', 'Android Apps', 'iOS Apps', 'REST APIs', 'AI / LLM']
 
 export default React.memo(function Hero() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    if (window.location.hash !== `#${id}`) window.history.replaceState(null, '', `#${id}`)
+  }
+
+  const onAnchor = (event, id) => {
+    event.preventDefault()
+    scrollTo(id)
+  }
 
   return (
     <section id="home" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pb-14 pt-28 md:pt-32">
@@ -34,28 +42,30 @@ export default React.memo(function Hero() {
         <div className="mt-8 grid items-end gap-12 lg:mt-10 lg:grid-cols-12 lg:gap-10">
           {/* Name + intro */}
           <div className="lg:col-span-7">
-            <h1 className="display select-none text-[clamp(4.2rem,12.5vw,11rem)] leading-[0.82]">
-              <span className="block">Junaid</span>
-              <span className="block italic text-accent">Mansoori</span>
+            <span className="eyebrow">Full-Stack &amp; Mobile Developer — Websites · Android + iOS</span>
+            <h1 className="display mt-5 select-none text-[clamp(4.2rem,12.5vw,11rem)] leading-[0.82]">
+              <span className="block"><SplitText text="Junaid" delay={0.1} stagger={0.11} /></span>
+              <span className="block italic text-accent"><SplitText text="Mansoori" delay={0.21} stagger={0.11} /></span>
             </h1>
 
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-xl text-lg font-medium leading-relaxed text-fg md:text-xl">
-                Building end-to-end web products — from polished <span className="text-accent">React interfaces</span>{' '}
-                to secure Node.js APIs and data models. MERN-first, with AI and mobile experience.
+                Building full-stack applications and websites end to end — polished{' '}
+                <span className="text-accent">React interfaces</span>, secure Node.js APIs, and reliable data models.{' '}
+                Also shipping Android and iOS apps with React Native.
               </p>
             </Reveal>
 
             <Stagger className="mt-9 flex flex-wrap gap-3" gap={0.08}>
               <StaggerItem>
-                <button onClick={() => scrollTo('projects')} data-magnetic className="btn btn-accent btn-lg">
-                  View work <FiArrowRight />
-                </button>
+                <a href="#projects" onClick={(e) => onAnchor(e, 'projects')} data-magnetic className="btn btn-accent btn-lg">
+                  View full-stack projects <FiArrowRight />
+                </a>
               </StaggerItem>
               <StaggerItem>
-                <button onClick={() => scrollTo('contact')} data-magnetic className="btn btn-ghost btn-lg">
-                  Get in touch
-                </button>
+                <a href="#contact" onClick={(e) => onAnchor(e, 'contact')} data-magnetic className="btn btn-ghost btn-lg">
+                  Contact Junaid
+                </a>
               </StaggerItem>
               <StaggerItem>
                 <a
@@ -64,7 +74,7 @@ export default React.memo(function Hero() {
                   data-magnetic
                   className="btn btn-ghost btn-lg"
                 >
-                  <FiDownload /> Resume
+                  <FiDownload /> Download resume (PDF)
                 </a>
               </StaggerItem>
             </Stagger>
@@ -84,32 +94,53 @@ export default React.memo(function Hero() {
             <div className="relative mx-auto w-full max-w-md">
               <Float className="absolute -left-4 top-10 z-20 hidden sm:block" distance={10} rotate={-4} duration={7}>
                 <span className="rounded-full border border-line bg-glass px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-fg backdrop-blur-xl shadow-soft">
-                  Frontend / React
+                  Web / Full Stack
                 </span>
               </Float>
               <Float className="absolute -right-3 bottom-28 z-20 hidden sm:block" distance={12} rotate={5} duration={6}>
                 <span className="rounded-full border border-line bg-glass px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-fg backdrop-blur-xl shadow-soft">
-                  API / Data
+                  Android / iOS
                 </span>
               </Float>
 
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] border border-line bg-elev">
-                <div className="absolute inset-0 grid-lines opacity-70" />
-                <HeroScene />
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-line bg-elev">
+                <img
+                  src="/heroimg.jpeg"
+                  alt="Black-and-white portrait of Junaid Mansoori"
+                  width="1086"
+                  height="1448"
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover object-[50%_35%] grayscale contrast-105"
+                  style={{
+                    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%)',
+                    maskImage: 'linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%)'
+                  }}
+                />
+                <div className="absolute inset-0 grid-lines opacity-40" />
 
                 <div className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
                   Portfolio / 2026
                 </div>
                 <div className="absolute right-6 top-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                  UI → API → Data
+                  WEB → API → APPS
                 </div>
 
-                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 rounded-2xl border border-line bg-glass px-4 py-3 backdrop-blur-xl">
-                  <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
-                    <span>Full-Stack Developer</span>
-                    <span>India</span>
+                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 flex items-center justify-between gap-3 border border-white/20 bg-black/55 px-4 py-3 text-white backdrop-blur-xl">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <svg className="h-7 w-7 shrink-0" viewBox="0 0 38 32" fill="none" aria-hidden="true">
+                      <path d="M2 28 18 3l3 24H2Z" fill="currentColor" />
+                      <path d="M21 28 36 19 23 5l-2 23Z" fill="currentColor" fillOpacity=".6" />
+                    </svg>
+                    <div className="min-w-0">
+                      <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/60">
+                        Full-Stack & Mobile Developer
+                      </div>
+                      <div className="mt-1 truncate text-sm font-semibold tracking-tight">Junaid Mansoori</div>
+                    </div>
                   </div>
-                  <div className="mt-1.5 text-sm font-semibold tracking-tight">React · Node.js · MongoDB</div>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/60">India</span>
                 </div>
               </div>
             </div>
