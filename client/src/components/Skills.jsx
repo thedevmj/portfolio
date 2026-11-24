@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { SkillCardSkeleton } from './Skeleton'
 import { Reveal, Stagger, StaggerItem } from './Motion'
+import TechText from './TechText'
 
 const categories = [
   { label: 'Frontend', skills: ['React.js', 'Next.js', 'JavaScript', 'TypeScript', 'Redux', 'Redux Saga', 'Responsive UI', 'UI/UX Development'] },
@@ -30,8 +31,38 @@ export default React.memo(function Skills() {
         <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <span className="eyebrow">02 / Toolkit</span>
-            <h2 className="display mt-5 text-5xl leading-none sm:text-6xl md:text-7xl">
-              Skills &amp; tech stack<span className="text-accent">.</span>
+            <h2 className="display mt-4 select-none">
+              <span className="sr-only">Skills &amp; tech stack.</span>
+              <span className="block h-[104px] w-full sm:h-[136px] lg:h-[168px]" aria-hidden="true">
+                <TechText
+                  text="Skills & tech stack."
+                  fontWeight={600}
+                  fontSize={96}
+                  reveal="letter"
+                  dashLength={4}
+                  dashGap={2}
+                  specks={15}
+                  intro="none"
+                  introDuration={2}
+                  clickKick
+                  guides={false}
+                  fontFamily=""
+                  letterSpacing={-0.05}
+                  accentColor="currentColor"
+                  reach={200}
+                  softness={0.7}
+                  lineStyle="dashed"
+                  strokeWidth={1.5}
+                  speed={1}
+                  bounce={0.4}
+                  selection
+                  labels
+                  color="currentColor"
+                  align="left"
+                  draggable
+                  sweep
+                />
+              </span>
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">

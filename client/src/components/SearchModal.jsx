@@ -59,14 +59,14 @@ export default function SearchModal() {
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-[70] flex items-start justify-center bg-black/60 p-4 pt-[12vh] backdrop-blur-sm"
+        className="fixed inset-0 z-[70] flex items-start justify-center overflow-y-auto overscroll-contain bg-black/60 p-3 pt-[max(4rem,env(safe-area-inset-top))] backdrop-blur-sm sm:p-4 sm:pt-[12vh]"
         onClick={closeSearch}
         role="dialog"
         aria-modal="true"
         aria-label="Search portfolio"
       >
         <div
-          className="flex max-h-[70vh] w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-line bg-bg shadow-lift"
+          className="flex max-h-[calc(100dvh-6rem)] w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-line bg-bg shadow-lift sm:max-h-[70vh]"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Input row */}
@@ -77,7 +77,7 @@ export default function SearchModal() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search skills, projects, services…"
-              className="flex-1 bg-transparent text-sm font-medium text-fg outline-none placeholder:text-muted"
+              className="flex-1 bg-transparent text-base font-medium text-fg outline-none placeholder:text-muted sm:text-sm"
               aria-label="Search portfolio content"
             />
             <kbd className="hidden rounded-md border border-line px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-muted sm:block">

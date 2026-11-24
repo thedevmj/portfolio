@@ -67,7 +67,7 @@ export default React.memo(function About() {
             <div className="mt-6 border-t border-line">
               {highlights.map((h, i) => (
                 <Reveal key={h.title} delay={i * 0.06}>
-                  <div className="group grid grid-cols-[auto_1fr_auto] items-start gap-5 border-b border-line py-6">
+                  <div className="group grid grid-cols-[auto_1fr] items-start gap-3 border-b border-line py-6 sm:grid-cols-[auto_1fr_auto] sm:gap-5">
                     <span className="pt-1 font-mono text-xs text-muted">{h.num}</span>
                     <div>
                       <h3 className="text-lg font-bold tracking-tight transition-colors group-hover:text-accent md:text-xl">
@@ -75,7 +75,7 @@ export default React.memo(function About() {
                       </h3>
                       <p className="mt-1.5 text-sm leading-relaxed text-muted">{h.desc}</p>
                     </div>
-                    <FiArrowUpRight className="mt-1 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+                    <FiArrowUpRight className="mt-1 hidden text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent sm:block" />
                   </div>
                 </Reveal>
               ))}

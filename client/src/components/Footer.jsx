@@ -41,7 +41,7 @@ export default React.memo(function Footer() {
             <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
               Websites · Android + iOS · AI
             </p>
-            <a href="#contact" onClick={(e) => onAnchor(e, 'contact')} className="btn btn-accent mt-7">
+            <a href="#contact" onClick={(e) => onAnchor(e, 'contact')} className="btn btn-accent mt-7 w-full whitespace-normal text-center sm:w-auto sm:whitespace-nowrap">
               Contact Junaid about a project
             </a>
           </Reveal>

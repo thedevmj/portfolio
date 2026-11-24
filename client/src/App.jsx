@@ -4,6 +4,7 @@ import { SearchProvider } from './context/SearchContext.jsx'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
+import ScrollExpand from './components/ScrollExpand'
 import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Services from './components/Services'
@@ -50,6 +51,36 @@ function Portfolio() {
           items={['Full-Stack Apps', 'Websites', 'Android', 'iOS', 'React Native', 'AI / LLM']}
         />
         <About />
+        <section id="approach" className="relative border-t border-line">
+          <div className="h-[100dvh]">
+            <ScrollExpand
+              src="/heroimg.jpeg"
+              alt="Junaid Mansoori"
+              title="Built end to end."
+              scrollHint="Scroll to expand"
+              useWindowScroll
+              lockScroll
+              startWidth={38}
+              startHeight={56}
+              startRadius={28}
+              mediaZoom={1.3}
+              scrollDistance={1.05}
+              holdDistance={0.1}
+              smoothing={0.075}
+              overlayScrim={0.5}
+            >
+              <h2 className="display max-w-4xl text-3xl leading-none text-white sm:text-5xl md:text-7xl">
+                Every pixel, every endpoint.
+              </h2>
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+                Interfaces, APIs, and mobile apps — designed, built, and shipped as one product.
+              </p>
+              <a href="#projects" className="btn btn-accent mt-7">
+                See selected work
+              </a>
+            </ScrollExpand>
+          </div>
+        </section>
         <Skills />
         <Suspense fallback={<SectionFallback />}>
           <Projects />

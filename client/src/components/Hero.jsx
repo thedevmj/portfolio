@@ -1,9 +1,37 @@
 import React from 'react'
 import { FiArrowRight, FiArrowDown, FiDownload } from 'react-icons/fi'
 import { Reveal, Stagger, StaggerItem, Float } from './Motion'
-import SplitText from './SplitText'
+import TechText from './TechText'
 
 const focus = ['Full-Stack Apps', 'Websites', 'Android Apps', 'iOS Apps', 'REST APIs', 'AI / LLM']
+
+const nameTextProps = {
+  fontWeight: 600,
+  fontSize: 150,
+  reveal: 'letter',
+  dashLength: 4,
+  dashGap: 2,
+  specks: 15,
+  intro: 'none',
+  introDuration: 2,
+  clickKick: true,
+  guides: false,
+  fontFamily: '',
+  letterSpacing: -0.05,
+  accentColor: 'currentColor',
+  reach: 200,
+  softness: 0.7,
+  lineStyle: 'dashed',
+  strokeWidth: 1.5,
+  speed: 1,
+  bounce: 0.4,
+  selection: true,
+  labels: true,
+  color: 'currentColor',
+  align: 'left',
+  draggable: true,
+  sweep: true
+}
 
 export default React.memo(function Hero() {
   const scrollTo = (id) => {
@@ -43,9 +71,14 @@ export default React.memo(function Hero() {
           {/* Name + intro */}
           <div className="lg:col-span-7">
             <span className="eyebrow">Full-Stack &amp; Mobile Developer — Websites · Android + iOS</span>
-            <h1 className="display mt-5 select-none text-[clamp(4.2rem,12.5vw,11rem)] leading-[0.82]">
-              <span className="block"><SplitText text="Junaid" delay={0.1} stagger={0.11} /></span>
-              <span className="block italic text-accent"><SplitText text="Mansoori" delay={0.21} stagger={0.11} /></span>
+            <h1 className="display mt-5 select-none">
+              <span className="sr-only">Junaid Mansoori</span>
+              <span className="block h-[clamp(4.5rem,16vw,14rem)] w-full" aria-hidden="true">
+                <TechText text="Junaid" {...nameTextProps} />
+              </span>
+              <span className="block h-[clamp(4.5rem,16vw,14rem)] w-full text-accent" aria-hidden="true">
+                <TechText text="Mansoori" fontStyle="italic" {...nameTextProps} />
+              </span>
             </h1>
 
             <Reveal delay={0.1}>
@@ -56,14 +89,14 @@ export default React.memo(function Hero() {
               </p>
             </Reveal>
 
-            <Stagger className="mt-9 flex flex-wrap gap-3" gap={0.08}>
+            <Stagger className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap" gap={0.08}>
               <StaggerItem>
-                <a href="#projects" onClick={(e) => onAnchor(e, 'projects')} data-magnetic className="btn btn-accent btn-lg">
+                <a href="#projects" onClick={(e) => onAnchor(e, 'projects')} data-magnetic className="btn btn-accent btn-lg w-full sm:w-auto">
                   View full-stack projects <FiArrowRight />
                 </a>
               </StaggerItem>
               <StaggerItem>
-                <a href="#contact" onClick={(e) => onAnchor(e, 'contact')} data-magnetic className="btn btn-ghost btn-lg">
+                <a href="#contact" onClick={(e) => onAnchor(e, 'contact')} data-magnetic className="btn btn-ghost btn-lg w-full sm:w-auto">
                   Contact Junaid
                 </a>
               </StaggerItem>
@@ -72,7 +105,7 @@ export default React.memo(function Hero() {
                   href="/junaidMansoori_Resume.pdf"
                   download="junaidMansoori_Resume.pdf"
                   data-magnetic
-                  className="btn btn-ghost btn-lg"
+                  className="btn btn-ghost btn-lg w-full sm:w-auto"
                 >
                   <FiDownload /> Download resume (PDF)
                 </a>
@@ -120,13 +153,6 @@ export default React.memo(function Hero() {
                 />
                 <div className="absolute inset-0 grid-lines opacity-40" />
 
-                <div className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                  Portfolio / 2026
-                </div>
-                <div className="absolute right-6 top-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                  WEB → API → APPS
-                </div>
-
                 <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 flex items-center justify-between gap-3 border border-white/20 bg-black/55 px-4 py-3 text-white backdrop-blur-xl">
                   <div className="flex min-w-0 items-center gap-3">
                     <svg className="h-7 w-7 shrink-0" viewBox="0 0 38 32" fill="none" aria-hidden="true">
@@ -148,7 +174,7 @@ export default React.memo(function Hero() {
         </div>
 
         {/* Scroll row */}
-        <div className="mt-16 flex items-center justify-between border-t border-line pt-6">
+        <div className="mt-12 flex items-center justify-between border-t border-line pt-6 sm:mt-16">
           <span className="eyebrow">Scroll to explore</span>
           <button
             onClick={() => scrollTo('about')}

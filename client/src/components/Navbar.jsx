@@ -163,9 +163,9 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 -z-10 flex flex-col bg-bg lg:hidden"
+            className="fixed inset-0 z-[45] flex flex-col overflow-y-auto overscroll-contain bg-bg pb-[max(1.5rem,env(safe-area-inset-bottom))] lg:hidden"
           >
-            <div className="container-wide flex flex-1 flex-col justify-center pt-24">
+            <div className="container-wide flex min-h-full flex-1 flex-col justify-center py-24">
               <ul className="border-t border-line">
                 {links.map((l, i) => (
                   <motion.li
@@ -178,9 +178,9 @@ export default function Navbar() {
                     <a
                       href={`#${l.id}`}
                       onClick={(e) => onAnchor(e, l.id)}
-                      className="group flex w-full items-center gap-3 py-5 text-left"
+                      className="group flex w-full items-center gap-3 py-4 text-left sm:py-5"
                     >
-                      <span className="font-serif text-4xl tracking-tight transition-colors group-hover:text-accent">
+                      <span                         className="font-serif text-3xl tracking-tight transition-colors group-hover:text-accent sm:text-4xl">
                         {l.label}
                       </span>
                       <FiArrowUpRight className="ml-auto text-muted transition-colors group-hover:text-accent" />
@@ -192,7 +192,7 @@ export default function Navbar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.35 }}
-                className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-[11px] uppercase tracking-widest text-muted"
+                 className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-[11px] uppercase tracking-widest text-muted sm:mt-10"
               >
                 <a href="mailto:junaidmansuri71@gmail.com" className="link-underline hover:text-fg">
                   Email

@@ -203,24 +203,21 @@ export default React.memo(function Projects() {
                       style={{ backgroundImage: tones[i % tones.length] }}
                     >
                       <div className="absolute inset-0 grid-lines opacity-50" />
-                      <span className="absolute left-6 top-6 font-mono text-[11px] tracking-widest text-muted">
+                      <span                       className="absolute left-4 top-4 font-mono text-[11px] tracking-widest text-muted sm:left-6 sm:top-6">
                         / {p.num}
                       </span>
                       {p.featured && (
-                        <span className="absolute right-6 top-6 rounded-full bg-accent px-3 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-on-accent">
+                        <span className="absolute right-4 top-4 rounded-full bg-accent px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-on-accent sm:right-6 sm:top-6 sm:px-3">
                           ★ Featured
                         </span>
                       )}
                       {p.live && (
-                        <span className="absolute right-6 top-14 rounded-full border border-line-strong bg-glass px-3 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-fg backdrop-blur">
+                        <span className="absolute right-4 top-12 rounded-full border border-line-strong bg-glass px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-fg backdrop-blur sm:right-6 sm:top-14 sm:px-3">
                           Live
                         </span>
                       )}
-                      <span className="absolute bottom-5 left-6 text-4xl text-fg transition-transform duration-500 group-hover:-translate-y-1 group-hover:text-accent">
+                      <span className="absolute bottom-4 left-4 text-3xl text-fg transition-transform duration-500 group-hover:-translate-y-1 group-hover:text-accent sm:bottom-5 sm:left-6 sm:text-4xl">
                         {iconMap[p.id]}
-                      </span>
-                      <span className="text-outline pointer-events-none absolute -bottom-3 right-4 select-none font-serif text-7xl italic leading-none">
-                        {p.num}
                       </span>
                     </div>
 
@@ -293,7 +290,7 @@ export default React.memo(function Projects() {
         {selected && (
           <Portal>
             <motion.div
-              className="fixed inset-0 z-[60] overflow-y-auto bg-black/65 p-4 backdrop-blur-sm sm:p-6"
+              className="fixed inset-0 z-[60] overflow-y-auto overscroll-contain bg-black/65 p-3 backdrop-blur-sm sm:p-6"
               onClick={closeProject}
               role="dialog"
               aria-modal="true"
@@ -303,7 +300,7 @@ export default React.memo(function Projects() {
             >
               <div className="flex min-h-full items-center justify-center py-6">
                 <motion.div
-                  className="relative w-full max-w-3xl overflow-hidden rounded-[2rem] border border-line bg-elev shadow-lift"
+                  className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-line bg-elev shadow-lift sm:rounded-[2rem]"
                   onClick={(e) => e.stopPropagation()}
                   initial={{ opacity: 0, y: 36, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}

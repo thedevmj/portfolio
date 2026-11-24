@@ -225,11 +225,11 @@ export default React.memo(function Contact() {
               )}
 
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                <button type="submit" disabled={loading} className="btn btn-accent w-full disabled:cursor-not-allowed disabled:opacity-60">
+                <button type="submit" disabled={loading} className="btn btn-accent w-full whitespace-normal disabled:cursor-not-allowed disabled:opacity-60">
                   {loading ? <FiLoader className="animate-spin" /> : <FiSend />}
                   {loading ? 'Sending…' : 'Send message'}
                 </button>
-                <button type="button" onClick={handleWhatsApp} className="btn btn-ghost w-full">
+                <button type="button" onClick={handleWhatsApp} className="btn btn-ghost w-full whitespace-normal">
                   <FaWhatsapp /> WhatsApp
                 </button>
               </div>

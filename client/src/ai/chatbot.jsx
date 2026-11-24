@@ -251,7 +251,7 @@ export default function AiChatbot({ isOpen, onClose }) {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 30, scale: 0.96 }}
         transition={{ type: "spring", stiffness: 350, damping: 25 }}
-        className="fixed inset-x-3 bottom-3 top-16 z-[80] flex max-h-[calc(100dvh-4.75rem)] flex-col overflow-hidden rounded-[1.5rem] border border-line bg-bg shadow-lift sm:inset-x-auto sm:bottom-6 sm:right-6 sm:top-auto sm:h-[640px] sm:w-[480px] sm:max-h-[82vh]"
+        className="fixed inset-x-2 bottom-2 top-[max(4rem,env(safe-area-inset-top))] z-[80] flex max-h-[calc(100dvh-5rem)] flex-col overflow-hidden rounded-2xl border border-line bg-bg shadow-lift sm:inset-x-auto sm:bottom-6 sm:right-6 sm:top-auto sm:h-[640px] sm:w-[480px] sm:max-h-[82vh] sm:rounded-[1.5rem]"
         role="dialog"
         aria-modal="true"
         aria-label="Chat with Junaid's portfolio assistant"
@@ -317,7 +317,7 @@ export default function AiChatbot({ isOpen, onClose }) {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 space-y-3 overflow-y-auto p-3 sm:p-4">
+        <div className="flex-1 space-y-3 overflow-y-auto overscroll-contain p-3 sm:p-4">
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -368,7 +368,7 @@ export default function AiChatbot({ isOpen, onClose }) {
         </div>
 
         {/* Input (16px base font on mobile prevents Safari auto-zoom) */}
-        <form onSubmit={handleSubmit} className="shrink-0 border-t border-line bg-elev p-2.5 sm:p-3">
+        <form onSubmit={handleSubmit} className="shrink-0 border-t border-line bg-elev p-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] sm:p-3">
           <div className="flex items-center gap-2">
             <input
               ref={inputRef}

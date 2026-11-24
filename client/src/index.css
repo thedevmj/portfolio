@@ -92,7 +92,7 @@
     @apply mx-auto w-full max-w-8xl px-5 sm:px-8 lg:px-12;
   }
   .section {
-    @apply py-24 md:py-32;
+    @apply py-16 md:py-20;
   }
 
   /* ---- Type ---- */
@@ -112,12 +112,11 @@
   /* ---- Buttons ---- */
   .btn {
     @apply inline-flex cursor-pointer select-none items-center justify-center gap-2
-      whitespace-nowrap px-6 py-3 text-sm font-medium
-      transition-all duration-200;
+      px-6 py-3 text-sm font-medium transition-all duration-200;
     border-radius: 999px;
   }
   .btn-lg {
-    @apply px-7 py-4 text-[15px];
+    @apply px-5 py-3.5 text-[14px] sm:px-7 sm:py-4 sm:text-[15px];
   }
   .btn-accent {
     background: var(--accent);
@@ -182,8 +181,8 @@
 
   /* ---- Form fields ---- */
   .field {
-    @apply w-full border bg-bg px-4 py-3.5 text-sm font-medium
-      text-fg outline-none transition-all duration-200;
+    @apply w-full border bg-bg px-4 py-3.5 text-base font-medium
+      text-fg outline-none transition-all duration-200 sm:text-sm;
     border-radius: 0;
     border-color: var(--line);
   }
@@ -239,6 +238,7 @@
   #services,
   #education,
   #contact,
+  #cta,
   .editorial-lower {
     --bg: #000000;
     --bg-elev: #0d0d0d;
@@ -407,9 +407,17 @@
   top: 0;
   left: 0;
   z-index: 9999;
+  display: none;
   pointer-events: none;
   will-change: transform;
   mix-blend-mode: difference;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-dot,
+  .cursor-ring {
+    display: flex;
+  }
 }
 .cursor-dot {
   height: 5px;
@@ -444,6 +452,74 @@
 /* ==========================================================================
    Reduced motion
    ========================================================================== */
+/* ==========================================================================
+   Mobile hardening
+   ========================================================================== */
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  html {
+    scroll-padding-top: 80px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .container-wide {
+    padding-inline: 1rem;
+  }
+
+  .btn {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .section {
+    padding-block: 3.5rem;
+  }
+
+  .eyebrow {
+    letter-spacing: 0.16em;
+  }
+
+  .grid-lines {
+    background-size: 56px 56px;
+  }
+}
+
+@media (max-width: 374px) {
+  .container-wide {
+    padding-inline: 0.875rem;
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .section {
+    padding-block: 3rem;
+  }
+}
+
+@media (hover: none) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;

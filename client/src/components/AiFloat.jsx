@@ -8,7 +8,7 @@ export default function AiFloat() {
 
   return (
     <>
-      <div id="ai" className="fixed bottom-4 right-4 z-50 flex touch-manipulation items-center gap-2 sm:bottom-6 sm:right-6">
+      <div id="ai" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-50 flex touch-manipulation items-center gap-2 sm:bottom-6 sm:right-6">
         <AnimatePresence>
           {!isOpen && (
             <motion.div

@@ -28,7 +28,7 @@ export default React.memo(function GithubCta() {
                 </div>
               </div>
 
-              <a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="btn btn-accent btn-lg shrink-0">
+              <a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="btn btn-accent btn-lg w-full shrink-0 sm:w-auto">
                 <FiGithub /> Visit my GitHub <FiArrowUpRight />
               </a>
             </div>
