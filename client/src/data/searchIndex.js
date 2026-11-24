@@ -73,12 +73,12 @@ export const projectDetails = [
   },
   {
     title: 'HK SPICES',
-    keywords: ['hk spices', 'hkspices.in', 'spices', 'e-commerce', 'storefront', 'cart', 'checkout', 'b2b', 'enquiry', 'otp login', 'udaipur', 'live'],
+    keywords: ['hk spices', 'hkspices.in', 'spices', 'e-commerce', 'storefront', 'cart', 'checkout', 'b2b', 'enquiry', 'otp login', 'udaipur', 'live', 'react', 'django', 'docker', 'redis'],
     section: 'projects'
   },
   {
     title: 'Bellarro',
-    keywords: ['bellarro', 'bellarro.com', 'fashion', 'lifestyle', 'leather', 'handbags', 'travel bags', 'messenger bags', 'e-commerce', 'storefront', 'live'],
+    keywords: ['bellarro', 'bellarro.com', 'fashion', 'lifestyle', 'leather', 'handbags', 'travel bags', 'messenger bags', 'e-commerce', 'storefront', 'live', 'react', 'django', 'docker', 'redis'],
     section: 'projects'
   }
 ]
