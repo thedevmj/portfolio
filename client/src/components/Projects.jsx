@@ -15,8 +15,8 @@ const projects = [
     category: 'AI',
     tags: ['AI', 'Full Stack'],
     num: '01',
-    description: 'A web application where users upload resumes and receive AI-powered analysis, scoring, and improvement suggestions.',
-    problem: 'Helps job seekers optimize their resumes with actionable AI feedback while reducing the need for manual resume review.',
+    description: 'Users upload a resume and get an AI analysis, a score, and suggestions.',
+    problem: 'Gives job seekers resume feedback without a manual review.',
     tech: ['React.js', 'Node.js', 'Express', 'MongoDB', 'JWT', 'bcrypt'],
     features: ['AI resume analysis', 'Resume scoring', 'Improvement suggestions', 'Secure authentication'],
     featured: true,
@@ -28,8 +28,8 @@ const projects = [
     category: 'E-Commerce',
     tags: ['Full Stack', 'E-Commerce'],
     num: '02',
-    description: 'A full-featured e-commerce platform for purchasing books with authentication, catalog browsing, shopping cart, and order management.',
-    problem: 'Provides a secure online bookstore experience with complex state management and a seamless shopping workflow.',
+    description: 'An online bookstore with accounts, catalog browsing, cart, and order management.',
+    problem: 'An online bookstore with login, cart, and order flow, using Redux for state.',
     tech: ['React.js', 'Redux', 'Redux Saga', 'Node.js', 'Express', 'MongoDB'],
     features: ['Authentication', 'Product catalog', 'Cart management', 'Order management', 'Redux state management'],
     featured: false,
@@ -42,7 +42,7 @@ const projects = [
     tags: ['Developer Tools'],
     num: '03',
     description: 'An automated tool that generates project boilerplates based on selected frameworks and features.',
-    problem: 'Reduces repetitive setup work and boilerplate code, allowing developers to initialize projects faster.',
+    problem: 'Generates starter code so project setup takes less time.',
     tech: ['JavaScript', 'Project Automation'],
     features: ['Automatic boilerplate', 'Framework selection', 'Feature selection', 'Fast project setup'],
     featured: false,
@@ -54,10 +54,10 @@ const projects = [
     category: 'AI',
     tags: ['AI', 'Developer Tools'],
     num: '04',
-    description: 'An MCP server tool that analyzes code structure and dependencies using Babel AST and generates graph visualizations showing project relationships and code flow.',
-    problem: 'Helps developers understand complex codebase structures, visualize dependencies, accelerate onboarding, and gain AI-powered insights into project relationships.',
+    description: 'An MCP server that maps code structure and dependencies with Babel AST and graphs.',
+    problem: 'Shows code structure and dependencies as graphs so developers can understand the project faster.',
     tech: ['TypeScript', 'Node.js', 'Babel AST', 'Graph Visualization', 'MCP SDK'],
-    features: ['Code structure analysis', 'Dependency visualization', 'Graph generation', 'AI-powered insights', 'MCP server tooling'],
+    features: ['Code structure analysis', 'Dependency visualization', 'Graph generation', 'Code relationship insights', 'MCP server tooling'],
     featured: true,
     github: 'https://github.com/thedevmj'
   },
@@ -68,7 +68,7 @@ const projects = [
     tags: ['Mobile Apps', 'Android'],
     num: '05',
     description: 'A React Native live wallpaper studio for Android with video, doodle, static, and dynamic wallpaper modes.',
-    problem: 'Provides a native Android experience for creating, customizing, and applying live and dynamic wallpapers with real-time previews.',
+    problem: 'Lets users create, customize, and apply live wallpapers with a preview.',
     tech: ['React Native', 'TypeScript', 'Kotlin', 'react-native-video', 'Android Native'],
     features: ['Live video wallpapers', 'Dynamic battery/membrane wallpapers', 'Doodle animations', 'Color customization', 'Home/Lock screen apply'],
     featured: true,
@@ -80,8 +80,8 @@ const projects = [
     category: 'E-Commerce',
     tags: ['Full Stack', 'E-Commerce'],
     num: '06',
-    description: 'A live premium spice storefront with product catalog, cart and checkout, product search, B2B enquiries, and customer accounts.',
-    problem: 'Gives a Udaipur spice brand a premium retail storefront and a practical B2B enquiry workflow, with clear pricing, stock, and product storytelling.',
+    description: 'A live storefront for HK SPICES with catalog, cart and checkout, search, B2B enquiries, and accounts.',
+    problem: 'An online store for an Udaipur spice brand with pricing, stock, and B2B enquiries.',
     tech: ['React.js', 'Django', 'Docker', 'Redis'],
     features: ['Product catalog', 'Cart & checkout', 'B2B enquiry dashboard', 'Product search', 'Mobile OTP login', 'Responsive UI'],
     featured: true,
@@ -94,10 +94,10 @@ const projects = [
     category: 'E-Commerce',
     tags: ['Full Stack', 'E-Commerce'],
     num: '07',
-    description: 'A live fashion and lifestyle storefront for handcrafted handbags, travel bags, messenger bags, and bespoke leather creations.',
-    problem: 'Presents a premium leather-goods catalogue with timeless editorial styling and a smooth shopping journey across devices.',
+    description: 'A live store for handbags, travel bags, messenger bags, and leather goods.',
+    problem: 'A leather-goods store with product pages and a shopping flow that works on mobile and desktop.',
     tech: ['React.js', 'Django', 'Docker', 'Redis'],
-    features: ['Product catalogue', 'Editorial product pages', 'Responsive layout', 'Shopping workflow', 'Brand storytelling'],
+    features: ['Product catalogue', 'Editorial product pages', 'Responsive layout', 'Shopping flow', 'Brand details'],
     featured: false,
     live: 'https://bellarro.com/',
     github: 'https://github.com/thedevmj'
@@ -347,7 +347,7 @@ export default React.memo(function Projects() {
                     </p>
 
                     <div className="mt-8 border-t border-line pt-6">
-                      <span className="eyebrow">Problem solved</span>
+                      <span className="eyebrow">Why it exists</span>
                       <p className="mt-3 text-sm leading-relaxed text-fg">{selected.problem}</p>
                     </div>
 

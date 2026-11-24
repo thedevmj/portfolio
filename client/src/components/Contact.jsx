@@ -77,7 +77,7 @@ export default React.memo(function Contact() {
 
       if (!data.success) throw new Error(data.message)
 
-      setStatus({ type: 'success', msg: 'Message sent successfully! I will get back to you soon.' })
+      setStatus({ type: 'success', msg: 'Message sent. I’ll reply within 24 hours.' })
       setForm(initialForm)
     } catch (err) {
       setStatus({ type: 'error', msg: 'Something went wrong. Please try again.' })
@@ -135,7 +135,7 @@ export default React.memo(function Contact() {
               Contact <em className="italic text-accent">Junaid.</em>
             </h2>
             <p className="mt-5 max-w-xl text-sm font-medium leading-relaxed text-muted md:text-base">
-              Open to opportunities, freelance projects, and collaborations.
+              Open to freelance and remote work.
             </p>
           </div>
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">

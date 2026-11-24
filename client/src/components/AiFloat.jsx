@@ -26,7 +26,7 @@ export default function AiFloat() {
         <motion.button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          aria-label={isOpen ? 'Close AI chat' : "Open AI chat with Junaid's Copilot"}
+          aria-label={isOpen ? 'Close AI chat' : 'Open AI chat about Junaid'}
           className={`flex h-12 w-12 cursor-pointer items-center justify-center rounded-full shadow-lift transition-colors duration-200 sm:h-14 sm:w-14 ${
             isOpen
               ? 'border border-line-strong bg-elev text-fg'

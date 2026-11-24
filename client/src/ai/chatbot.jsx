@@ -91,7 +91,7 @@ export default function AiChatbot({ isOpen, onClose }) {
     {
       id: "welcome",
       role: "assistant",
-      text: "Hi there — I can answer questions about Junaid's skills, projects, and experience as a full stack developer. Feel free to ask anything.",
+      text: "Hi. Ask me about Junaid’s skills, projects, and work experience.",
       blueprint: null
     }
   ]);
@@ -182,7 +182,7 @@ export default function AiChatbot({ isOpen, onClose }) {
         const botMessage = {
           id: `bot-${Date.now()}`,
           role: "assistant",
-          text: json.data?.answer || `Here is the architectural blueprint for "${json.data?.projectName || "your project"}":`,
+          text: json.data?.answer || "Here’s a project plan:",
           blueprint: json.data
         };
         setMessages((prev) => [...prev, botMessage]);
@@ -228,7 +228,7 @@ export default function AiChatbot({ isOpen, onClose }) {
       {
         id: "welcome-reset",
         role: "assistant",
-        text: "Conversation cleared. Go ahead and ask something new.",
+        text: "Chat cleared. Ask another question.",
         blueprint: null
       }
     ]);
@@ -375,7 +375,7 @@ export default function AiChatbot({ isOpen, onClose }) {
               type="text"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Ask a question or request a project…"
+              placeholder="Ask about Junaid or a project idea…"
               maxLength={2000}
               className="w-full flex-1 rounded-full border border-line bg-bg px-4 py-2.5 text-base font-medium text-fg outline-none transition-colors placeholder:text-muted focus:border-accent sm:text-sm"
             />

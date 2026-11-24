@@ -18,8 +18,7 @@ export default React.memo(function Education() {
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">
-            Formal grounding in computer science, paired with continuous self-directed
-            practice.
+            BSc in computer science, plus ongoing self-study.
           </p>
         </Reveal>
 

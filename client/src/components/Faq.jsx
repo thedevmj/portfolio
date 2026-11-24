@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     q: 'How much professional experience does Junaid have?',
-    a: 'He has 1+ year of professional experience as a Full Stack Developer at Brainmatrix Solutions in Arvana Mall, Udaipur, building full-stack web applications and websites end to end.'
+    a: 'He has worked for 1+ year as a full-stack developer at Brainmatrix Solutions in Udaipur, building web apps and websites.'
   },
   {
     q: 'Which degrees does Junaid hold?',
@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: 'Is Junaid available for freelance or remote work?',
-    a: 'Yes. Junaid is based in India, open to remote work, and available for opportunities, freelance projects, and collaborations.'
+    a: 'Yes. Junaid is based in India and open to remote freelance work.'
   },
   {
     q: 'How can I contact Junaid?',
@@ -40,7 +40,7 @@ export default React.memo(function Faq() {
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">
-            Clear answers about the stack, experience, projects, and availability.
+            Stack, experience, projects, and availability.
           </p>
         </Reveal>
 

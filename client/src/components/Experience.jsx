@@ -16,13 +16,12 @@ export default React.memo(function Experience() {
           <Reveal className="lg:col-span-4">
             <span className="eyebrow">04 / Experience</span>
             <h2 className="display mt-5 text-5xl leading-[0.95] sm:text-6xl">
-              Hands-on
+              Work
               <br />
               <em className="italic text-accent">experience.</em>
             </h2>
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted">
-              Professional, project-driven work — building complete applications from the
-              first commit to the final deploy.
+              At Brainmatrix, I worked on web apps and websites from setup through deployment.
             </p>
           </Reveal>
 
@@ -41,15 +40,12 @@ export default React.memo(function Experience() {
               <h3 className="display mt-7 text-3xl leading-[1.02] sm:text-4xl md:text-5xl">
                 Brainmatrix Solutions
                 <br />
-                <span className="text-accent">End-to-end web delivery.</span>
+                <span className="text-accent">Web apps and websites.</span>
               </h3>
 
               <p className="mt-6 max-w-2xl text-sm font-medium leading-relaxed text-muted md:text-base">
-                1+ year of professional experience at Brainmatrix Solutions in Arvana Mall,
-                Udaipur, building full-stack web applications and websites end to end —
-                responsive React and Next.js interfaces, secure Node.js and Express REST APIs,
-                MongoDB data models, and deploy-ready features. Selected live work includes
-                HK SPICES and Bellarro.
+                At Brainmatrix Solutions in Udaipur for 1+ year, I built web apps and websites with
+                React/Next.js, Node/Express APIs, and MongoDB. Live work includes HK SPICES and Bellarro.
               </p>
 
               <div className="mt-8 grid gap-5 border-t border-line pt-6 sm:grid-cols-3">
@@ -68,7 +64,7 @@ export default React.memo(function Experience() {
               </div>
 
               <div className="mt-9 border-t border-line pt-6">
-                <span className="eyebrow">Professional experience with</span>
+                <span className="eyebrow">Tools used</span>
                 <Stagger className="mt-5 flex flex-wrap gap-2" gap={0.025}>
                   {highlights.map((h) => (
                     <StaggerItem as="span" key={h}>

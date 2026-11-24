@@ -3,11 +3,11 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import { Reveal, Stagger, StaggerItem } from './Motion'
 
 const services = [
-  { title: 'Websites & Full-Stack Apps', desc: 'Responsive websites and scalable MERN applications using React and Next.js frontends, Node.js and Express APIs, MongoDB, Java, Spring Boot, Python, and PHP.' },
-  { title: 'Android + iOS Apps', desc: 'Cross-platform Android and iOS apps using React Native, with platform-aware UI, native integrations, and shared product architecture.' },
-  { title: 'UI/UX Development', desc: 'Modern, responsive, user-focused interfaces with clean layouts, reusable components, and strong visual hierarchy.' },
-  { title: 'AI Integration', desc: 'Integrate AI and LLM-powered functionality into web applications to create intelligent and automated user experiences.' },
-  { title: 'API & Backend Development', desc: 'Build REST APIs, authentication systems, relational and NoSQL database integrations, and scalable backend architectures.' },
+  { title: 'Websites & Full-Stack Apps', desc: 'Websites and MERN apps using React/Next.js, Node/Express APIs, MongoDB, Java, Spring Boot, Python, and PHP.' },
+  { title: 'Android + iOS Apps', desc: 'React Native apps for Android and iOS, including native features and shared code.' },
+  { title: 'UI/UX Development', desc: 'Responsive interfaces with clear layouts, reusable components, and readable type.' },
+  { title: 'AI Integration', desc: 'Add AI and LLM features to web apps.' },
+  { title: 'API & Backend Development', desc: 'Build REST APIs, auth, and database integrations for relational and NoSQL stores.' },
   { title: 'AI & Developer Tools', desc: 'Developer-focused tools such as MCP servers, code analyzers, project automation tools, dependency visualizers, and AI-assisted utilities.' }
 ]
 
@@ -19,11 +19,11 @@ export default React.memo(function Services() {
           <div>
             <span className="eyebrow">05 / Services</span>
             <h2 className="display mt-5 text-5xl leading-none sm:text-6xl md:text-7xl">
-              Full-stack services<span className="text-accent">.</span>
+              What I build<span className="text-accent">.</span>
             </h2>
           </div>
           <p className="max-w-sm text-sm font-medium leading-relaxed text-muted md:text-base">
-            From websites and full-stack products to Android + iOS apps — end-to-end ownership.
+            I build websites, full-stack apps, and Android/iOS apps from start to finish.
           </p>
         </Reveal>
 

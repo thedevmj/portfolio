@@ -28,8 +28,8 @@ export const searchIndex = [
   },
   {
     section: 'ai',
-    label: 'AI Copilot — ask about skills and projects',
-    keywords: ['ai', 'copilot', 'chatbot', 'ask', 'architecture', 'blueprint', 'recruiter', 'hire', 'consultant', 'idea', 'architect']
+    label: 'AI chat — ask about skills and projects',
+    keywords: ['ai', 'chat', 'chatbot', 'ask', 'architecture', 'blueprint', 'recruiter', 'hire', 'consultant', 'idea', 'architect']
   },
   { section: 'education', label: 'Education', keywords: ['education', 'bsc', 'bachelor of science', 'computer science', 'mohanlal sukhadia university', 'mca', 'master of computer applications', 'aravali institute'] },
   { section: 'contact', label: 'Contact', keywords: ['contact', 'email', 'junaidmansuri71', 'gmail', 'phone', '9649354858', 'whatsapp', 'github', 'thedevmj', 'hire', 'freelance', 'internship'] }

@@ -99,9 +99,8 @@ export default React.memo(function Hero() {
 
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-xl text-lg font-medium leading-relaxed text-fg md:text-xl">
-                Building full-stack applications and websites end to end — polished{' '}
-                <span className="text-accent">React interfaces</span>, secure Node.js APIs, and reliable data models.{' '}
-                Also shipping Android and iOS apps with React Native.
+                I build web apps from the{' '}
+                <span className="text-accent">React UI</span> through the Node.js API and database. I also build Android and iOS apps with React Native.
               </p>
             </Reveal>
 

@@ -121,7 +121,7 @@ export default function SearchModal() {
           </div>
 
           <div className="flex items-center justify-between border-t border-line px-4 py-2.5 font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
-            <span>Debounced live search</span>
+            <span>Results update as you type</span>
             <span className="hidden sm:inline">Ctrl / ⌘ + K</span>
           </div>
         </div>

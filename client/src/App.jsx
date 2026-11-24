@@ -56,7 +56,7 @@ function Portfolio() {
             <ScrollExpand
               src="/heroimg.jpeg"
               alt="Junaid Mansoori"
-              title="Built end to end."
+              title="Built and shipped."
               scrollHint="Scroll to expand"
               useWindowScroll
               lockScroll
@@ -70,10 +70,10 @@ function Portfolio() {
               overlayScrim={0.5}
             >
               <h2 className="display max-w-4xl text-3xl leading-none text-white sm:text-5xl md:text-7xl">
-                Every pixel, every endpoint.
+                Web interfaces, APIs, and mobile apps.
               </h2>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-                Interfaces, APIs, and mobile apps — designed, built, and shipped as one product.
+                I build the interface, API, and mobile app together.
               </p>
               <a href="#projects" className="btn btn-accent mt-7">
                 See selected work
@@ -86,7 +86,7 @@ function Portfolio() {
           <Projects />
         </Suspense>
         <Marquee
-          items={['Full-stack thinking', 'Websites', 'Android + iOS', 'Scalable', 'AI-powered']}
+          items={['Full-stack apps', 'Websites', 'Android + iOS', 'REST APIs', 'AI features']}
           reverse
           tone="accent"
         />

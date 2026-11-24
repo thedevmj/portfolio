@@ -3,19 +3,19 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import { Reveal } from './Motion'
 
 const highlights = [
-  { num: '01', title: 'Full Stack Development', desc: 'MERN-based end-to-end application development.' },
-  { num: '02', title: 'AI Integration', desc: 'LLM applications, AI-powered features, and AI tools.' },
+  { num: '01', title: 'Full Stack Development', desc: 'MERN apps, from UI to API and database.' },
+  { num: '02', title: 'AI Integration', desc: 'LLM apps, AI features, and AI tools.' },
   { num: '03', title: 'Android + iOS Apps', desc: 'Cross-platform applications with React Native.' },
-  { num: '04', title: 'Developer Tools', desc: 'MCP servers, code analysis, automation, and developer productivity solutions.' }
+  { num: '04', title: 'Developer Tools', desc: 'MCP servers, code analysis, automation, and developer tools.' }
 ]
 
 const strengths = [
-  'Problem solving',
-  'Continuous learning',
-  'User-centric development',
-  'Full-stack thinking',
-  'Adaptability across technologies',
-  'Interest in emerging AI technologies'
+  'Debugging',
+  'Learning new tools quickly',
+  'Usable interfaces',
+  'Frontend + backend work',
+  'Working across stacks',
+  'AI/LLM tooling'
 ]
 
 export default React.memo(function About() {
@@ -35,13 +35,11 @@ export default React.memo(function About() {
 
             <Reveal delay={0.1} className="mt-8 max-w-md space-y-5">
               <p className="text-base font-medium leading-relaxed text-fg md:text-lg">
-                I&rsquo;m a motivated full-stack developer building scalable full-stack
-                applications, websites, REST APIs, and modern responsive interfaces.
-                I also build Android and iOS apps with React Native and add AI-powered
-                features when they make the product better.
+                I build websites and full-stack apps with React, Node.js, and MongoDB, including REST APIs.
+                I also build Android and iOS apps with React Native, and add AI features when they&rsquo;re useful.
               </p>
               <p className="text-sm leading-relaxed text-muted md:text-base">
-                Interested in AI/LLM features, developer tools, and code analysis systems.
+                Interested in AI/LLM features, developer tools, and code analysis.
               </p>
             </Reveal>
 
