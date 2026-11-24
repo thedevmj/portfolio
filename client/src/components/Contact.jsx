@@ -13,7 +13,7 @@ const contactInfo = [
   { label: 'Phone', value: '9649354858', href: 'tel:9649354858' },
   { label: 'WhatsApp', value: '9649354858', href: buildWhatsAppLink() },
   { label: 'GitHub', value: 'github.com/thedevmj', href: 'https://github.com/thedevmj' },
-  { label: 'Resume', value: 'Download resume (PDF)', href: '/junaidMansoori_Resume.pdf', download: 'junaidMansoori_Resume.pdf' }
+  { label: 'Resume', value: 'Download resume (PDF)', href: '/Junaid_Mansoori_AI_First_Resume_v2.pdf', download: 'Junaid_Mansoori_AI_First_Resume_v2.pdf' }
 ]
 
 const initialForm = { name: '', email: '', subject: '', message: '' }

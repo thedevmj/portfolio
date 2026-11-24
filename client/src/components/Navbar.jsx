@@ -200,7 +200,7 @@ export default function Navbar() {
                 <a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="link-underline hover:text-fg">
                   GitHub
                 </a>
-                <a href="/junaidMansoori_Resume.pdf" download className="link-underline hover:text-fg">
+                <a href="/Junaid_Mansoori_AI_First_Resume_v2.pdf" download="Junaid_Mansoori_AI_First_Resume_v2.pdf" className="link-underline hover:text-fg">
                   Download resume (PDF)
                 </a>
               </motion.div>

@@ -87,7 +87,7 @@ export default React.memo(function Footer() {
                 </a>
               </StaggerItem>
               <StaggerItem as="li">
-                <a href="/junaidMansoori_Resume.pdf" download="junaidMansoori_Resume.pdf" className="flex items-center gap-2 transition-colors hover:text-fg">
+                <a href="/Junaid_Mansoori_AI_First_Resume_v2.pdf" download="Junaid_Mansoori_AI_First_Resume_v2.pdf" className="flex items-center gap-2 transition-colors hover:text-fg">
                   <FiDownload size={13} /> Download resume (PDF)
                 </a>
               </StaggerItem>

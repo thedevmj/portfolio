@@ -2,6 +2,7 @@ import React from 'react'
 import { FiArrowRight, FiArrowDown, FiDownload } from 'react-icons/fi'
 import { Reveal, Stagger, StaggerItem, Float } from './Motion'
 import TechText from './TechText'
+import SplitText from './SplitText'
 
 const focus = ['Full-Stack Apps', 'Websites', 'Android Apps', 'iOS Apps', 'REST APIs', 'AI / LLM']
 
@@ -70,7 +71,22 @@ export default React.memo(function Hero() {
         <div className="mt-8 grid items-end gap-12 lg:mt-10 lg:grid-cols-12 lg:gap-10">
           {/* Name + intro */}
           <div className="lg:col-span-7">
-            <span className="eyebrow">Full-Stack &amp; Mobile Developer — Websites · Android + iOS</span>
+            <SplitText
+              tag="span"
+              text="Full-Stack & Mobile Developer — Websites · Android + iOS"
+              className="eyebrow"
+              splitType="words"
+              effect="rise"
+              delay={18}
+              duration={0.85}
+              staggerFrom="start"
+              trigger="view"
+              hoverEffect="none"
+              mask={false}
+              threshold={0.1}
+              rootMargin="-60px"
+              textAlign="left"
+            />
             <h1 className="display mt-5 select-none text-fg">
               <span className="sr-only">Junaid Mansoori</span>
               <span className="block h-[clamp(4.5rem,16vw,14rem)] w-full" aria-hidden="true">
@@ -102,8 +118,8 @@ export default React.memo(function Hero() {
               </StaggerItem>
               <StaggerItem>
                 <a
-                  href="/junaidMansoori_Resume.pdf"
-                  download="junaidMansoori_Resume.pdf"
+                  href="/Junaid_Mansoori_AI_First_Resume_v2.pdf"
+                  download="Junaid_Mansoori_AI_First_Resume_v2.pdf"
                   data-magnetic
                   className="btn btn-ghost btn-lg w-full sm:w-auto"
                 >
