@@ -45,7 +45,7 @@ export default React.memo(function Hero() {
   }
 
   return (
-    <section id="home" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pb-14 pt-28 md:pt-32">
+    <section id="home" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-bg pb-14 pt-28 md:pt-32">
       {/* Oversized outline type */}
       <span
         className="pointer-events-none absolute -right-6 top-24 hidden select-none font-serif text-[20vw] leading-none text-outline opacity-70 lg:block"
@@ -71,7 +71,7 @@ export default React.memo(function Hero() {
           {/* Name + intro */}
           <div className="lg:col-span-7">
             <span className="eyebrow">Full-Stack &amp; Mobile Developer — Websites · Android + iOS</span>
-            <h1 className="display mt-5 select-none">
+            <h1 className="display mt-5 select-none text-fg">
               <span className="sr-only">Junaid Mansoori</span>
               <span className="block h-[clamp(4.5rem,16vw,14rem)] w-full" aria-hidden="true">
                 <TechText text="Junaid" {...nameTextProps} />

@@ -173,10 +173,22 @@ const ScrollExpand = ({
       sectionTop = window.scrollY + track.getBoundingClientRect().top
     }
 
+    const pinLock = () => {
+      if (Math.abs(window.scrollY - sectionTop) > 1) {
+        window.scrollTo({ top: sectionTop, behavior: 'instant' })
+      }
+    }
+
+    const setLockTouch = (active) => {
+      stage.style.touchAction = active ? 'none' : ''
+      stage.style.overscrollBehavior = active ? 'contain' : ''
+    }
+
     const releaseLock = (completed) => {
       if (!locked) return
       locked = false
       lockHold = 0
+      setLockTouch(false)
       if (completed) {
         lockCompleted = true
         window.scrollTo({ top: sectionTop + track.offsetHeight, behavior: 'instant' })
@@ -212,7 +224,8 @@ const ScrollExpand = ({
       draw()
       lockHold = holdPx(stageH)
       locked = true
-      window.scrollTo({ top: sectionTop, behavior: 'instant' })
+      setLockTouch(true)
+      pinLock()
       return true
     }
 
@@ -220,7 +233,10 @@ const ScrollExpand = ({
       const scrollY = window.scrollY
       const direction = scrollY - lastScrollY
       lastScrollY = scrollY
-      if (locked) return
+      if (locked) {
+        pinLock()
+        return
+      }
       if (lockCompleted) {
         if (track.getBoundingClientRect().top > window.innerHeight + 1) {
           lockCompleted = false
@@ -261,7 +277,7 @@ const ScrollExpand = ({
     }
 
     const onTouchStart = (e) => {
-      if (!scrollLocked || locked) return
+      if (!scrollLocked) return
       touchY = e.touches[0]?.clientY ?? 0
     }
 
@@ -272,7 +288,7 @@ const ScrollExpand = ({
       touchY = y
       if (!locked && !maybeEngage(delta)) return
       e.preventDefault()
-      advanceLock(delta * 1.15)
+      advanceLock(clamp(delta * 1.8, -stageH * 0.22, stageH * 0.22))
     }
 
     const onKeyDown = (e) => {
@@ -300,6 +316,7 @@ const ScrollExpand = ({
 
     return () => {
       if (raf) cancelAnimationFrame(raf)
+      setLockTouch(false)
       scroller.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       if (scrollLocked) {
