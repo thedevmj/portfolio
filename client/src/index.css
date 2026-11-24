@@ -4,41 +4,54 @@
 
 /* ==========================================================================
    ORVANTE — strict monochrome editorial design system
-   Light paper hero, pure black sections, white/ink type and hairline rules.
-   Never use Tailwind opacity modifiers on var() colors — use dedicated
-   tokens or element opacity.
+   Theme-aware tokens mapped once and reused across every section so light and
+   dark mode stay consistent. Never use Tailwind opacity modifiers on var()
+   colors — use dedicated tokens or element opacity.
    ========================================================================== */
 
 @layer base {
   :root {
-    --bg: #dadada;
-    --bg-elev: #cdcdcd;
-    --bg-elev-2: #d6d6d6;
-    --glass: rgba(255, 255, 255, 0.52);
-    --fg: #111111;
-    --fg-muted: #6f6f6f;
-    --line: rgba(17, 17, 17, 0.18);
-    --line-strong: rgba(17, 17, 17, 0.42);
-    --accent: #111111;
-    --accent-2: #6f6f6f;
-    --on-accent: #f4f4f4;
-    --glow: rgba(0, 0, 0, 0.18);
+    --theme-bg: #dadada;
+    --theme-bg-elev: #cdcdcd;
+    --theme-bg-elev-2: #d6d6d6;
+    --theme-glass: rgba(255, 255, 255, 0.52);
+    --theme-fg: #111111;
+    --theme-fg-muted: #6f6f6f;
+    --theme-line: rgba(17, 17, 17, 0.18);
+    --theme-line-strong: rgba(17, 17, 17, 0.42);
+    --theme-accent: #111111;
+    --theme-accent-2: #6f6f6f;
+    --theme-on-accent: #f4f4f4;
+    --theme-glow: rgba(0, 0, 0, 0.18);
+
+    --bg: var(--theme-bg);
+    --bg-elev: var(--theme-bg-elev);
+    --bg-elev-2: var(--theme-bg-elev-2);
+    --glass: var(--theme-glass);
+    --fg: var(--theme-fg);
+    --fg-muted: var(--theme-fg-muted);
+    --line: var(--theme-line);
+    --line-strong: var(--theme-line-strong);
+    --accent: var(--theme-accent);
+    --accent-2: var(--theme-accent-2);
+    --on-accent: var(--theme-on-accent);
+    --glow: var(--theme-glow);
     color-scheme: light;
   }
 
   html.dark {
-    --bg: #000000;
-    --bg-elev: #111111;
-    --bg-elev-2: #262626;
-    --glass: rgba(0, 0, 0, 0.55);
-    --fg: #f4f4f4;
-    --fg-muted: #8f8f8f;
-    --line: rgba(255, 255, 255, 0.14);
-    --line-strong: rgba(255, 255, 255, 0.28);
-    --accent: #f4f4f4;
-    --accent-2: #8f8f8f;
-    --on-accent: #000000;
-    --glow: rgba(255, 255, 255, 0.12);
+    --theme-bg: #000000;
+    --theme-bg-elev: #111111;
+    --theme-bg-elev-2: #262626;
+    --theme-glass: rgba(0, 0, 0, 0.55);
+    --theme-fg: #f4f4f4;
+    --theme-fg-muted: #8f8f8f;
+    --theme-line: rgba(255, 255, 255, 0.14);
+    --theme-line-strong: rgba(255, 255, 255, 0.28);
+    --theme-accent: #f4f4f4;
+    --theme-accent-2: #8f8f8f;
+    --theme-on-accent: #000000;
+    --theme-glow: rgba(255, 255, 255, 0.12);
     color-scheme: dark;
   }
 
@@ -217,21 +230,7 @@
 }
 
 @layer utilities {
-  #home {
-    --bg: #dadada;
-    --bg-elev: #cdcdcd;
-    --bg-elev-2: #d6d6d6;
-    --glass: rgba(255, 255, 255, 0.55);
-    --fg: #111111;
-    --fg-muted: #6f6f6f;
-    --line: rgba(17, 17, 17, 0.18);
-    --line-strong: rgba(17, 17, 17, 0.42);
-    --accent: #111111;
-    --accent-2: #6f6f6f;
-    --on-accent: #f4f4f4;
-    --glow: rgba(0, 0, 0, 0.18);
-  }
-
+  #home,
   #about,
   #projects,
   #experience,
@@ -240,18 +239,18 @@
   #contact,
   #cta,
   .editorial-lower {
-    --bg: #000000;
-    --bg-elev: #0d0d0d;
-    --bg-elev-2: #1a1a1a;
-    --glass: rgba(0, 0, 0, 0.55);
-    --fg: #f4f4f4;
-    --fg-muted: #8f8f8f;
-    --line: rgba(255, 255, 255, 0.14);
-    --line-strong: rgba(255, 255, 255, 0.28);
-    --accent: #f4f4f4;
-    --accent-2: #8f8f8f;
-    --on-accent: #000000;
-    --glow: rgba(255, 255, 255, 0.1);
+    --bg: var(--theme-bg);
+    --bg-elev: var(--theme-bg-elev);
+    --bg-elev-2: var(--theme-bg-elev-2);
+    --glass: var(--theme-glass);
+    --fg: var(--theme-fg);
+    --fg-muted: var(--theme-fg-muted);
+    --line: var(--theme-line);
+    --line-strong: var(--theme-line-strong);
+    --accent: var(--theme-accent);
+    --accent-2: var(--theme-accent-2);
+    --on-accent: var(--theme-on-accent);
+    --glow: var(--theme-glow);
   }
 
   .text-outline {
