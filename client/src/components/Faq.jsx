@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: 'Which projects are in the portfolio?',
-    a: 'AI Resume Analyzer, Online Book Shopping Center, Scaffold Generator, MCP Code Project Analyzer, Wall-E, and live client sites HK SPICES and Bellarro.'
+    a: 'AI Resume Analyzer, Online Book Shopping Center, Scaffold Generator, MCP Code Project Analyzer, Wall-E, Ecommerce Mobile App, and live client sites HK SPICES and Bellarro.'
   },
   {
     q: 'Is Junaid available for freelance or remote work?',
@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: 'How can I contact Junaid?',
-    a: 'Email junaidmansuri71@gmail.com, call or message +91 9649354858, connect on GitHub at github.com/thedevmj, or download the resume from the contact section.'
+    a: 'Email junaidmansuri71@gmail.com, call or message +91 9649354858, find Junaid on LinkedIn at linkedin.com/in/junaid-mansuri-devmj and GitHub at github.com/thedevmj, or download the resume from the contact section.'
   }
 ]
 

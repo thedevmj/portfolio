@@ -197,6 +197,9 @@ export default function Navbar() {
                 <a href="mailto:junaidmansuri71@gmail.com" className="link-underline hover:text-fg">
                   Email
                 </a>
+                <a href="https://www.linkedin.com/in/junaid-mansuri-devmj" target="_blank" rel="noreferrer" className="link-underline hover:text-fg">
+                  LinkedIn
+                </a>
                 <a href="https://github.com/thedevmj" target="_blank" rel="noreferrer" className="link-underline hover:text-fg">
                   GitHub
                 </a>

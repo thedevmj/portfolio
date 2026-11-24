@@ -19,7 +19,7 @@ export const searchIndex = [
   {
     section: 'projects',
     label: 'Projects',
-    keywords: ['projects', 'ai resume analyzer', 'resume', 'online book shopping', 'book', 'e-commerce', 'scaffold generator', 'scaffold', 'mcp code project analyzer', 'mcp', 'code analyzer', 'babel ast', 'graph visualization', 'typescript', 'redux saga', 'wall-e', 'wallpaper', 'react native app', 'android', 'kotlin', 'live wallpaper', 'hk spices', 'hkspices.in', 'spices', 'b2b', 'bellarro', 'bellarro.com', 'fashion', 'leather', 'handbags', 'live projects', 'client websites']
+    keywords: ['projects', 'ai resume analyzer', 'resume', 'online book shopping', 'book', 'e-commerce', 'scaffold generator', 'scaffold', 'mcp code project analyzer', 'mcp', 'code analyzer', 'babel ast', 'graph visualization', 'typescript', 'redux saga', 'wall-e', 'wallpaper', 'react native app', 'android', 'kotlin', 'live wallpaper', 'hk spices', 'hkspices.in', 'spices', 'b2b', 'bellarro', 'bellarro.com', 'fashion', 'leather', 'handbags', 'ecommerce mobile app', 'ecommerce-mobileapp', 'supabase', 'oauth', 'sqlite', 'live projects', 'client websites']
   },
   {
     section: 'faq',
@@ -32,7 +32,7 @@ export const searchIndex = [
     keywords: ['ai', 'chat', 'chatbot', 'ask', 'architecture', 'blueprint', 'recruiter', 'hire', 'consultant', 'idea', 'architect']
   },
   { section: 'education', label: 'Education', keywords: ['education', 'bsc', 'bachelor of science', 'computer science', 'mohanlal sukhadia university', 'mca', 'master of computer applications', 'aravali institute'] },
-  { section: 'contact', label: 'Contact', keywords: ['contact', 'email', 'junaidmansuri71', 'gmail', 'phone', '9649354858', 'whatsapp', 'github', 'thedevmj', 'hire', 'freelance', 'internship'] }
+  { section: 'contact', label: 'Contact', keywords: ['contact', 'email', 'junaidmansuri71', 'gmail', 'phone', '9649354858', 'whatsapp', 'linkedin', 'junaid-mansuri-devmj', 'github', 'thedevmj', 'hire', 'freelance', 'internship'] }
 ]
 
 // Skill detail index for fine-grained results

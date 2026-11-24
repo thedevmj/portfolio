@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiMail, FiPhone, FiGithub, FiDownload, FiArrowUp } from 'react-icons/fi'
+import { FiMail, FiPhone, FiGithub, FiLinkedin, FiDownload, FiArrowUp } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppLink } from '../constants'
 import { Reveal, Stagger, StaggerItem } from './Motion'
@@ -79,6 +79,11 @@ export default React.memo(function Footer() {
               <StaggerItem as="li">
                 <a href={buildWhatsAppLink()} target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors hover:text-fg">
                   <FaWhatsapp size={13} /> WhatsApp
+                </a>
+              </StaggerItem>
+              <StaggerItem as="li">
+                <a href="https://www.linkedin.com/in/junaid-mansuri-devmj" target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors hover:text-fg">
+                  <FiLinkedin size={13} /> linkedin.com/in/junaid-mansuri-devmj
                 </a>
               </StaggerItem>
               <StaggerItem as="li">

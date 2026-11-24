@@ -12,6 +12,7 @@ const contactInfo = [
   { label: 'Email', value: 'junaidmansuri71@gmail.com', href: 'mailto:junaidmansuri71@gmail.com' },
   { label: 'Phone', value: '9649354858', href: 'tel:9649354858' },
   { label: 'WhatsApp', value: '9649354858', href: buildWhatsAppLink() },
+  { label: 'LinkedIn', value: 'linkedin.com/in/junaid-mansuri-devmj', href: 'https://www.linkedin.com/in/junaid-mansuri-devmj' },
   { label: 'GitHub', value: 'github.com/thedevmj', href: 'https://github.com/thedevmj' },
   { label: 'Resume', value: 'Download resume (PDF)', href: '/Junaid_Mansoori_AI_First_Resume_v2.pdf', download: 'Junaid_Mansoori_AI_First_Resume_v2.pdf' }
 ]

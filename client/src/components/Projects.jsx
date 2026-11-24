@@ -101,6 +101,19 @@ const projects = [
     featured: false,
     live: 'https://bellarro.com/',
     github: 'https://github.com/thedevmj'
+  },
+  {
+    id: 8,
+    title: 'Ecommerce Mobile App',
+    category: 'Mobile Apps',
+    tags: ['Mobile Apps', 'E-Commerce'],
+    num: '08',
+    description: 'A React Native ecommerce app for Android and iOS with catalog, cart, and checkout.',
+    problem: 'Lets users shop from mobile with OAuth login, Supabase data, and SQLite on device.',
+    tech: ['React Native', 'Supabase', 'OAuth', 'SQLite', 'Android', 'iOS'],
+    features: ['Product catalog', 'Cart & checkout', 'OAuth login', 'Supabase data', 'SQLite storage', 'Android + iOS'],
+    featured: false,
+    github: 'https://github.com/thedevmj/Ecommerce-mobileApp'
   }
 ]
 
@@ -111,7 +124,8 @@ const iconMap = {
   4: <FiActivity />,
   5: <FiSmartphone />,
   6: <FiGlobe />,
-  7: <FiShoppingBag />
+  7: <FiShoppingBag />,
+  8: <FiSmartphone />
 }
 
 const tones = [
@@ -121,7 +135,8 @@ const tones = [
   'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(0,0,0,0.04))',
   'linear-gradient(135deg, rgba(255,255,255,0.11), rgba(255,255,255,0.01))',
   'linear-gradient(135deg, rgba(255,255,255,0.09), rgba(0,0,0,0.03))',
-  'linear-gradient(135deg, rgba(255,255,255,0.13), rgba(255,255,255,0.02))'
+  'linear-gradient(135deg, rgba(255,255,255,0.13), rgba(255,255,255,0.02))',
+  'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(0,0,0,0.05))'
 ]
 
 export default React.memo(function Projects() {
