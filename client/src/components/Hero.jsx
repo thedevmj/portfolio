@@ -88,7 +88,7 @@ export default React.memo(function Hero() {
               textAlign="left"
             />
             <h1 className="display mt-5 select-none text-fg">
-              <span className="sr-only">Junaid Mansoori</span>
+              <span className="sr-only">Junaid Mansoori — Full Stack &amp; Mobile Developer</span>
               <span className="block h-[clamp(4.5rem,16vw,14rem)] w-full" aria-hidden="true">
                 <TechText text="Junaid" {...nameTextProps} />
               </span>

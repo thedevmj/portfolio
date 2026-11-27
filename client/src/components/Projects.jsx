@@ -166,7 +166,7 @@ export default React.memo(function Projects() {
           <div>
             <span className="eyebrow">03 / Selected work</span>
             <h2 className="display mt-5 max-w-2xl text-4xl leading-[1.02] sm:text-5xl md:text-6xl">
-              Selected web, mobile &amp; AI{' '}
+              Selected full-stack, mobile, AI &amp; e-commerce{' '}
               <em className="italic text-accent">projects.</em>
             </h2>
           </div>

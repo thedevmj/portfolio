@@ -28,8 +28,8 @@ export default React.memo(function About() {
             <Reveal>
               <span className="eyebrow">01 / About</span>
               <h2 className="display mt-6 text-4xl leading-[1.04] sm:text-5xl md:text-[3.4rem]">
-                Full-stack developer for web apps,{' '}
-                <em className="italic text-accent">websites</em>, and Android + iOS apps.
+                Full-stack MERN developer for{' '}
+                <em className="italic text-accent">websites</em> and React Native apps.
               </h2>
             </Reveal>
 

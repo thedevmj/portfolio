@@ -70,7 +70,7 @@ function Portfolio() {
               overlayScrim={0.5}
             >
               <h2 className="display max-w-4xl text-3xl leading-none text-white sm:text-5xl md:text-7xl">
-                Web interfaces, APIs, and mobile apps.
+                Web interfaces, REST APIs, and mobile apps.
               </h2>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
                 I build the interface, API, and mobile app together.

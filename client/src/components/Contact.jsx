@@ -136,7 +136,7 @@ export default React.memo(function Contact() {
               Contact <em className="italic text-accent">Junaid.</em>
             </h2>
             <p className="mt-5 max-w-xl text-sm font-medium leading-relaxed text-muted md:text-base">
-              Open to freelance and remote work.
+              Open to freelance and remote work from India.
             </p>
           </div>
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
